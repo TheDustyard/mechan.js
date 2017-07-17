@@ -17,8 +17,7 @@
     <a href="https://github.com/DusterTheFirst/Mechan/issues"><img src="https://img.shields.io/github/issues/DusterTheFirst/Mechan.svg"/></a>
     <a href="https://github.com/DusterTheFirst/Mechan/pulls"><img src="https://img.shields.io/github/issues-pr/DusterTheFirst/Mechan.svg"/></a>
 	<br>
-	<a href="https://discord.gg/7WHEdsq"><img src="https://img.shields.io/discord/335908837355814923.svg
-?label=Discord&colorA=7289DA&colorB=99AAB5" alt="Discord"></a>
+	<a href="https://discord.gg/7WHEdsq"><img src="https://img.shields.io/discord/335908837355814923.svg?label=Discord&colorA=7289DA&colorB=99AAB5" alt="Discord"></a>
   </p>
   <p>
     <a href="https://nodei.co/npm/mechan/"><img src="https://nodei.co/npm/mechan.svg?downloads=true&stars=true" alt="NPM info" /></a>
