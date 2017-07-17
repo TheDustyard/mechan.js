@@ -1,9 +1,9 @@
 {
   "name": "mechan",
   "version": "0.0.0",
-  "description": "Mechan",
+  "description": "API - Extension for discord.js",
   "main": "app.js",
   "author": {
-    "name": "Duste"
+    "name": "DusterTheFirst"
   }
 }
