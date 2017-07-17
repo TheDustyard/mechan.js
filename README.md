@@ -1,7 +1,7 @@
 <div align="center">
   <br />
   <p>
-    <a href="https://github.com/DusterTheFirst/Mechan"><img src="http://i.imgur.com/ypJWwIr.png" width="546" alt="simpler discord.js" /></a>
+    <a href="https://github.com/DusterTheFirst/Mechan"><img src="" width="546" alt="Icon" /></a>
   </p>
   <br/>
   <p>
