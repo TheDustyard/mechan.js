@@ -7,4 +7,4 @@ console.log(Mechan);
 console.log(Mechan.version);
 
 let builder = new Mechan.CommandBuilder();
-console.log(builder.category)
+console.log(builder.category);
