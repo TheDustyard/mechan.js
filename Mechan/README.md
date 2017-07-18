@@ -1,4 +1,4 @@
-﻿<div align="center">
+<div align="center">
   <br />
   <p>
     <a href="https://github.com/DusterTheFirst/Mechan"><img src="" width="546" alt="Icon" /></a>

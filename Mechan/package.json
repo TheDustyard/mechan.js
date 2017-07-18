@@ -2,8 +2,12 @@
   "name": "mechan",
   "version": "0.0.0",
   "description": "API - Extension for discord.js",
-  "main": "app.js",
+  "main": "./src/index.js",
   "author": {
     "name": "DusterTheFirst"
-  }
+  },
+  "dependencies": {
+    "discord.js": "^11.1.0"
+  },
+  "types": "./src/index.d.ts"
 }

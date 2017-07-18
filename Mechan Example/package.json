@@ -1,0 +1,9 @@
+{
+  "name": "mechan-example",
+  "version": "0.0.0",
+  "description": "Mechan Example",
+  "main": "app.js",
+  "author": {
+    "name": "Duste"
+  }
+}
