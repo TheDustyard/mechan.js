@@ -1,0 +1,5 @@
+typings/
+*.map
+*.d.ts
+settings.json
+*.js
