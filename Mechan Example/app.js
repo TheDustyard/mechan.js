@@ -9,3 +9,5 @@ console.log(Mechan.version);
 let builder = new Mechan.CommandBuilder();
 console.log(builder.category);
 builder.setName("dank");
+
+console.log(Mechan.HelpMode);

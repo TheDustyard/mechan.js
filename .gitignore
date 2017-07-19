@@ -2,6 +2,7 @@ src/
 typings/
 *.map
 index.js
+index.d.js
 settings.json
 
 ## Ignore Visual Studio temporary files, build results, and
