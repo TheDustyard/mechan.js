@@ -2,7 +2,9 @@ const Mechan = require("../mechan.js");
 
 console.log(Mechan);
 
-new Mechan.Command("Killeth");
+var handler = new Mechan.CommandHandler(null);
+handler.on('error', (e) => console.log(e));
+handler.handle();
 
 console.log(Mechan.version);
 

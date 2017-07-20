@@ -7,6 +7,10 @@ export class CommandHandler extends EventEmitter {
      * SUCCESS
      * ERROR
      */
+
+    /**
+     * Config for the handler
+     */
     public config: CommandHandlerConfig;
 
     /**
@@ -14,7 +18,11 @@ export class CommandHandler extends EventEmitter {
      * @param config - Config for the handler
      */
     constructor(config: CommandHandlerConfig) {
+        super();
+        this.config = config;
+    }
 
-        super()
+    public handle() {
+        this.emit("error", "REEEEEEEEEEEEEEEEEEEEEEEEEE");
     }
 }
