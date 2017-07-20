@@ -1,7 +1,7 @@
 <div align="center">
   <br />
   <p>
-    <a href="https://github.com/DusterTheFirst/mechan.js"><img src="" width="546" alt="Icon" /></a>
+    <a href="https://github.com/DusterTheFirst/mechan.js"><img src="http://i.imgur.com/L9ElE8H.png" width="546" alt="Icon" /></a>
   </p>
   <br/>
   <p>

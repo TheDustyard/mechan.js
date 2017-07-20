@@ -2,7 +2,7 @@
 import { Command } from '../Command/Command';
 import { CommandHandler } from '../CommandHandler/CommandHandler';
 
-export class CommandEventArgs {
+export class CommandContext {
     /**
      * User that called the command
      */
@@ -25,7 +25,7 @@ export class CommandEventArgs {
     public parameters: string[];
 
     /**
-     * Create command event arguments
+     * Create a command context
      * @param user - User that called the command
      * @param message - Message that called the command
      * @param command - Comamnd that was called

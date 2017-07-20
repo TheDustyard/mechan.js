@@ -1,4 +1,4 @@
-﻿import { CommandEventArgs } from './CommandEventArgs';
+﻿import { CommandContext } from '../CommandHandler/CommandContext';
 import { CommandParameter } from './Parameters/CommandParameters';
 import { PermissionCheck } from './Permissions/PermissionCheck';
 
@@ -10,7 +10,7 @@ export class Command {
     /**
      * Callback for the command
      */
-    public callback: (event: CommandEventArgs) => void;
+    public callback: (event: CommandContext) => void;
     /**
      * Perameters for the command
      */
@@ -41,7 +41,7 @@ export class Command {
      * @param category - Category the command fits into
      * @param hidden - Whether or not the command is visible in the default help menu
      */
-    constructor(name: string, callback: (event: CommandEventArgs) => void, parameters: CommandParameter[], description: string = '', category: string = '', visible: boolean = true, checks: PermissionCheck[] = []) {
+    constructor(name: string, callback: (event: CommandContext) => void, parameters: CommandParameter[], description: string = '', category: string = '', visible: boolean = true, checks: PermissionCheck[] = []) {
         this.name = name;
         this.callback = callback;
         this.parameters = parameters;

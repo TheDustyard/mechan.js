@@ -59,7 +59,7 @@
     <TypeScriptCompile Include="Command\CommandBuilder.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="CommandHandler\CommandEventArgs.ts">
+    <TypeScriptCompile Include="CommandHandler\CommandContext.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Command\CommandGroup.ts">
@@ -69,6 +69,12 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Command\Parameters\ParameterType.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Emitters\ICommandHandlerEmitter.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="Emitters\ILoggerEmitter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Help\HelpMode.ts">
@@ -90,6 +96,7 @@
     <Folder Include="Command\" />
     <Folder Include="Command\Permissions\" />
     <Folder Include="CommandLoader\" />
+    <Folder Include="Emitters\" />
     <Folder Include="typings\" />
     <Folder Include="typings\node\" />
   </ItemGroup>

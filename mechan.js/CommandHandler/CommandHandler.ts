@@ -1,7 +1,9 @@
 ﻿import { EventEmitter } from 'events';
 import { CommandHandlerConfig } from './CommandHandlerConfig';
+import { ICommandHandlerEmitter } from '../Emitters/ICommandHandlerEmitter';
+import { ILoggerEmitter } from '../Emitters/ILoggerEmitter';
 
-export class CommandHandler extends EventEmitter {
+export class CommandHandler extends EventEmitter implements ICommandHandlerEmitter, ILoggerEmitter {
 
     /*EVENTS:
      * SUCCESS
