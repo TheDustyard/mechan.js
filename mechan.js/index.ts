@@ -9,5 +9,6 @@ export * from './Command/CommandGroup';
 
 export * from './CommandHandler/CommandEventArgs';
 export * from './CommandHandler/CommandHandler';
+export * from './CommandHandler/CommandHandlerConfig';
 
 export * from './Help/HelpMode';

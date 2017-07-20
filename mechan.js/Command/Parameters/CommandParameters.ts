@@ -4,11 +4,11 @@ export class CommandParameter {
     /**
      * Name of the parameter
      */
-    name: string;
+    public name: string;
     /**
      * Type of the parameter
      */
-    type: ParameterType;
+    public type: ParameterType;
 
     /**
      * Create a command parameter

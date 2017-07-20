@@ -2,7 +2,7 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <Name>Mechan</Name>
+    <Name>mechan.js</Name>
     <RootNamespace>Mechan</RootNamespace>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -50,6 +50,9 @@
     <TypeScriptCompile Include="CommandHandler\CommandHandler.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="CommandHandler\CommandHandlerConfig.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Command\Command.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -86,6 +89,7 @@
     <Folder Include="CommandHandler\" />
     <Folder Include="Command\" />
     <Folder Include="Command\Permissions\" />
+    <Folder Include="CommandLoader\" />
     <Folder Include="typings\" />
     <Folder Include="typings\node\" />
   </ItemGroup>

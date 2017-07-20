@@ -4,19 +4,19 @@ export class CommandGroup {
     /**
      * Name of the group
      */
-    name: string;
+    public name: string;
     /**
      * Subcommands
      */
-    commands: Command[];
+    public commands: Command[];
     /**
      * Category the command fits into
      */
-    category: string;
+    public category: string;
     /**
      * Whether or not the command is visible in the default help menu
      */
-    visible: boolean;
+    public visible: boolean;
 
     /**
      * Create a command group
@@ -34,7 +34,7 @@ export class CommandGroup {
     * Add a command
     * @param command - Command to add
     */
-    addCommand(command: Command) {
+    public addCommand(command: Command) {
         this.commands.push(command);
     }
 
@@ -42,7 +42,7 @@ export class CommandGroup {
      * Add commands
      * @param command - Commands to add
      */
-    addCommands(commands: Command[]) {
+    public addCommands(commands: Command[]) {
         for (let command of commands)
             this.addCommand(command);
     }
@@ -51,7 +51,7 @@ export class CommandGroup {
      * Remove a command
      * @param command - Command to remove
      */
-    removeCommand(command: Command) {
+    public removeCommand(command: Command) {
         let index = this.commands.indexOf(command);
         delete this.commands[index];
     }
@@ -60,7 +60,7 @@ export class CommandGroup {
      * Remove commands
      * @param command - Commands to remove
      */
-    removeCommands(commands: Command[]) {
+    public removeCommands(commands: Command[]) {
         for (let command of commands)
             this.removeCommand(command);
     }
@@ -68,7 +68,7 @@ export class CommandGroup {
     /**
      * Remove all commands
      */
-    clearParameters() {
+    public clearParameters() {
         this.commands = [];
     }
 

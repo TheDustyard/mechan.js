@@ -5,12 +5,12 @@ VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F9CDB635-5943-447C-B43A-3BBC83F00CCE}"
 	ProjectSection(SolutionItems) = preProject
-		Mechan\package.json = Mechan\package.json
+		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Mechan Example", "Mechan Example\Mechan Example.njsproj", "{C04A6D31-1CE5-4150-B1EA-D940109B7AE2}"
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "mechan.js Example", "mechan.js Example\mechan.js Example.njsproj", "{C04A6D31-1CE5-4150-B1EA-D940109B7AE2}"
 EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Mechan", "Mechan\Mechan.njsproj", "{350C0C73-BBE1-4A06-ABDA-B4A5A9987272}"
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "mechan.js", "mechan.js\mechan.js.njsproj", "{350C0C73-BBE1-4A06-ABDA-B4A5A9987272}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

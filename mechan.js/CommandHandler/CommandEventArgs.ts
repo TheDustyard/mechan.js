@@ -6,19 +6,23 @@ export class CommandEventArgs {
     /**
      * User that called the command
      */
-    user: User;
+    public user: User;
     /**
      * Message that called the command
      */
-    message: Message;
+    public message: Message;
     /**
      * Comamnd that was called
      */
-    command: Command;
+    public command: Command;
     /**
      * Command handler that handled the command
      */
-    handler: CommandHandler;
+    public handler: CommandHandler;
+    /**
+     * Command's perameters
+     */
+    public parameters: string[];
 
     /**
      * Create command event arguments
@@ -27,10 +31,11 @@ export class CommandEventArgs {
      * @param command - Comamnd that was called
      * @param handler - Command handler that handled the command
      */
-    constructor(user: User, message: Message, command: Command, handler: CommandHandler) {
+    constructor(user: User, message: Message, command: Command, parameters: string[], handler: CommandHandler) {
         this.user = user;
         this.message = message;
         this.command = command;
         this.handler = handler;
+        this.parameters = parameters;
     }
 }

@@ -6,31 +6,31 @@ export class Command {
     /**
      * Name of the command
      */
-    name: string;
+    public name: string;
     /**
      * Callback for the command
      */
-    callback: (event: CommandEventArgs) => void;
+    public callback: (event: CommandEventArgs) => void;
     /**
      * Perameters for the command
      */
-    parameters: CommandParameter[];
+    public parameters: CommandParameter[];
     /**
      * Permission checks to perform
      */
-    checks: PermissionCheck[];
+    public checks: PermissionCheck[];
     /**
      * Description of the command
      */
-    description: string;
+    public description: string;
     /**
      * Category the command fits into
      */
-    category: string;
+    public category: string;
     /**
      * Whether or not the command is visible in the default help menu
      */
-    visible: boolean;
+    public visible: boolean;
     /**
      * Create a command
      * @param name - Name of the command
