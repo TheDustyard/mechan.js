@@ -1,9 +1,16 @@
-const Mechan = require("../mechan.js");
+const Mechan = require('../mechan.js');
+const Client = new Mechan.Discord.Client();
+
+Client.
 
 console.log(Mechan);
 
 var handler = new Mechan.CommandHandler(null);
-handler.on('error', (e) => console.log(e));
+handler.on('debug', (msg) => console.log(msg));
+handler.on('warn', (msg) => console.warn(msg));
+handler.on('error', (msg) => console.error(msg));
+handler.on('failure', (msg) => console.log(msg));
+handler.on('success', (context) => console.log(context));
 handler.handle();
 
 console.log(Mechan.version);

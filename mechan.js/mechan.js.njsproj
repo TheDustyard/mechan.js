@@ -71,12 +71,6 @@
     <TypeScriptCompile Include="Command\Parameters\ParameterType.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Emitters\ICommandHandlerEmitter.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="Emitters\ILoggerEmitter.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
     <TypeScriptCompile Include="Help\HelpMode.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -95,8 +89,6 @@
     <Folder Include="CommandHandler\" />
     <Folder Include="Command\" />
     <Folder Include="Command\Permissions\" />
-    <Folder Include="CommandLoader\" />
-    <Folder Include="Emitters\" />
     <Folder Include="typings\" />
     <Folder Include="typings\node\" />
   </ItemGroup>
