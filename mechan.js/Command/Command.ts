@@ -1,6 +1,7 @@
-﻿import { CommandContext } from '../CommandHandler/CommandContext';
+﻿import { CommandContext } from './CommandContext';
 import { CommandParameter } from './Parameters/CommandParameters';
 import { PermissionCheck } from './Permissions/PermissionCheck';
+import { User, Channel } from 'discord.js';
 
 export class Command {
     /**
@@ -49,5 +50,18 @@ export class Command {
         this.description = description;
         this.category = category;
         this.visible = visible;
+    }
+
+    /**
+     * Checks all permission checks and verifies if a command can be run
+     * @param context - The context for the command
+     */
+    canRun(context: CommandContext): [boolean, string] {
+        for (let i: number = 0; i < this.checks.length; i++) {
+            let [can, err] = this.checks[i].check(context)
+            if (!can)
+                return [false, err];
+        }
+        return [true, null];
     }
 }

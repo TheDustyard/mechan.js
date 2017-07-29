@@ -10,7 +10,7 @@ export * from './Command/Command';
 export * from './Command/CommandBuilder';
 export * from './Command/CommandGroup';
 
-export * from './CommandHandler/CommandContext';
+export * from './Command/CommandContext';
 export * from './CommandHandler/CommandHandler';
 export * from './CommandHandler/CommandHandlerConfig';
 

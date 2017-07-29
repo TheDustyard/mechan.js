@@ -1,5 +1,5 @@
 ﻿import { Command } from './Command';
-import { CommandEventArgs } from '../Command/CommandEventArgs';
+import { CommandContext } from '../Command/CommandContext';
 import { CommandParameter } from './Parameters/CommandParameters';
 import { ParameterType } from './Parameters/ParameterType';
 import { PermissionCheck } from './Permissions/PermissionCheck';
@@ -30,7 +30,7 @@ export class CommandBuilder extends Command {
      * Set the command's callback
      * @param callback- Callback for the command
      */
-    setCallback(callback: (event: CommandEventArgs) => void): this {
+    setCallback(callback: (event: CommandContext) => void): this {
         this.callback = callback;
         return this;
     }

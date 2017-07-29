@@ -1,13 +1,8 @@
 ﻿import { EventEmitter } from 'events';
 import { CommandHandlerConfig } from './CommandHandlerConfig';
-import { CommandContext } from './CommandContext';
+import { CommandContext } from '../Command/CommandContext';
 
 export class CommandHandler extends CommandHandlerEvents {
-
-    /*EVENTS:
-     * SUCCESS
-     * ERROR
-     */
 
     /**
      * Config for the handler
@@ -49,8 +44,4 @@ export declare class CommandHandlerEvents extends EventEmitter{
     emit(event: 'debug', args: string): boolean;
     emit(event: 'warn', args: string): boolean;
     emit(event: 'error', args: string): boolean;
-
-    constructor() {
-        super();
-    }
 }
