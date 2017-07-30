@@ -26,6 +26,6 @@
 
 mechan.js is an addon to [Discord.js](https://discord.js.org/#/) to (hopefully) make it easier and cleaner to program
 
-[DOCS](https://github.com/DusterTheFirst/mechan.js/wiki)
+[DOCS](https://mechan.js.org)
 
 [NPM Package](https://www.npmjs.com/package/mechan.js) : ```npm install --save mechan.js```
