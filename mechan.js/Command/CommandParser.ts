@@ -1,8 +1,11 @@
-﻿import { Command } from './Command';
-import { CommandMap } from './CommandMap';
-import { CommandErrorContext, CommandErrorType } from './CommandErrorContext';
-import { CommandParameter } from './Parameters/CommandParameters';
-import { ParameterType } from './Parameters/ParameterType';
+﻿import {
+    Command,
+    CommandMap,
+    CommandErrorContext,
+    CommandErrorType,
+    CommandParameter,
+    ParameterType
+} from '../';
 
 enum ParserPart {
     None,
@@ -62,6 +65,12 @@ export class CommandParser {
     };
 
 	//TODO: Check support for escaping
+    /**
+     * Parse command arguments
+     * @param input - Input string
+     * @param startPos - Start pos of the args
+     * @param command - Command to parse
+     */
     public static ParseArgs(input: string, startPos: number, command: Command): [CommandErrorType, string[]]{
         let args: string[];
 

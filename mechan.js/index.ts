@@ -15,10 +15,8 @@ export * from './Command/CommandErrorContext';
 export * from './Command/CommandGroup';
 export * from './Command/CommandMap';
 export * from './Command/CommandParser';
+export * from './Command/HelpMode';
 
 
 export * from './CommandHandler/CommandHandler';
 export * from './CommandHandler/CommandHandlerConfig';
-
-
-export * from './Help/HelpMode';

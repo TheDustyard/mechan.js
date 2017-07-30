@@ -1,4 +1,6 @@
-﻿import { Command } from './Command';
+﻿import {
+    Command
+} from '../';
 
 export class CommandGroup {
     /**

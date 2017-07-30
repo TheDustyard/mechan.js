@@ -1,8 +1,4 @@
-﻿import { CommandContext } from '../CommandContext';
+﻿import { CommandContext } from '../';
 
-export interface PermissionCheck {
-    /**
-     * Function to eveluate if a user has the required permissions
-     */
-    check(event: CommandContext): [boolean, string];
-}
+export type PermissionCheck =
+    (event: CommandContext) => [boolean, string];

@@ -80,7 +80,7 @@
     <TypeScriptCompile Include="Command\Parameters\ParameterType.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Help\HelpMode.ts">
+    <TypeScriptCompile Include="Command\HelpMode.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="index.ts" />
@@ -94,7 +94,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Command\Parameters\" />
-    <Folder Include="Help\" />
     <Folder Include="CommandHandler\" />
     <Folder Include="Command\" />
     <Folder Include="Command\Permissions\" />

@@ -1,7 +1,9 @@
-﻿import { CommandContext } from './CommandContext';
-import { CommandParameter } from './Parameters/CommandParameters';
-import { PermissionCheck } from './Permissions/PermissionCheck';
-import { User, Channel } from 'discord.js';
+﻿import { 
+    CommandContext,
+    CommandParameter,
+    PermissionCheck 
+} from '../';
+import { User, TextChannel } from 'discord.js';
 
 export class Command {
     /**
@@ -25,6 +27,10 @@ export class Command {
      */
     public description: string;
     /**
+     * Aliases for the command
+     */
+    public aliases: string[];
+    /**
      * Category the command fits into
      */
     public category: string;
@@ -39,15 +45,17 @@ export class Command {
      * @param parameters - Command parameters
      * @param checks - Permission checks to perform
      * @param description - Description of the command
+     * @param aliases - Aliases for the command
      * @param category - Category the command fits into
      * @param hidden - Whether or not the command is visible in the default help menu
      */
-    constructor(name: string, callback: (event: CommandContext) => void, parameters: CommandParameter[], description: string = '', category: string = '', visible: boolean = true, checks: PermissionCheck[] = []) {
+    constructor(name: string, callback: (event: CommandContext) => void, parameters: CommandParameter[], description: string = '', category: string = '', aliases: string[], visible: boolean = true, checks: PermissionCheck[] = []) {
         this.name = name;
         this.callback = callback;
         this.parameters = parameters;
         this.checks = checks;
         this.description = description;
+        this.aliases = aliases;
         this.category = category;
         this.visible = visible;
     }
@@ -58,7 +66,7 @@ export class Command {
      */
     canRun(context: CommandContext): [boolean, string] {
         for (let i: number = 0; i < this.checks.length; i++) {
-            let [can, err] = this.checks[i].check(context)
+            let [can, err] = this.checks[i](context)
             if (!can)
                 return [false, err];
         }

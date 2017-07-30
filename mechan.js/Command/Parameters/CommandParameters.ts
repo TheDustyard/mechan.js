@@ -1,4 +1,4 @@
-﻿import { ParameterType } from '../Parameters/ParameterType';
+﻿import { ParameterType } from '../../';
 
 export class CommandParameter {
     /**

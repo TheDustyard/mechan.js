@@ -1,8 +1,12 @@
-﻿import { Command } from './Command';
-import { CommandContext } from '../Command/CommandContext';
-import { CommandParameter } from './Parameters/CommandParameters';
-import { ParameterType } from './Parameters/ParameterType';
-import { PermissionCheck } from './Permissions/PermissionCheck';
+﻿import {
+    Command,
+    CommandContext,
+    CommandHandler,
+    CommandParameter,
+    CommandGroup,
+    ParameterType,
+    PermissionCheck
+} from '../';
 
 export class CommandBuilder extends Command {
     private paramsClosed: boolean;
@@ -12,7 +16,7 @@ export class CommandBuilder extends Command {
      * Create a command builder
      */
     constructor() {
-        super("", () => { }, [], "", null, false, []);
+        super("", () => { }, [], "", null, null, false, []);
         this.paramsClosed = false;
         this.allowRequiredParameters = true;
     }
@@ -30,7 +34,7 @@ export class CommandBuilder extends Command {
      * Set the command's callback
      * @param callback- Callback for the command
      */
-    setCallback(callback: (event: CommandContext) => void): this {
+    setCallback(callback: (context: CommandContext) => void): this {
         this.callback = callback;
         return this;
     }
@@ -161,11 +165,18 @@ export class CommandBuilder extends Command {
     }
 
     /**
-     * Set the command's visibility
-     * @param visible - Whether or not the command is shown in the default help menu
+     * Set the command's visibility to true
      */
-    setVisible(visible: boolean): this {
-        this.visible = visible;
+    show(): this {
+        this.visible = true;
+        return this;
+    }
+
+    /**
+     * Set the command's visibility to false
+     */
+    hide(): this {
+        this.visible = false;
         return this;
     }
 
@@ -180,4 +191,44 @@ export class CommandBuilder extends Command {
         return this;
     }
 
+}
+
+export class CommandGroupBuilder {
+    public handler: CommandHandler;
+
+    private readonly prefix: string;
+    private readonly checks: PermissionCheck[];
+    private category: string;
+
+    constructor(handler: CommandHandler, prefix: string = "", category: string = null, initialChecks: PermissionCheck[] = null) {
+        this.handler = handler;
+        this.prefix = prefix;
+        this.category = category;
+        if (initialChecks != null)
+            this.checks = initialChecks;
+        else
+            this.checks = [];
+    }
+
+    public setCategory(category: string): this {
+        this.category = category;
+        return this;
+    }
+
+    public addCheck(checker: PermissionCheck): this {
+        this.checks.push(checker);
+        return this;
+    }
+
+    public createGroup(cmd: string, config: (CommandGroupBuilder) => void): this{
+        config(new CommandGroupBuilder(this.handler, this.prefix + ' ' + cmd, this.category, this.checks));
+        return this;
+    }
+
+    public CreateCommand(cmd: string): CommandBuilder {
+        return new CommandBuilder()
+            .setName(cmd)
+            .setCategory(this.category)
+            .addChecks(this.checks);
+    }
 }

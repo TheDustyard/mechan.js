@@ -1,4 +1,6 @@
-﻿import { HelpMode } from '../Help/HelpMode';
+﻿import {
+    HelpMode
+} from '../';
 
 export class CommandHandlerConfig {
     /**

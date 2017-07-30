@@ -1,6 +1,8 @@
 ﻿import { User, Message } from 'discord.js';
-import { Command } from '../Command/Command';
-import { CommandHandler } from '../CommandHandler/CommandHandler';
+import { 
+    Command,
+    CommandHandler
+} from '../';
 
 export class CommandContext {
     /**

@@ -1,6 +1,8 @@
-﻿import { Command } from './Command';
-import { CommandContext } from './CommandContext';
-import { User, Channel } from 'discord.js';
+﻿import {
+    Command,
+    CommandContext
+} from '../';
+import { User, TextChannel } from 'discord.js';
 
 export class CommandMap {
     /**
