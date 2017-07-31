@@ -1,33 +1,38 @@
+const Settings = require('./settings.json');
 const Mechan = require('../mechan.js');
 const Client = new Mechan.Discord.Client();
 
-Client.
+//console.log(Mechan);
 
-console.log(Mechan);
+var handler = new Mechan.CommandHandler(
+    new Mechan.CommandHandlerConfigBuilder()
+        .isNotSelfBot()
+        .setHelpMode(Mechan.HelpMode.Private)
+        .setPrefixChar('.')
+    );
+handler.on('failure', (handler, context) => console.error(context));
+handler.on('success', (handler, context) => console.log(context));
 
-var handler = new Mechan.CommandHandler(null);
-handler.on('debug', (msg) => console.log(msg));
-handler.on('warn', (msg) => console.warn(msg));
-handler.on('error', (msg) => console.error(msg));
-handler.on('failure', (msg) => console.log(msg));
-handler.on('success', (context) => console.log(context));
-handler.handle();
+handler.install(Client);
 
-console.log(Mechan.version);
+//console.log(Mechan.version);
 
-let builder = new Mechan.CommandBuilder()
-    .setName("dank")
+let builder = handler.createCommand('dank')
     .addParameter(new Mechan.CommandParameter("name", Mechan.ParameterType.Required))
     .addParameter(new Mechan.CommandParameter("desc", Mechan.ParameterType.Unparsed))
-    .addParameter(new Mechan.CommandParameter("moredesc", Mechan.ParameterType.Optional));
+    .setCallback(context => {
+        console.log("ran: " + context.user.username);
+    });
 
-console.log(Mechan.HelpMode);
+//console.log(Mechan.HelpMode);
 
-var command = new Mechan.CommandBuilder()
-    .setName('example')
+var command = handler.createCommand('example')
     .setDescription('useful command desc')
     .setCategory('examples')
-    .setVisible(true)
+    .show()
     .addParameter(new Mechan.CommandParameter('param 1', Mechan.ParameterType.Optional));
 
-command.clearParameters();
+handler.addCommand(builder);
+handler.addCommand(command);
+
+Client.login(Settings.token);

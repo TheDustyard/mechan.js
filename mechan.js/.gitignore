@@ -1,4 +1,5 @@
 typings/
+Obsolete/
 *.map
 *.d.ts
 settings.json

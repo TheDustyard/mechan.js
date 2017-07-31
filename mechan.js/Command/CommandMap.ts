@@ -65,10 +65,10 @@ export class CommandMap {
     public getItem(index: number = 0, parts: string[]): CommandMap {
         if (index != parts.length) {
             let nextPart: string = parts[index];
-            try {
-                let nextGroup = this.items.get(nextPart.toLowerCase())
+            let nextGroup = this.items.get(nextPart.toLowerCase())
+            if (nextGroup) {
                 return nextGroup.getItem(index + 1, parts);
-            } catch (e) {
+            } else {
                 return null;
             }
         }
@@ -137,9 +137,9 @@ export class CommandMap {
             let nextGroup: CommandMap;
             let name: string = parts[index].toLowerCase();
             let fullName: string = parts.join(" ");
-            try {
-                nextGroup = this.items.get(name);
-            } catch (e) {
+            nextGroup = this.items.get(name);
+
+            if (!nextGroup) {
                 nextGroup = new CommandMap(this, name, fullName);
                 this.items.set(name, nextGroup);
                 this.hasSubGroups = true;

@@ -16,7 +16,7 @@ export class CommandBuilder extends Command {
      * Create a command builder
      */
     constructor() {
-        super("", () => { }, [], "", null, null, false, []);
+        super("", () => { }, [], "", null, null, true, []);
         this.paramsClosed = false;
         this.allowRequiredParameters = true;
     }

@@ -47,10 +47,10 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="CommandHandler\CommandHandler.ts">
+    <TypeScriptCompile Include="Obsolete\CommandHandler\CommandHandler.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="CommandHandler\CommandHandlerConfig.ts">
+    <TypeScriptCompile Include="Obsolete\CommandHandler\CommandHandlerConfig.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Command\Command.ts">
@@ -65,7 +65,7 @@
     <TypeScriptCompile Include="Command\CommandErrorContext.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Command\CommandGroup.ts">
+    <TypeScriptCompile Include="Obsolete\CommandGroup.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Command\CommandMap.ts">
@@ -74,10 +74,10 @@
     <TypeScriptCompile Include="Command\CommandParser.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Command\Parameters\CommandParameters.ts">
+    <TypeScriptCompile Include="Obsolete\Command\Parameters\CommandParameters.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Command\Parameters\ParameterType.ts">
+    <TypeScriptCompile Include="Obsolete\Command\Parameters\ParameterType.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Command\HelpMode.ts">
@@ -93,10 +93,11 @@
     <TypeScriptCompile Include="typings\node\node.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Command\Parameters\" />
-    <Folder Include="CommandHandler\" />
-    <Folder Include="Command\" />
+    <Folder Include="Obsolete\Command\Parameters\" />
+    <Folder Include="Obsolete\CommandHandler\" />
+    <Folder Include="Obsolete\Command\" />
     <Folder Include="Command\Permissions\" />
+    <Folder Include="Obsolete\" />
     <Folder Include="typings\" />
     <Folder Include="typings\node\" />
   </ItemGroup>
