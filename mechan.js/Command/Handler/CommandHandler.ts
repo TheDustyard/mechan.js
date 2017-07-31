@@ -1,17 +1,17 @@
-﻿//import {
-//    HelpMode,
-//    ParameterType,
-//    CommandGroupBuilder,
-//    CommandMap,
-//    Command,
-//    CommandContext,
-//    CommandHandlerConfig,
-//    CommandParser,
-//    CommandErrorType,
-//    CommandErrorContext,
-//    CommandBuilder,
-//    CommandParameter
-//} from '../';
+﻿import {
+    HelpMode,
+    ParameterType,
+    CommandGroupBuilder,
+    CommandMap,
+    Command,
+    CommandContext,
+    CommandHandlerConfig,
+    CommandParser,
+    CommandErrorType,
+    CommandErrorContext,
+    CommandBuilder,
+    CommandParameter
+} from '../../';
 import { EventEmitter } from 'events';
 import {
     Client,
