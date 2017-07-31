@@ -47,40 +47,58 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Obsolete\CommandHandler\CommandHandler.ts">
+    <TypeScriptCompile Include="Command\Command.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Obsolete\CommandHandler\CommandHandlerConfig.ts">
+    <None Include="Obsolete\CommandHandler\CommandHandler.ts">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="Obsolete\CommandHandler\CommandHandlerConfig.ts">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="Obsolete\Command\Command.ts">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="Obsolete\Command\CommandBuilder.ts">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="Obsolete\Command\CommandContext.ts">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="Obsolete\Command\CommandErrorContext.ts">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="Obsolete\CommandGroup.ts">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="Obsolete\Command\CommandMap.ts">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="Obsolete\Command\CommandParser.ts">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="Obsolete\Command\Parameters\CommandParameters.ts">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="Obsolete\Command\Parameters\ParameterType.ts">
+      <SubType>Code</SubType>
+    </None>
+    <None Include="Obsolete\Command\HelpMode.ts">
+      <SubType>Code</SubType>
+    </None>
+    <TypeScriptCompile Include="Command\CommandContext.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Obsolete\Command\Command.ts">
+    <TypeScriptCompile Include="Command\CommandErrorContext.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Obsolete\Command\CommandBuilder.ts">
+    <TypeScriptCompile Include="Command\Handler\CommandHandler.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Obsolete\Command\CommandContext.ts">
+    <TypeScriptCompile Include="Command\Handler\HelpMode.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Obsolete\Command\CommandErrorContext.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="Obsolete\CommandGroup.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="Obsolete\Command\CommandMap.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="Obsolete\Command\CommandParser.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="Obsolete\Command\Parameters\CommandParameters.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="Obsolete\Command\Parameters\ParameterType.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="Obsolete\Command\HelpMode.ts">
+    <TypeScriptCompile Include="Command\Permissions\GenericChecker.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="index.ts" />
@@ -93,6 +111,9 @@
     <TypeScriptCompile Include="typings\node\node.d.ts" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Command\" />
+    <Folder Include="Command\Handler\" />
+    <Folder Include="Command\Permissions\" />
     <Folder Include="Obsolete\Command\Parameters\" />
     <Folder Include="Obsolete\CommandHandler\" />
     <Folder Include="Obsolete\Command\" />
