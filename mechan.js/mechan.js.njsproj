@@ -53,25 +53,25 @@
     <TypeScriptCompile Include="Obsolete\CommandHandler\CommandHandlerConfig.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Command\Command.ts">
+    <TypeScriptCompile Include="Obsolete\Command\Command.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Command\CommandBuilder.ts">
+    <TypeScriptCompile Include="Obsolete\Command\CommandBuilder.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Command\CommandContext.ts">
+    <TypeScriptCompile Include="Obsolete\Command\CommandContext.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Command\CommandErrorContext.ts">
+    <TypeScriptCompile Include="Obsolete\Command\CommandErrorContext.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Obsolete\CommandGroup.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Command\CommandMap.ts">
+    <TypeScriptCompile Include="Obsolete\Command\CommandMap.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Command\CommandParser.ts">
+    <TypeScriptCompile Include="Obsolete\Command\CommandParser.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="Obsolete\Command\Parameters\CommandParameters.ts">
@@ -80,14 +80,14 @@
     <TypeScriptCompile Include="Obsolete\Command\Parameters\ParameterType.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Command\HelpMode.ts">
+    <TypeScriptCompile Include="Obsolete\Command\HelpMode.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="index.ts" />
     <Content Include=".gitignore" />
     <Content Include="package.json" />
     <Content Include="README.md" />
-    <TypeScriptCompile Include="Command\Permissions\PermissionCheck.ts">
+    <TypeScriptCompile Include="Obsolete\Command\Permissions\PermissionCheck.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="typings\node\node.d.ts" />
@@ -96,7 +96,7 @@
     <Folder Include="Obsolete\Command\Parameters\" />
     <Folder Include="Obsolete\CommandHandler\" />
     <Folder Include="Obsolete\Command\" />
-    <Folder Include="Command\Permissions\" />
+    <Folder Include="Obsolete\Command\Permissions\" />
     <Folder Include="Obsolete\" />
     <Folder Include="typings\" />
     <Folder Include="typings\node\" />
