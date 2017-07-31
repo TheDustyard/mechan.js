@@ -1,7 +1,8 @@
 ﻿import {
     CommandContext,
     CommandParameter,
-    PermissionCheck
+    PermissionCheck,
+    ParameterType
 } from '../';
 import { User, TextChannel } from 'discord.js';
 

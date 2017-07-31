@@ -47,12 +47,20 @@ export class CommandGroup {
         this.prechecks = prechecks;
         this.category = category;
         this.visible = visible;
+        this.groups = [];
     }
 
 }
 
 export class CommandGroupBuilder extends CommandGroup {
 
+    /**
+     * Create a group builder
+     * @param handler - Command handler to regester to
+     * @param name - Name of the group
+     * @param category - Category of the group
+     * @param prechecks - Prechecks to run
+     */
     constructor(handler: CommandHandler, name: string = "", category: string = null, prechecks: PermissionCheck[] = []) {
         super(handler, name, [], prechecks, category, true);
     }
@@ -67,12 +75,13 @@ export class CommandGroupBuilder extends CommandGroup {
         return this;
     }
 
-    public createGroup(cmd: string, prechecks: PermissionCheck[] = null): this {
+    public createGroup(cmd: string, prechecks: PermissionCheck[] = null): CommandGroupBuilder {
         let checks = prechecks || [];
         for (let check of this.prechecks)
             checks.push(check);
-        this.groups.push(new CommandGroupBuilder(this.handler, this.name + ' ' + cmd, this.category, checks));
-        return this;
+        let builder = new CommandGroupBuilder(this.handler, this.name + ' ' + cmd, this.category, checks);
+        this.groups.push(builder);
+        return builder;
     }
 
     public createCommand(cmd: string): CommandBuilder {

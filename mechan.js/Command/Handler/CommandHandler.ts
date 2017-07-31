@@ -2,11 +2,10 @@
     HelpMode,
     ParameterType,
     CommandGroupBuilder,
-    CommandMap,
+    //CommandMap,
     Command,
     CommandContext,
-    CommandHandlerConfig,
-    CommandParser,
+    //CommandParser,
     CommandErrorType,
     CommandErrorContext,
     CommandBuilder,
@@ -21,11 +20,24 @@ import {
     GroupDMChannel
 } from 'discord.js';
 
-export class CommandHandler extends CommandHandlerEvents {
+export type CommandHandlerConfig = {
+    prefix: string,
+    helpMode: HelpMode,
+    mentionPrefix: boolean,
+    isSelfBot: boolean
+};
+
+export class CommandHandler extends EventEmitter /*extends CommandHandlerEvents*/ {
+
+    public config: CommandHandlerConfig;
+
+    constructor(config: CommandHandlerConfig) {
+        super();
+
+    }
 
 }
-
-export declare class CommandHandlerEvents extends EventEmitter {
+export interface CommandHandler {
     on(event: string, listener: Function): this;
     on(event: 'failure', listener: (handler: CommandHandler, context: CommandErrorContext) => void): this;
     on(event: 'success', listener: (handler: CommandHandler, context: CommandContext) => void): this;

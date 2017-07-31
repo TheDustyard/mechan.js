@@ -11,6 +11,8 @@ export * from './Command/Permissions/GenericChecker';
 export * from './Command/Command';
 export * from './Command/CommandContext';
 export * from './Command/CommandErrorContext';
+export * from './Command/CommandGroup';
+export * from './Command/CommandParameter';
 
 //export * from './Command/Parameters/CommandParameters';
 //export * from './Command/Parameters/ParameterType';
