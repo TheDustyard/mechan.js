@@ -65,25 +65,54 @@ export class CommandGroupBuilder extends CommandGroup {
         super(handler, name, [], prechecks, category, true);
     }
 
+    /**
+     * Set the category of the group
+     * @param category - Category the command fits into
+     */
     public setCategory(category: string): this {
         this.category = category;
         return this;
     }
 
+    /**
+     * Adda a check
+     * @param checker - Checks to preform on all commands
+     */
     public addCheck(checker: PermissionCheck): this {
         this.prechecks.push(checker);
         return this;
     }
 
-    public createGroup(cmd: string, prechecks: PermissionCheck[] = null): CommandGroupBuilder {
-        let checks = prechecks || [];
-        for (let check of this.prechecks)
-            checks.push(check);
-        let builder = new CommandGroupBuilder(this.handler, this.name + ' ' + cmd, this.category, checks);
+    /**
+     * Show the builder
+     */
+    public show(): this {
+        this.visible = true;
+        return this;
+    }
+
+    /**
+     * Hide the builder
+     */
+    public hide(): this {
+        this.visible = false;
+        return this;
+    }
+
+    /**
+     * Create subGroup
+     * @param name - Group name
+     */
+    public createGroup(name: string): CommandGroupBuilder {
+        let builder = new CommandGroupBuilder(this.handler, this.name + ' ' + name, this.category, this.prechecks);
         this.groups.push(builder);
         return builder;
     }
 
+    /**
+     * Create command for group
+     * @param cmd - Command name
+     */
     public createCommand(cmd: string): CommandBuilder {
         return new CommandBuilder()
             .setName(cmd)

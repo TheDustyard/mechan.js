@@ -110,7 +110,8 @@ export class CommandBuilder extends Command {
      * Add a command perameter
      * @param perameter - Perameter to add
      */
-    addParameter(parameter: CommandParameter): this {
+    addParameter(name: string, type: ParameterType): this {
+        let parameter = new CommandParameter(name, type);
         if (this.paramsClosed)
             throw "No parameters may be added after a 'Multiple' or 'Unparsed' parameter.";
 
@@ -125,36 +126,6 @@ export class CommandBuilder extends Command {
         if (parameter.type == ParameterType.Multiple || parameter.type == ParameterType.Unparsed)
             this.paramsClosed = true;
 
-        return this;
-    }
-
-    /**
-     * Add command perameters
-     * @param perameter - Perameters to add
-     */
-    addParameters(parameters: CommandParameter[]): this {
-        for (let parameter of parameters)
-            this.addParameter(parameter);
-        return this;
-    }
-
-    /**
-     * Remove a command perameter
-     * @param perameter - Perameter to remove
-     */
-    removeParameter(parameter: CommandParameter): this {
-        let index = this.parameters.indexOf(parameter);
-        delete this.parameters[index];
-        return this;
-    }
-
-    /**
-     * Remove command perameters
-     * @param perameter - Perameters to remove
-     */
-    removeParameters(parameters: CommandParameter[]): this {
-        for (let parameter of parameters)
-            this.removeParameter(parameter);
         return this;
     }
 
