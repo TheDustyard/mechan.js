@@ -88,6 +88,9 @@
     <TypeScriptCompile Include="Command\CommandParameter.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Command\CommandParser.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Command\Handler\CommandHandler.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
