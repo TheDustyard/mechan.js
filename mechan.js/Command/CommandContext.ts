@@ -28,20 +28,21 @@ export class CommandContext {
     /**
      * Command's perameters
      */
-    public parameters: string[];
+    public args: string[];
 
     /**
      * Create a command context
      * @param message - Message that called the command
      * @param command - Comamnd that was called
+     * @param args - parameters for the command
      * @param handler - Command handler that handled the command
      */
-    constructor(message: Message, command: Command, parameters: string[], handler: CommandHandler) {
+    constructor(message: Message, command: Command, args: string[], handler: CommandHandler) {
         this.user = message.author;
         this.channel = message.channel;
         this.message = message;
         this.command = command;
         this.handler = handler;
-        this.parameters = parameters;
+        this.args = args;
     }
 }

@@ -6,7 +6,7 @@
     /**
      * Type of the parameter
      */
-    public type: ParameterType;
+    public type: ParameterType; 
 
     /**
      * Create a command parameter

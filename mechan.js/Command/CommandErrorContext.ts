@@ -5,7 +5,7 @@
 } from '../';
 
 export enum CommandErrorType {
-    Exception,
+    Error,
     UnknownCommand,
     BadPermissions,
     BadArgCount,
@@ -30,7 +30,7 @@ export class CommandErrorContext extends CommandContext {
      * @param context - The command context to inherit
      */
     constructor(error: Error, errorType: CommandErrorType, context: CommandContext) {
-        super(context.message, context.command, context.parameters, context.handler);
+        super(context.message, context.command, context.args, context.handler);
 
         this.error = error;
         this.errorType = errorType;
