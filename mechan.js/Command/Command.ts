@@ -28,10 +28,6 @@ export class Command {
      */
     public description: string;
     /**
-     * Aliases for the command
-     */
-    public aliases: string[];
-    /**
      * Category the command fits into
      */
     public category: string;
@@ -39,6 +35,7 @@ export class Command {
      * Whether or not the command is visible in the default help menu
      */
     public visible: boolean;
+
     /**
      * Create a command
      * @param name - Name of the command
@@ -46,17 +43,15 @@ export class Command {
      * @param parameters - Command parameters
      * @param checks - Permission checks to perform
      * @param description - Description of the command
-     * @param aliases - Aliases for the command
      * @param category - Category the command fits into
      * @param hidden - Whether or not the command is visible in the default help menu
      */
-    constructor(name: string, callback: (event: CommandContext) => void, parameters: CommandParameter[], description: string = '', category: string = '', aliases: string[], visible: boolean = true, checks: PermissionCheck[] = []) {
+    constructor(name: string, callback: (event: CommandContext) => void, parameters: CommandParameter[], description: string = '', category: string = '', visible: boolean = true, checks: PermissionCheck[] = []) {
         this.name = name;
         this.callback = callback;
         this.parameters = parameters;
         this.checks = checks;
         this.description = description;
-        this.aliases = aliases;
         this.category = category;
         this.visible = visible;
     }
@@ -83,7 +78,7 @@ export class CommandBuilder extends Command {
      * Create a command builder
      */
     constructor() {
-        super("", () => { }, [], "", null, null, true, []);
+        super("", () => { }, [], null, null, true, []);
         this.paramsClosed = false;
         this.allowRequiredParameters = true;
     }
@@ -93,6 +88,8 @@ export class CommandBuilder extends Command {
      * @param name - Name of the command
      */
     setName(name: string): this {
+        if (/ /g.test(name))
+            throw "Command name cannot contain a space";
         this.name = name;
         return this;
     }

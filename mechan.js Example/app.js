@@ -46,18 +46,13 @@ handler.on('debug', console.log);
 handler.on('warn', console.warn);
 handler.on('error', (message, error) => console.error(message + "\n\n" + error));
 
-handler.install(client);
-
-var group = new Mechan.CommandGroupBuilder(handler, null);
-
 var commamamammamma = null;
 
-
 //// NOTICE PLEASE DO NOT KILL ME NOW
-group.createGroup("killmenow", (newgroup) => {
+handler.createGroup("killmenow", (newgroup) => {
     newgroup.createGroup("please", (newergroup) => {
         commamamammamma =
-            newgroup.createCommand("jeff")
+            newergroup.createCommand("jeff")
                 .addParameter("person", 'required')
                 .addParameter("action", "required")
                 .addParameter("noun", "unparsed");
@@ -66,4 +61,9 @@ group.createGroup("killmenow", (newgroup) => {
 
 console.warn(Mechan.CommandParser.ParseArgs('meme "did studds sdfsd fsag sgfs dfgs" peter piper picke a pickeled pepper', 0, commamamammamma));
 
-console.warn(Mechan.CommandParser.ParseCommand('killmenow please jeff reeeeeeeeeeeeeeeeeeeeeeeeeeeeee', group));
+console.warn(Mechan.CommandParser.ParseCommand('killmenow please jeff reeeeeeeeeeeeeeeeeeeeeeeeeeeeee', handler.root));
+
+console.log(handler);
+
+handler.install(client)
+    .login(Settings.token);

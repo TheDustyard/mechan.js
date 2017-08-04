@@ -94,6 +94,9 @@
     <TypeScriptCompile Include="Command\Handler\CommandHandler.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Include="Command\Handler\Commands\Help.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="Command\Handler\HelpMode.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -109,6 +112,7 @@
   <ItemGroup>
     <Folder Include="Command\" />
     <Folder Include="Command\Handler\" />
+    <Folder Include="Command\Handler\Commands\" />
     <Folder Include="Command\Permissions\" />
     <Folder Include="Obsolete\Command\Parameters\" />
     <Folder Include="Obsolete\CommandHandler\" />

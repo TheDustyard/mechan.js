@@ -89,18 +89,18 @@ export class CommandParser {
                 if (temp == "")
                     startPosition = endPosition;
                 else {
-                    var newGroup = group.getItem(0, temp.split(' '));
-                    if (newGroup != null) {
-                        group = newGroup;
-                        endPos = endPosition;
-                    }
-                    else
-                        break;
-                    startPosition = endPosition;
+                    //var newGroup = group.getItem(0, temp.split(' '));
+                    //if (newGroup != null) {
+                    //    group = newGroup;
+                    //    endPos = endPosition;
+                    //}
+                    //else
+                    //    break;
+                    //startPosition = endPosition;
                 }
             }
         }
-        commands = group.getCommands();
+        //commands = group.getCommands();
         return new ParsedCommandInfo(commands != null, commands, endPos);
     }
 
@@ -224,5 +224,16 @@ export class CommandParser {
 
         args = argList;
         return new ParsedArgsInfo(null, args);
+    }
+
+    static appendPrefix(prefix: string, cmd: string): string {
+        if (cmd != "") {
+            if (prefix != "")
+                return prefix + ' ' + cmd;
+            else
+                return cmd;
+        }
+        else
+            return prefix;
     }
 }

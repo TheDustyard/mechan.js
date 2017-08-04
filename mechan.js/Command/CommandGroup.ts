@@ -2,6 +2,7 @@
     Command,
     CommandBuilder,
     CommandHandler,
+    CommandParser,
     PermissionCheck,
     CommandContext
 } from '../';
@@ -55,7 +56,7 @@ export class CommandGroup {
         this.parent = parent;
         this.commands = new Map<string, Command>();
         commands.forEach((v, index, array) => {
-            this.commands.set(v.name, v);
+            this.addCommand(v);
         })
         this.name = name;
         this.prechecks = prechecks;
@@ -64,63 +65,37 @@ export class CommandGroup {
         this.groups = new Map<string, CommandGroup>();
     }
 
-    /**
-     * Get an item from the map
-     * @param index - Index to start looking at the parts
-     * @param parts - Parts of the item
-     */
-    public getItem(index: number = 0, parts: string[]): CommandGroup {
-        if (index != parts.length) {
-            let nextPart: string = parts[index];
-            let nextGroup = this.groups.get(nextPart.toLowerCase())
-            if (nextGroup) {
-                return nextGroup.getItem(index + 1, parts);
-            } else {
-                return null;
-            }
-        }
-        return this;
+    private addCommand(command: Command): void {
+        this.commands.set(CommandParser.appendPrefix(this.name, command.name), command);
+    }
+
+    private addGroup(group: CommandGroup): void {
+        this.groups.set(CommandParser.appendPrefix(this.name, group.name), group);
     }
 
     /**
-     * Get the comamnds in this map
+     * Create a command
+     * @param name - Name of the command
      */
-    public getCommands(): Command[] {
-        if (Array.from(this.commands.values()).length > 0)
-            return Array.from(this.commands.values());
-        else if (this.parent != null)
-            return this.parent.getCommands();
-        else
-            return null;
+    public createCommand(name: string): CommandBuilder {
+        let builder = new CommandBuilder()
+            .setName(name)
+            .setCategory(this.category)
+            .addChecks(this.prechecks);
+        this.addCommand(builder);
+        return builder;
     }
 
     /**
-     * Get commands from the given string
-     * @param text
+     * Create a command group
+     * @param name - name of the group
      */
-    public getCommandsFromString(text: string): Command[] {
-        return this.getCommandsFromIndex(0, text.split(' '));
-    }
-    /**
-     * Get command at index
-     * @param index - Index of the command
-     * @param parts - Parts of the command
-     */
-    public getCommandsFromIndex(index: number, parts: string[]): Command[] {
-        if (index != parts.length) {
-            let nextPart: string = parts[index];
-            let nextGroup: CommandGroup;
-            try {
-                nextGroup = this.groups.get(nextPart.toLowerCase());
-                var cmd = nextGroup.getCommandsFromIndex(index + 1, parts);
-                if (cmd != null)
-                    return cmd;
-            } catch (e) { }
-        }
-
-        if (this.commands != null)
-            return Array.from(this.commands.values());
-        return null;
+    public createGroup(name: string, callback?: (group: CommandGroupBuilder) => void): CommandGroupBuilder {
+        let builder = new CommandGroupBuilder(this.handler, this, name, this.category, this.prechecks);
+        this.addGroup(builder);
+        if (callback)
+            callback(builder);
+        return builder;
     }
 
     /**
@@ -160,7 +135,7 @@ export class CommandGroupBuilder extends CommandGroup {
      * @param category - Category of the group
      * @param prechecks - Prechecks to run
      */
-    constructor(handler: CommandHandler, parent: CommandGroup, name: string = "", category: string = null, prechecks: PermissionCheck[] = []) {
+    constructor(handler: CommandHandler, parent: CommandGroup = null, name: string = "", category: string = null, prechecks: PermissionCheck[] = []) {
         super(handler, parent, name, [], prechecks, category, true);
     }
 
@@ -196,41 +171,5 @@ export class CommandGroupBuilder extends CommandGroup {
     public hide(): this {
         this.visible = false;
         return this;
-    }
-
-    /**
-     * Create subGroup
-     * @param name - Group name
-     */
-    public createGroup(name: string, callback?: (builder: CommandGroupBuilder) => void): this {
-        let builder = new CommandGroupBuilder(this.handler, this, CommandGroupBuilder.appendPrefix(this.name, name), this.category, this.prechecks);
-        if (callback)
-            callback(builder);
-        this.groups.set(name, builder);
-        return this;
-    }
-
-    /**
-     * Create command for group
-     * @param cmd - Command name
-     */
-    public createCommand(cmd: string): CommandBuilder {
-        let command = new CommandBuilder()
-            .setName(cmd)
-            .setCategory(this.category)
-            .addChecks(this.prechecks);
-        this.commands.set(cmd, command);
-        return command;
-    }
-
-    static appendPrefix(prefix: string, cmd: string): string{
-        if (cmd != "") {
-            if (prefix != "")
-                return prefix + ' ' + cmd;
-            else
-                return cmd;
-        }
-        else
-            return prefix;
     }
 }

@@ -1,11 +1,11 @@
 ﻿import {
     HelpMode,
     ParameterType,
+    CommandGroup,
     CommandGroupBuilder,
-    //CommandMap,
     Command,
     CommandContext,
-    //CommandParser,
+    CommandParser,
     CommandErrorType,
     CommandErrorContext,
     CommandBuilder,
@@ -29,9 +29,6 @@ export type CommandHandlerConfig = {
 };
 
 export class CommandHandler extends EventEmitter /*extends CommandHandlerEvents*/ {
-
-    public config: CommandHandlerConfig;
-
     private console = {
         log: (message: string) => {
             this.emit('debug', message);
@@ -52,21 +49,38 @@ export class CommandHandler extends EventEmitter /*extends CommandHandlerEvents*
         }
     };
 
+    public config: CommandHandlerConfig;
+
+    public root: CommandGroupBuilder;
+    public client: Client;
+
     constructor(config: CommandHandlerConfig) {
         super();
         this.config = config;
+        this.root = new CommandGroupBuilder(this);
     }
 
     public install(client: Client): Client {
+        this.client = client;
 
-        client.on('message', this.handle);
-        this.console.failure(this, new CommandErrorContext(new Error('death'), CommandErrorType.Error, new CommandContext(new Message(null, null, client), new CommandBuilder(), [], this)));
+        if (this.config.helpMode != HelpMode.Disabled) {
+            // ADD HELP COMMAND
+        }
+
+
+        client.on('message', (message) => {
+            //console.log(this.root);
+        });
 
         return client;
     }
 
-    private handle(message: Message) {
+    public createGroup(cmd: string, config: (CommandGroupBuilder) => void = null): CommandGroupBuilder {
+       return this.root.createGroup(cmd, config);
+    };
 
+    public createCommand(cmd: string): CommandBuilder {
+        return this.root.createCommand(cmd);
     }
 
 }
