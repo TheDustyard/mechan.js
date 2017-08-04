@@ -202,12 +202,12 @@ export class CommandGroupBuilder extends CommandGroup {
      * Create subGroup
      * @param name - Group name
      */
-    public createGroup(name: string, callback?: (builder: CommandGroupBuilder) => void): CommandGroupBuilder {
-        let builder = new CommandGroupBuilder(this.handler, this, this.name + ' ' + name, this.category, this.prechecks);
+    public createGroup(name: string, callback?: (builder: CommandGroupBuilder) => void): this {
+        let builder = new CommandGroupBuilder(this.handler, this, CommandGroupBuilder.appendPrefix(this.name, name), this.category, this.prechecks);
         if (callback)
             callback(builder);
         this.groups.set(name, builder);
-        return builder;
+        return this;
     }
 
     /**
@@ -215,9 +215,22 @@ export class CommandGroupBuilder extends CommandGroup {
      * @param cmd - Command name
      */
     public createCommand(cmd: string): CommandBuilder {
-        return new CommandBuilder()
+        let command = new CommandBuilder()
             .setName(cmd)
             .setCategory(this.category)
             .addChecks(this.prechecks);
+        this.commands.set(cmd, command);
+        return command;
+    }
+
+    static appendPrefix(prefix: string, cmd: string): string{
+        if (cmd != "") {
+            if (prefix != "")
+                return prefix + ' ' + cmd;
+            else
+                return cmd;
+        }
+        else
+            return prefix;
     }
 }

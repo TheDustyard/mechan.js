@@ -13,6 +13,7 @@ export * from './Command/CommandContext';
 export * from './Command/CommandErrorContext';
 export * from './Command/CommandGroup';
 export * from './Command/CommandParameter';
+export * from './Command/CommandParser';
 
 //export * from './Command/Parameters/CommandParameters';
 //export * from './Command/Parameters/ParameterType';

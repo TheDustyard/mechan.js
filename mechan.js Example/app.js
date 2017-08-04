@@ -48,9 +48,22 @@ handler.on('error', (message, error) => console.error(message + "\n\n" + error))
 
 handler.install(client);
 
-var command = new Mechan.CommandGroupBuilder(handler, 'trigger');
-command.createGroup('ree')
-    .setCategory('DANK')
-    .addCheck((context) => {
-        return [false, 'not dank enough'];
+var group = new Mechan.CommandGroupBuilder(handler, null);
+
+var commamamammamma = null;
+
+
+//// NOTICE PLEASE DO NOT KILL ME NOW
+group.createGroup("killmenow", (newgroup) => {
+    newgroup.createGroup("please", (newergroup) => {
+        commamamammamma =
+            newgroup.createCommand("jeff")
+                .addParameter("person", 'required')
+                .addParameter("action", "required")
+                .addParameter("noun", "unparsed");
     });
+});
+
+console.warn(Mechan.CommandParser.ParseArgs('meme "did studds sdfsd fsag sgfs dfgs" peter piper picke a pickeled pepper', 0, commamamammamma));
+
+console.warn(Mechan.CommandParser.ParseCommand('killmenow please jeff reeeeeeeeeeeeeeeeeeeeeeeeeeeeee', group));
