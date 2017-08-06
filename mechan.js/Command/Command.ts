@@ -12,9 +12,13 @@ export class Command {
      */
     public name: string;
     /**
+     * Fullname of the command
+     */
+    public fullname: string
+    /**
      * Callback for the command
      */
-    public callback: (event: CommandContext) => void;
+    public callback: (context: CommandContext) => void;
     /**
      * Perameters for the command
      */
@@ -54,6 +58,7 @@ export class Command {
         this.description = description;
         this.category = category;
         this.visible = visible;
+        this.fullname = "";
     }
 
     /**
@@ -77,21 +82,12 @@ export class CommandBuilder extends Command {
     /**
      * Create a command builder
      */
-    constructor() {
-        super("", () => { }, [], null, null, true, []);
-        this.paramsClosed = false;
-        this.allowRequiredParameters = true;
-    }
-
-    /**
-     * Set the command's name
-     * @param name - Name of the command
-     */
-    setName(name: string): this {
+    constructor(name: string) {
         if (/ /g.test(name))
             throw "Command name cannot contain a space";
-        this.name = name;
-        return this;
+        super(name, () => { }, [], null, null, true, []);
+        this.paramsClosed = false;
+        this.allowRequiredParameters = true;
     }
 
     /**

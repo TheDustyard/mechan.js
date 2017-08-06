@@ -13,6 +13,10 @@ export class CommandGroup {
      */
     public name: string;
     /**
+     * Fullname of the group
+     */
+    public fullname: string;
+    /**
      * Handler that handles the command
      */
     public handler: CommandHandler;
@@ -52,6 +56,8 @@ export class CommandGroup {
      * @param visible - Whether or not the command is visible in the default help menu
      */
     constructor(handler: CommandHandler, parent: CommandGroup, name: string, commands: Command[] = [], prechecks: PermissionCheck[] = [], category: string = null, visible: boolean = true) {
+        if (/ /g.test(name))
+            throw "Command group name cannot contain a space";
         this.handler = handler;
         this.parent = parent;
         this.commands = new Map<string, Command>();
@@ -63,14 +69,17 @@ export class CommandGroup {
         this.category = category;
         this.visible = visible;
         this.groups = new Map<string, CommandGroup>();
+        this.fullname = "";
     }
 
     private addCommand(command: Command): void {
-        this.commands.set(CommandParser.appendPrefix(this.name, command.name), command);
+        command.fullname = CommandParser.appendPrefix(this.fullname, command.name);
+        this.commands.set(CommandParser.appendPrefix(this.fullname, command.name), command);
     }
 
     private addGroup(group: CommandGroup): void {
-        this.groups.set(CommandParser.appendPrefix(this.name, group.name), group);
+        group.fullname = CommandParser.appendPrefix(this.fullname, group.name);
+        this.groups.set(CommandParser.appendPrefix(this.fullname, group.name), group);
     }
 
     /**
@@ -78,8 +87,7 @@ export class CommandGroup {
      * @param name - Name of the command
      */
     public createCommand(name: string): CommandBuilder {
-        let builder = new CommandBuilder()
-            .setName(name)
+        let builder = new CommandBuilder(name)
             .setCategory(this.category)
             .addChecks(this.prechecks);
         this.addCommand(builder);
@@ -102,26 +110,26 @@ export class CommandGroup {
     * Check if the module can run
     * @param context - Command context
     */
-    public canRun(context: CommandContext): [boolean, string] {
-        let error: string = null;
-        if (Array.from(this.commands.values()).length > 0) {
-            for (let cmd of Array.from(this.commands.values())) {
-                let [can, err] = cmd.canRun(context);
-                error = err;
-                if (can)
-                    return [true, null];
-            }
-        }
-        if (this.groups.size > 0) {
-            for (let item of this.groups) {
-                let [can, err] = item[1].canRun(context);
-                error = err;
-                if (can)
-                    return [true, null];
-            }
-        }
-        return [false, error];
-    }
+    //public canRun(context: CommandContext): [boolean, string] {
+    //    let error: string = null;
+    //    if (Array.from(this.commands.values()).length > 0) {
+    //        for (let cmd of Array.from(this.commands.values())) {
+    //            let [can, err] = cmd.canRun(context);
+    //            error = err;
+    //            if (can)
+    //                return [true, null];
+    //        }
+    //    }
+    //    if (this.groups.size > 0) {
+    //        for (let item of this.groups) {
+    //            let [can, err] = item[1].canRun(context);
+    //            error = err;
+    //            if (can)
+    //                return [true, null];
+    //        }
+    //    }
+    //    return [false, error];
+    //}
 
 }
 

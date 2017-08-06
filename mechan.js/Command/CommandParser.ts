@@ -3,7 +3,9 @@
     Command,
     CommandErrorType,
     CommandParameter,
-    ParameterType
+    ParameterType,
+    CommandHandler,
+    CommandContext
 } from "../";
 
 enum ParserPart {
@@ -13,7 +15,7 @@ enum ParserPart {
     DoubleQuotedParameter = "doubleQoutedParameter"
 };
 
-export class ParsedCommandInfo {
+export class ParsedCommand {
     /**
      * If the command parsing succeeded
      */
@@ -21,11 +23,11 @@ export class ParsedCommandInfo {
     /**
      * Commands parsed out
      */
-    commands: Command[];
+    command: Command;
     /**
-     * End position
+     * Arguments string
      */
-    endPos: number;
+    args: string;
 
     /**
      * Create an instance
@@ -33,14 +35,14 @@ export class ParsedCommandInfo {
      * @param commands - Commands parsed out
      * @param endPos - End position
      */
-    constructor(wasSuccess: boolean, commands: Command[], endPos: number) {
+    constructor(wasSuccess: boolean, command: Command, args: string) {
         this.wasSuccess = wasSuccess;
-        this.commands = commands;
-        this.endPos = endPos;
+        this.command = command;
+        this.args = args;
     }
 };
 
-export class ParsedArgsInfo {
+export class ParsedArgs {
     /**
      * Error type
      */
@@ -64,44 +66,57 @@ export class ParsedArgsInfo {
 
 export class CommandParser {
 
-    public static ParseCommand(input: string, group: CommandGroup): ParsedCommandInfo {
-        let startPosition: number = 0;
-        let endPosition: number = 0;
-        let inputLength: number = input.length;
-        let isEscaped: boolean = false;
-        let commands: Command[] = null;
-        let endPos: number = 0;
+    public static parseCommand(input: string, root: CommandGroup): ParsedCommand {
 
-        if (input == "")
-            return new ParsedCommandInfo(false, commands, endPos);
-
-        while (endPosition < inputLength) {
-            let currentChar: string = input[endPosition++];
-            if (isEscaped)
-                isEscaped = false;
-            else if (currentChar == '\\')
-                isEscaped = true;
-            let isWhitespace: boolean = CommandParser.IsWhiteSpace(currentChar);
-
-            if ((!isEscaped && isWhitespace) || endPosition >= inputLength) {
-                let length: number = (isWhitespace ? endPosition - 1 : endPosition) - startPosition;
-                let temp: string = input.substring(startPosition, length);
-                if (temp == "")
-                    startPosition = endPosition;
-                else {
-                    //var newGroup = group.getItem(0, temp.split(' '));
-                    //if (newGroup != null) {
-                    //    group = newGroup;
-                    //    endPos = endPosition;
-                    //}
-                    //else
-                    //    break;
-                    //startPosition = endPosition;
-                }
-            }
+        if (input === "") {
+            return new ParsedCommand(false, null, input);
         }
-        //commands = group.getCommands();
-        return new ParsedCommandInfo(commands != null, commands, endPos);
+
+        let commands: Command[] = CommandParser.getCommands(root);
+        let command: Command = null;
+
+        // Sort alphabetically
+        commands = commands.sort(function (a, b) {
+            return a.fullname.localeCompare(b.fullname);
+        });
+
+        /// Get commands that match string
+        commands = commands.filter((item) => {
+            return input.startsWith(item.fullname);
+        });
+        
+        // Sort by length
+        commands = commands.sort(function (a, b) {
+            return b.fullname.length - a.fullname.length;
+        });
+
+        // Break if no command found
+        if (commands.length === 0) {
+            return new ParsedCommand(false, null, input);
+        }
+
+        // Get command that matches for the most characters
+        command = commands[0];
+
+        // Break if no command found
+        if (!command) {
+            return new ParsedCommand(false, null, input);
+        }
+
+        return new ParsedCommand(true, command, input.replace(command.fullname, "").trim());
+    }
+
+    private static getCommands(commandgroup: CommandGroup): Command[] {
+        let commands: Command[] = [];
+        for (let command of commandgroup.commands.values()) {
+            commands.push(command);
+        }
+        for (let group of commandgroup.groups.values()) {
+            this.getCommands(group).forEach((value: Command, index: number, array: Command[]) => {
+                commands.push(value);
+            });
+        }
+        return commands;
     }
 
     /**
@@ -112,12 +127,12 @@ export class CommandParser {
         return c == ' ' || c == '\n' || c == '\r' || c == '\t'
     };
 
-    public static ParseArgs(input: string, startPos: number, command: Command): ParsedArgsInfo {
+    public static parseArgs(input: string, command: Command): ParsedArgs {
         let args: string[];
 
         let currentPart: ParserPart = ParserPart.None;
-        let startPosition: number = startPos;
-        let endPosition: number = startPos;
+        let startPosition: number = 0;
+        let endPosition: number = 0;
         let inputLength: number = input.length;
         let isEscaped: boolean = false;
 
@@ -127,13 +142,17 @@ export class CommandParser {
 
         args = null;
 
+        if (command.parameters.length === 0 && input == "") {
+            return new ParsedArgs(null, []);
+        }
+
         if (input == "")
-            return new ParsedArgsInfo(CommandErrorType.InvalidInput, null);
+            return new ParsedArgs(CommandErrorType.InvalidInput, null);
 
         while (endPosition < inputLength) {
             if (startPosition == endPosition && (parameter == null || parameter.type != ParameterType.Multiple)) { //Is first char of a new arg
                 if (argList.length >= expectedArgs.length)
-                    return new ParsedArgsInfo(CommandErrorType.BadArgCount, null); //Too many args
+                    return new ParsedArgs(CommandErrorType.BadArgCount, null); //Too many args
                 parameter = expectedArgs[argList.length];
                 if (parameter.type == ParameterType.Unparsed) {
                     argList.push(input.substring(startPosition));
@@ -184,7 +203,7 @@ export class CommandParser {
                         startPosition = endPosition;
                     }
                     else if (endPosition >= inputLength)
-                        return new ParsedArgsInfo(CommandErrorType.InvalidInput, null);
+                        return new ParsedArgs(CommandErrorType.InvalidInput, null);
                     break;
                 case ParserPart.DoubleQuotedParameter:
                     if ((!isEscaped && currentChar == '\"')) {
@@ -194,21 +213,21 @@ export class CommandParser {
                         startPosition = endPosition;
                     }
                     else if (endPosition >= inputLength)
-                        return new ParsedArgsInfo(CommandErrorType.InvalidInput, null);
+                        return new ParsedArgs(CommandErrorType.InvalidInput, null);
                     break;
             }
         }
 
         //Unclosed quotes
         if (currentPart == ParserPart.QuotedParameter || currentPart == ParserPart.DoubleQuotedParameter)
-            return new ParsedArgsInfo(CommandErrorType.InvalidInput, null);
+            return new ParsedArgs(CommandErrorType.InvalidInput, null);
 
         //Too few args
         for (let i: number = argList.length; i < expectedArgs.length; i++) {
             var param = expectedArgs[i];
             switch (param.type) {
                 case ParameterType.Required:
-                    return new ParsedArgsInfo(CommandErrorType.BadArgCount, null);
+                    return new ParsedArgs(CommandErrorType.BadArgCount, null);
                 case ParameterType.Optional:
                 case ParameterType.Unparsed:
                     argList.push("");
@@ -223,7 +242,7 @@ export class CommandParser {
         }*/
 
         args = argList;
-        return new ParsedArgsInfo(null, args);
+        return new ParsedArgs(null, args);
     }
 
     static appendPrefix(prefix: string, cmd: string): string {

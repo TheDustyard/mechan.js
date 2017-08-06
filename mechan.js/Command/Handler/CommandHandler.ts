@@ -45,7 +45,7 @@ export class CommandHandler extends EventEmitter /*extends CommandHandlerEvents*
         },
         failure: (handler: CommandHandler, context: CommandErrorContext) => {
             this.emit('failure', handler, context);
-            this.console.error(`${context.command.name} failed execution, caused by: ${CommandErrorType[context.errorType]}`, context.error);
+            this.console.error(`${context.command.name} failed execution`, context.error);
         }
     };
 
@@ -67,15 +67,61 @@ export class CommandHandler extends EventEmitter /*extends CommandHandlerEvents*
             // ADD HELP COMMAND
         }
 
-
         client.on('message', (message) => {
             //console.log(this.root);
+
+            if (this.config.isSelfBot && client.user.id != message.author.id)
+                return;
+
+            let messagecontent = message.content;
+
+            console.log(["recieved message", messagecontent]);
+
+            let prefixed = messagecontent.startsWith(this.config.prefix);
+            let mentionprefixed = messagecontent.startsWith(this.client.user.toString());
+
+            if (prefixed || mentionprefixed) {
+                if (prefixed) {
+                    messagecontent = messagecontent.replace(this.config.prefix, "");
+                } else if (mentionprefixed) {
+                    messagecontent = messagecontent.replace(this.client.user.toString(), "");
+                }
+
+                console.log(["recieved command", messagecontent]);
+
+                let parsedcommand = CommandParser.parseCommand(messagecontent, this.root);
+
+                if (!parsedcommand.wasSuccess)
+                    return;
+
+                console.log(["parsed command", parsedcommand.command]);
+
+                let parsedargs = CommandParser.parseArgs(parsedcommand.args, parsedcommand.command);
+
+                if (parsedargs.error) {
+                    this.console.failure(this, new CommandErrorContext(new Error(parsedargs.error), parsedargs.error, new CommandContext(message, parsedcommand.command, null, this)))
+                    return;
+                }
+
+                console.log(["parsed args", parsedargs.args]);
+
+                let context = new CommandContext(message, parsedcommand.command, parsedargs.args, this);
+
+                parsedcommand.command.canRun(context);
+
+                try {
+                    parsedcommand.command.callback(context);
+                } catch (e) {
+                    this.console.failure(this, new CommandErrorContext(e, CommandErrorType.Error, context))
+                }
+            }
+
         });
 
         return client;
     }
 
-    public createGroup(cmd: string, config: (CommandGroupBuilder) => void = null): CommandGroupBuilder {
+    public createGroup(cmd: string, config: (group: CommandGroupBuilder) => void = null): CommandGroupBuilder {
        return this.root.createGroup(cmd, config);
     };
 

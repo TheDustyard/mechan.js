@@ -2,41 +2,6 @@ const Settings = require('./settings.json');
 const Mechan = require('../mechan.js');
 const client = new Mechan.Discord.Client();
 
-//console.log(Mechan);
-
-//var handler = new Mechan.CommandHandler(
-//    new Mechan.CommandHandlerConfigBuilder()
-//        .isNotSelfBot()
-//        .setHelpMode(Mechan.HelpMode.Private)
-//        .setPrefixChar('.')
-//    );
-//handler.on('failure', (handler, context) => console.error(context));
-//handler.on('success', (handler, context) => console.log(context));
-
-//handler.install(Client);
-
-////console.log(Mechan.version);
-
-//let builder = handler.createCommand('dank')
-//    .addParameter(new Mechan.CommandParameter("name", Mechan.ParameterType.Required))
-//    .addParameter(new Mechan.CommandParameter("desc", Mechan.ParameterType.Unparsed))
-//    .setCallback(context => {
-//        console.log("ran: " + context.user.username);
-//    });
-
-////console.log(Mechan.HelpMode);
-
-//var command = handler.createCommand('example')
-//    .setDescription('useful command desc')
-//    .setCategory('examples')
-//    .show()
-//    .addParameter(new Mechan.CommandParameter('param 1', Mechan.ParameterType.Optional));
-
-//handler.addCommand(builder);
-//handler.addCommand(command);
-
-//Client.login(Settings.token);
-
 var handler = new Mechan.CommandHandler({
     prefix: 'd.',
     helpMode: Mechan.HelpMode.Public
@@ -44,24 +9,48 @@ var handler = new Mechan.CommandHandler({
 
 handler.on('debug', console.log);
 handler.on('warn', console.warn);
-handler.on('error', (message, error) => console.error(message + "\n\n" + error));
+handler.on('error', (message, error) => console.error(message + "\n" + error));
 
 var commamamammamma = null;
 
 //// NOTICE PLEASE DO NOT KILL ME NOW
 handler.createGroup("killmenow", (newgroup) => {
+    newgroup.createCommand("z")
+        .addParameter("action", 'required')
+        .addParameter("to", "required")
+        .addParameter("action", "unparsed")
+        .setCallback((context) => {
+            console.log(context.command.fullname);
+        });
+
     newgroup.createGroup("please", (newergroup) => {
         commamamammamma =
             newergroup.createCommand("jeff")
                 .addParameter("person", 'required')
                 .addParameter("action", "required")
-                .addParameter("noun", "unparsed");
+                .addParameter("noun", "unparsed")
+                .setCallback((context) => {
+                    console.log(context.command.fullname);
+                });
     });
+
+    newgroup.createCommand("please")
+        .setCallback((context) => {
+            console.log(context.command.fullname);
+        });
 });
 
-console.warn(Mechan.CommandParser.ParseArgs('meme "did studds sdfsd fsag sgfs dfgs" peter piper picke a pickeled pepper', 0, commamamammamma));
+handler.createCommand("heman")
+    .setCategory("yth0")
+    .setCallback((context) => {
+        console.log("HEYA");
+    });
 
-console.warn(Mechan.CommandParser.ParseCommand('killmenow please jeff reeeeeeeeeeeeeeeeeeeeeeeeeeeeee', handler.root));
+//console.warn(Mechan.CommandParser.ParseArgs('meme "did studds sdfsd fsag sgfs dfgs" peter piper picke a pickeled pepper', 0, commamamammamma));
+
+console.warn(Mechan.CommandParser.parseCommand('killmenow please jeff reeeeeeeeeeeeeeeeeeeeeeeeeeeeee', handler.root));
+console.warn(Mechan.CommandParser.parseCommand('heman reeeeeeeeeeeeeeeeeeeeeeeeeeeeee', handler.root));
+console.warn(Mechan.CommandParser.parseCommand('killmenow please reeeeeeeeeeeeeeeeeeeeeeeeeeeeee', handler.root));
 
 console.log(handler);
 
