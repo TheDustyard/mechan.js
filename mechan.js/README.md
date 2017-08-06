@@ -9,11 +9,10 @@
       <img src="https://img.shields.io/npm/v/mechan.js.svg?maxAge=3600" alt="NPM version" />
       <img src="https://img.shields.io/npm/dt/mechan.js.svg?maxAge=3600&colorB=1081C2" alt="NPM downloads" />
     </a>
+	<br>
     <a href="https://github.com/DusterTheFirst/mechan.js/graphs/contributors"><img src="https://img.shields.io/github/contributors/DusterTheFirst/mechan.js.svg"></a>
     <a href="https://github.com/DusterTheFirst/mechan.js/blob/master/Licence"><img src="https://img.shields.io/github/license/DusterTheFirst/mechan.js.svg"></a>
     <br>
-    <a href="https://codeclimate.com/github/DusterTheFirst/mechan.js"><img src="https://codeclimate.com/github/DusterTheFirst/mechan.js/badges/gpa.svg"/></a>
-    <a href="https://codeclimate.com/github/DusterTheFirst/mechan.js"><img src="https://codeclimate.com/github/DusterTheFirst/mechan.js/badges/issue_count.svg" /></a>
     <a href="https://github.com/DusterTheFirst/mechan.js/issues"><img src="https://img.shields.io/github/issues/DusterTheFirst/mechan.js.svg"/></a>
     <a href="https://github.com/DusterTheFirst/mechan.js/pulls"><img src="https://img.shields.io/github/issues-pr/DusterTheFirst/mechan.js.svg"/></a>
 	<br>
