@@ -1,45 +1,136 @@
 <!doctype html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>🔒 Locked until release 🔒</title>
+    <head>
+        <meta charset="utf-8">
+        <title>🔒 Locked until release 🔒</title>
 
-<!-- Css -->
-<link rel="stylesheet" type="text/css" href="main.css">
-<link rel="stylesheet" type="text/css" href="nav.css">
-<link rel="stylesheet" type="text/css" href="other.css">
-<!-- Icon -->
-<link rel="icon" type="image/png" href="images/icon.png" sizes="16x16">
-<link rel="icon" type="image/png" href="images/icon.png" sizes="32x32">
-<!-- Font -->
-<link href="https://fonts.googleapis.com/css?family=Zilla+Slab" rel="stylesheet">
+        <!-- Css -->
+        <link rel="stylesheet" type="text/css" href="main.css">
+        <link rel="stylesheet" type="text/css" href="nav.css">
+        <link rel="stylesheet" type="text/css" href="other.css">
+        <!-- Icon -->
+        <link rel="icon" type="image/png" href="images/icon.png" sizes="16x16">
+        <link rel="icon" type="image/png" href="images/icon.png" sizes="32x32">
+        <!-- Font -->
+        <link href="https://fonts.googleapis.com/css?family=Zilla+Slab" rel="stylesheet">
 
-<style>
-#right {
-	float:right
-}
-#left {
-	float:left
-}
-#center {
-	text-align:center;
-	float:right
-}
-.card {
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-}
-.card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-.container {
-    padding: 2px 16px;
-}
+        <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+        
+        <style>
+            #right {
+                float:right
+            }
+            #left {
+                float:left
+            }
+            #center {
+                text-align:center;
+                float:right
+            }
+            .card {
+                box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+                transition: 0.3s;
+            }
+            .card:hover {
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            }
+            .container {
+                padding: 2px 16px;
+            }
+        </style>
+    </head>
 
-</style>
-</head>
+    <body>
+        🔒 Locked until release 🔒
+        <pre class="prettyprint lang-js">
+const Settings = require('./settings.json');
+const Mechan = require('../mechan.js');
+const client = new Mechan.Discord.Client();
 
-<body>
-🔒 Locked until release 🔒
-</body>
+
+//  Initialise a command handler
+var handler = new Mechan.CommandHandler({
+    prefix: 'd.',
+    helpMode: Mechan.HelpMode.Public
+});
+
+//  Events from the command handler
+/*
+ * Events invlude:
+ *     Debug
+ *     Warn
+ *     Error
+ *     Failure
+ *     Success
+ */
+handler.on('debug', console.log);
+handler.on('warn', console.warn);
+handler.on('error', (message, error) => console.error(message + "\n" + error));
+handler.on('failure', (handler, context) => context.channel.send(context.error.message));
+
+//  Create a command group
+handler.createGroup("send", (a) => {
+    a.createCommand("to")
+        .addParameter("user", 'required')
+        .addParameter("message", "unparsed")
+        .setCallback((context) => {
+            //  Get member from name
+            let member = context.message.guild.members.find(x => x.displayName.toLowerCase() === context.args[0].toLowerCase()
+                || x.user.username.toLowerCase() === context.args[0].toLowerCase());
+            if (!member) {
+                context.channel.send(`member ${context.args[0]} not found`);
+                return;
+            }
+            member.send(context.args[1]);
+            context.channel.send(`sent your message to ${member.user.tag}`);
+        });
+
+    //  Create a group inside a group
+    a.createGroup("thanks", (b) => {
+        b.createCommand("to")
+            .addParameter("user", 'required')
+            .setCallback((context) => {
+                //  Get member from name
+                let member = context.message.guild.members.find(x => x.displayName.toLowerCase() === context.args[0].toLowerCase()
+                    || x.user.username.toLowerCase() === context.args[0].toLowerCase());
+                if (!member) {
+                    context.channel.send(`member ${context.args[0]} not found`);
+                    return;
+                }
+                member.send("thx m8");
+                context.channel.send(`sent your thanks to ${member.user.tag}`);
+            });
+    });
+
+    //  Groups and commands can have the same name
+    a.createCommand("thanks")
+        .setCallback((context) => {
+            context.user.send("thanks m8");
+            context.channel.send(`sent you your thanks`);
+        });
+});
+
+//  Create a command in the base group
+handler.createCommand("heman")
+    .setCategory("yth0")
+    .addCheck((context) => {
+        if (context.user.id === "168827261682843648")
+            return {
+                canRun: true
+            };
+        else
+            return {
+                canRun: false,
+                message: "You must be Dadster to run this command"
+            };
+    })
+    .setCallback((context) => {
+        context.channel.send("HEYA");
+    });
+
+//  Install the handler onto the client and login
+handler.install(client)
+    .login(Settings.token);
+        </pre>
+    </body>
 </html>
