@@ -1,4 +1,10 @@
-﻿import { User, Message, Channel } from 'discord.js';
+﻿import {
+    User,
+    Message,
+    TextChannel,
+    DMChannel,
+    GroupDMChannel
+} from 'discord.js';
 import {
     Command,
     CommandHandler
@@ -16,7 +22,7 @@ export class CommandContext {
     /**
      * Channel that the command was run in
      */
-    public channel: Channel;
+    public channel: TextChannel | DMChannel | GroupDMChannel;
     /**
      * Comamnd that was called
      */

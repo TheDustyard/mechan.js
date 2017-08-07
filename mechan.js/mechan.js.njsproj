@@ -50,32 +50,6 @@
     <TypeScriptCompile Include="Command\Command.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <None Include="Obsolete\CommandHandler\CommandHandler.ts.old">
-    </None>
-    <None Include="Obsolete\CommandHandler\CommandHandlerConfig.ts.old">
-    </None>
-    <None Include="Obsolete\Command\Command.ts.old">
-    </None>
-    <None Include="Obsolete\Command\CommandBuilder.ts.old">
-    </None>
-    <None Include="Obsolete\Command\CommandContext.ts.old">
-    </None>
-    <None Include="Obsolete\Command\CommandErrorContext.ts.old">
-    </None>
-    <None Include="Obsolete\Command\CommandGroup.ts.old">
-    </None>
-    <None Include="Obsolete\Command\CommandMap.ts.old">
-    </None>
-    <None Include="Obsolete\Command\CommandParser.ts.old">
-    </None>
-    <None Include="Obsolete\Command\Parameters\CommandParameters.ts.old">
-    </None>
-    <None Include="Obsolete\Command\Parameters\ParameterType.ts.old">
-    </None>
-    <None Include="Obsolete\Command\HelpMode.ts.old">
-    </None>
-    <None Include="Obsolete\Command\Permissions\PermissionCheck.ts.old">
-    </None>
     <TypeScriptCompile Include="Command\CommandContext.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -94,9 +68,6 @@
     <TypeScriptCompile Include="Command\Handler\CommandHandler.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Include="Command\Handler\Commands\Help.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
     <TypeScriptCompile Include="Command\Handler\HelpMode.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -112,13 +83,7 @@
   <ItemGroup>
     <Folder Include="Command\" />
     <Folder Include="Command\Handler\" />
-    <Folder Include="Command\Handler\Commands\" />
     <Folder Include="Command\Permissions\" />
-    <Folder Include="Obsolete\Command\Parameters\" />
-    <Folder Include="Obsolete\CommandHandler\" />
-    <Folder Include="Obsolete\Command\" />
-    <Folder Include="Obsolete\Command\Permissions\" />
-    <Folder Include="Obsolete\" />
     <Folder Include="typings\" />
     <Folder Include="typings\node\" />
   </ItemGroup>

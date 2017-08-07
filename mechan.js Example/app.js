@@ -2,57 +2,87 @@ const Settings = require('./settings.json');
 const Mechan = require('../mechan.js');
 const client = new Mechan.Discord.Client();
 
+
+//  Initialise a command handler
 var handler = new Mechan.CommandHandler({
     prefix: 'd.',
     helpMode: Mechan.HelpMode.Public
 });
 
+//  Events from the command handler
+/*
+ * Events invlude:
+ *     Debug
+ *     Warn
+ *     Error
+ *     Failure
+ *     Success
+ */
 handler.on('debug', console.log);
 handler.on('warn', console.warn);
 handler.on('error', (message, error) => console.error(message + "\n" + error));
+handler.on('failure', (handler, context) => context.channel.send(context.error.message));
 
-var commamamammamma = null;
-
-//// NOTICE PLEASE DO NOT KILL ME NOW
-handler.createGroup("killmenow", (newgroup) => {
-    newgroup.createCommand("z")
-        .addParameter("action", 'required')
-        .addParameter("to", "required")
-        .addParameter("action", "unparsed")
+//  Create a command group
+handler.createGroup("send", (a) => {
+    a.createCommand("to")
+        .addParameter("user", 'required')
+        .addParameter("message", "unparsed")
         .setCallback((context) => {
-            console.log(context.command.fullname);
+            //  Get member from name
+            let member = context.message.guild.members.find(x => x.displayName.toLowerCase() === context.args[0].toLowerCase()
+                || x.user.username.toLowerCase() === context.args[0].toLowerCase());
+            if (!member) {
+                context.channel.send(`member ${context.args[0]} not found`);
+                return;
+            }
+            member.send(context.args[1]);
+            context.channel.send(`sent your message to ${member.user.tag}`);
         });
 
-    newgroup.createGroup("please", (newergroup) => {
-        commamamammamma =
-            newergroup.createCommand("jeff")
-                .addParameter("person", 'required')
-                .addParameter("action", "required")
-                .addParameter("noun", "unparsed")
-                .setCallback((context) => {
-                    console.log(context.command.fullname);
-                });
+    //  Create a group inside a group
+    a.createGroup("thanks", (b) => {
+        b.createCommand("to")
+            .addParameter("user", 'required')
+            .setCallback((context) => {
+                //  Get member from name
+                let member = context.message.guild.members.find(x => x.displayName.toLowerCase() === context.args[0].toLowerCase()
+                    || x.user.username.toLowerCase() === context.args[0].toLowerCase());
+                if (!member) {
+                    context.channel.send(`member ${context.args[0]} not found`);
+                    return;
+                }
+                member.send("thx m8");
+                context.channel.send(`sent your thanks to ${member.user.tag}`);
+            });
     });
 
-    newgroup.createCommand("please")
+    //  Groups and commands can have the same name
+    a.createCommand("thanks")
         .setCallback((context) => {
-            console.log(context.command.fullname);
+            context.user.send("thanks m8");
+            context.channel.send(`sent you your thanks`);
         });
 });
 
+//  Create a command in the base group
 handler.createCommand("heman")
     .setCategory("yth0")
+    .addCheck((context) => {
+        if (context.user.id === "168827261682843648")
+            return {
+                canRun: true
+            };
+        else
+            return {
+                canRun: false,
+                message: "You must be Dadster to run this command"
+            };
+    })
     .setCallback((context) => {
-        console.log("HEYA");
+        context.channel.send("HEYA");
     });
 
-//console.warn(Mechan.CommandParser.ParseArgs('meme "did studds sdfsd fsag sgfs dfgs" peter piper picke a pickeled pepper', 0, commamamammamma));
-
-console.warn(Mechan.CommandParser.parseCommand('killmenow please jeff reeeeeeeeeeeeeeeeeeeeeeeeeeeeee', handler.root));
-console.warn(Mechan.CommandParser.parseCommand('heman reeeeeeeeeeeeeeeeeeeeeeeeeeeeee', handler.root));
-console.warn(Mechan.CommandParser.parseCommand('killmenow please reeeeeeeeeeeeeeeeeeeeeeeeeeeeee', handler.root));
-
-console.log(handler);
-
+//  Install the handler onto the client and login
 handler.install(client)
     .login(Settings.token);

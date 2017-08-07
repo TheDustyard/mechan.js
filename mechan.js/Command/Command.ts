@@ -2,7 +2,8 @@
     CommandContext,
     CommandParameter,
     PermissionCheck,
-    ParameterType
+    ParameterType,
+    PermissionCheckResult
 } from '../';
 import { User, TextChannel } from 'discord.js';
 
@@ -51,6 +52,11 @@ export class Command {
      * @param hidden - Whether or not the command is visible in the default help menu
      */
     constructor(name: string, callback: (event: CommandContext) => void, parameters: CommandParameter[], description: string = '', category: string = '', visible: boolean = true, checks: PermissionCheck[] = []) {
+        if (/ /g.test(name))
+            throw "Command name cannot contain a space";
+        if (name === "" || name === null || name === undefined)
+            throw "Command must have a name";
+
         this.name = name;
         this.callback = callback;
         this.parameters = parameters;
@@ -65,13 +71,19 @@ export class Command {
      * Checks all permission checks and verifies if a command can be run
      * @param context - The context for the command
      */
-    canRun(context: CommandContext): [boolean, string] {
+    canRun(context: CommandContext): PermissionCheckResult {
         for (let i: number = 0; i < this.checks.length; i++) {
-            let [can, err] = this.checks[i](context)
-            if (!can)
-                return [false, err];
+            let result = this.checks[i](context)
+            if (!result.canRun)
+                return {
+                    canRun: false,
+                    message: result.message
+                };
         }
-        return [true, null];
+        return {
+            canRun: true,
+            message: null
+        };
     }
 }
 
@@ -83,8 +95,6 @@ export class CommandBuilder extends Command {
      * Create a command builder
      */
     constructor(name: string) {
-        if (/ /g.test(name))
-            throw "Command name cannot contain a space";
         super(name, () => { }, [], null, null, true, []);
         this.paramsClosed = false;
         this.allowRequiredParameters = true;

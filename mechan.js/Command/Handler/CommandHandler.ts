@@ -29,6 +29,9 @@ export type CommandHandlerConfig = {
 };
 
 export class CommandHandler extends EventEmitter /*extends CommandHandlerEvents*/ {
+    /**
+     * Custom logger
+     */
     private console = {
         log: (message: string) => {
             this.emit('debug', message);
@@ -41,25 +44,46 @@ export class CommandHandler extends EventEmitter /*extends CommandHandlerEvents*
         },
         success: (handler: CommandHandler, context: CommandContext) => {
             this.emit('success', handler, context);
-            this.console.log(`${context.command.name} executed successfully`);
+            this.console.log(`${context.command.fullname} executed successfully`);
         },
         failure: (handler: CommandHandler, context: CommandErrorContext) => {
             this.emit('failure', handler, context);
-            this.console.error(`${context.command.name} failed execution`, context.error);
+            try {
+                this.console.error(`${context.command.fullname} failed execution`, context.error);
+            } catch (e) {
+
+            }
         }
     };
 
+    /**
+     * Handler config
+     */
     public config: CommandHandlerConfig;
 
+    /**
+     * Root group for the handler
+     */
     public root: CommandGroupBuilder;
+    /**
+     * Client to handle
+     */
     public client: Client;
 
+    /**
+     * Create a command handler
+     * @param config - Configuration for the handler
+     */
     constructor(config: CommandHandlerConfig) {
         super();
         this.config = config;
         this.root = new CommandGroupBuilder(this);
     }
 
+    /**
+     * Install the handler onto Discord.js
+     * @param client - Client to handle
+     */
     public install(client: Client): Client {
         this.client = client;
 
@@ -68,14 +92,11 @@ export class CommandHandler extends EventEmitter /*extends CommandHandlerEvents*
         }
 
         client.on('message', (message) => {
-            //console.log(this.root);
 
             if (this.config.isSelfBot && client.user.id != message.author.id)
                 return;
 
             let messagecontent = message.content;
-
-            console.log(["recieved message", messagecontent]);
 
             let prefixed = messagecontent.startsWith(this.config.prefix);
             let mentionprefixed = messagecontent.startsWith(this.client.user.toString());
@@ -87,14 +108,12 @@ export class CommandHandler extends EventEmitter /*extends CommandHandlerEvents*
                     messagecontent = messagecontent.replace(this.client.user.toString(), "");
                 }
 
-                console.log(["recieved command", messagecontent]);
-
                 let parsedcommand = CommandParser.parseCommand(messagecontent, this.root);
 
-                if (!parsedcommand.wasSuccess)
+                if (!parsedcommand.wasSuccess) {
+                    this.console.failure(this, new CommandErrorContext(new Error("Unknow command"), CommandErrorType.UnknownCommand, new CommandContext(message, null, null, this)));
                     return;
-
-                console.log(["parsed command", parsedcommand.command]);
+                }
 
                 let parsedargs = CommandParser.parseArgs(parsedcommand.args, parsedcommand.command);
 
@@ -102,12 +121,16 @@ export class CommandHandler extends EventEmitter /*extends CommandHandlerEvents*
                     this.console.failure(this, new CommandErrorContext(new Error(parsedargs.error), parsedargs.error, new CommandContext(message, parsedcommand.command, null, this)))
                     return;
                 }
-
-                console.log(["parsed args", parsedargs.args]);
+                
 
                 let context = new CommandContext(message, parsedcommand.command, parsedargs.args, this);
 
-                parsedcommand.command.canRun(context);
+                let canRun = parsedcommand.command.canRun(context);
+
+                if (!canRun.canRun) {
+                    this.console.failure(this, new CommandErrorContext(new Error(canRun.message), CommandErrorType.BadPermissions, context));
+                    return
+                }
 
                 try {
                     parsedcommand.command.callback(context);
@@ -121,12 +144,38 @@ export class CommandHandler extends EventEmitter /*extends CommandHandlerEvents*
         return client;
     }
 
-    public createGroup(cmd: string, config: (group: CommandGroupBuilder) => void = null): CommandGroupBuilder {
-       return this.root.createGroup(cmd, config);
-    };
+    /**
+     * Create a command group for the handler
+     * @param name - Command group name
+     * @param callback - Callback to initialise all the commands in
+     */
+    public createGroup(name: string, callback: (group: CommandGroupBuilder) => void = null): CommandGroupBuilder {
+       return this.root.createGroup(name, callback);
+    }
 
+    /**
+     * Create a command for the handler
+     * @param cmd - Command name
+     */
     public createCommand(cmd: string): CommandBuilder {
         return this.root.createCommand(cmd);
+    }
+
+    /**
+     * Load commands or groups from a file
+     * @param filename - File to load from
+     */
+    private loadFromFile(filename: string): void {
+        throw "NOT SUPPORTED";
+    }
+
+    /**
+     * Load commands or groups from a directory
+     * @param dir - Directory to search
+     * @param depth - Depth of folders to search in
+     */
+    private loadFromDirectory(dir: string, depth: number = 1): void {
+        throw "NOT SUPPORTED";
     }
 
 }

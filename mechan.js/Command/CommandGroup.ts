@@ -58,6 +58,8 @@ export class CommandGroup {
     constructor(handler: CommandHandler, parent: CommandGroup, name: string, commands: Command[] = [], prechecks: PermissionCheck[] = [], category: string = null, visible: boolean = true) {
         if (/ /g.test(name))
             throw "Command group name cannot contain a space";
+        if ((name === "" || name === null || name === undefined) && parent !== null)
+            throw "Command group must have a name";
         this.handler = handler;
         this.parent = parent;
         this.commands = new Map<string, Command>();
@@ -74,12 +76,18 @@ export class CommandGroup {
 
     private addCommand(command: Command): void {
         command.fullname = CommandParser.appendPrefix(this.fullname, command.name);
-        this.commands.set(CommandParser.appendPrefix(this.fullname, command.name), command);
+        if (this.commands.has(command.fullname)) {
+            throw `Command ${command.fullname} already exists, cannot be added to group '${this.fullname || "Base group"}'`;
+        }
+        this.commands.set(command.fullname, command);
     }
 
     private addGroup(group: CommandGroup): void {
         group.fullname = CommandParser.appendPrefix(this.fullname, group.name);
-        this.groups.set(CommandParser.appendPrefix(this.fullname, group.name), group);
+        if (this.groups.has(group.fullname)) {
+            throw `Group ${group.fullname} already exists, cannot be added to group '${this.fullname || "Base group"}'`;
+        }
+        this.groups.set(group.fullname, group);
     }
 
     /**
@@ -105,31 +113,6 @@ export class CommandGroup {
             callback(builder);
         return builder;
     }
-
-    /**
-    * Check if the module can run
-    * @param context - Command context
-    */
-    //public canRun(context: CommandContext): [boolean, string] {
-    //    let error: string = null;
-    //    if (Array.from(this.commands.values()).length > 0) {
-    //        for (let cmd of Array.from(this.commands.values())) {
-    //            let [can, err] = cmd.canRun(context);
-    //            error = err;
-    //            if (can)
-    //                return [true, null];
-    //        }
-    //    }
-    //    if (this.groups.size > 0) {
-    //        for (let item of this.groups) {
-    //            let [can, err] = item[1].canRun(context);
-    //            error = err;
-    //            if (can)
-    //                return [true, null];
-    //        }
-    //    }
-    //    return [false, error];
-    //}
 
 }
 
