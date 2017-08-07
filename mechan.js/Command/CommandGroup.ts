@@ -37,7 +37,7 @@ export class CommandGroup {
      */
     public prechecks: PermissionCheck[];
     /**
-     * Category the command fits into
+     * Category the group fits into
      */
     public category: string;
     /**

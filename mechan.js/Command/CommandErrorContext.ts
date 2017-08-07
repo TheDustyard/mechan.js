@@ -5,11 +5,11 @@
 } from '../';
 
 export enum CommandErrorType {
-    Error = "error",
-    UnknownCommand = "unknownCommand",
-    BadPermissions = "badPermissions",
-    BadArgCount = "badArgsCount",
-    InvalidInput = "invalidInput"
+    Error = "Error",
+    UnknownCommand = "Unknown command",
+    BadPermissions = "Missing permissions",
+    BadArgCount = "Bad args count",
+    InvalidInput = "Invalid input"
 }
 
 export class CommandErrorContext extends CommandContext {

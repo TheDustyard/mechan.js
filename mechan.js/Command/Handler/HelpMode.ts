@@ -2,13 +2,13 @@
     /**
      * Disable the automatic help command.
      */
-    Disabled = "disabled",
+    Disabled = "Disabled",
     /**
      * Use the automatic help command and respond in the channel the command is used.
      */
-    Public = "public",
+    Public = "Public",
     /**
      * Use the automatic help command and respond in a private message.
      */
-    Private = "private"
+    Private = "Private"
 }

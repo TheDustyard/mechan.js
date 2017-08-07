@@ -106,7 +106,7 @@ export class CommandParser {
         return new ParsedCommand(true, command, input.replace(command.fullname, "").trim());
     }
 
-    private static getCommands(commandgroup: CommandGroup): Command[] {
+    public static getCommands(commandgroup: CommandGroup): Command[] {
         let commands: Command[] = [];
         for (let command of commandgroup.commands.values()) {
             commands.push(command);
@@ -117,6 +117,19 @@ export class CommandParser {
             });
         }
         return commands;
+    }
+
+    public static getGroups(commandgroup: CommandGroup): CommandGroup[] {
+        let groups: CommandGroup[] = [];
+        for (let group of commandgroup.groups.values()) {
+            groups.push(group);
+        }
+        for (let group of commandgroup.groups.values()) {
+            this.getGroups(group).forEach((value) => {
+                groups.push(value);
+            });
+        }
+        return groups;
     }
 
     /**
@@ -146,8 +159,8 @@ export class CommandParser {
             return new ParsedArgs(null, []);
         }
 
-        if (input == "")
-            return new ParsedArgs(CommandErrorType.InvalidInput, null);
+        //if (input == "")
+        //    return new ParsedArgs(CommandErrorType.InvalidInput, null);
 
         while (endPosition < inputLength) {
             if (startPosition == endPosition && (parameter == null || parameter.type != ParameterType.Multiple)) { //Is first char of a new arg

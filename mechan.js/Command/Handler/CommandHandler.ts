@@ -18,7 +18,8 @@ import {
     TextChannel,
     User,
     DMChannel,
-    GroupDMChannel
+    GroupDMChannel,
+    RichEmbed
 } from 'discord.js';
 
 export type CommandHandlerConfig = {
@@ -88,7 +89,50 @@ export class CommandHandler extends EventEmitter /*extends CommandHandlerEvents*
         this.client = client;
 
         if (this.config.helpMode != HelpMode.Disabled) {
-            // ADD HELP COMMAND
+            if (this.root.commands.has("help"))
+                throw "You cannot override the help command unless the help mode is 'disabled'";
+
+            this.createCommand("help")
+                .setCategory("Help commands")
+                .setDescription("Get info on commands or see a list of commands")
+                .addParameter("command", ParameterType.Optional)
+                .show()
+                .setCallback((context) => {
+                    //let commands = CommandParser.getCommands(context.handler.root);
+                    console.log(context.handler.root);
+
+                    let embed = new RichEmbed();
+                    embed.setColor((<any> context.message.guild).me.colorRole.color);
+
+                    let categories = new Map<string, Command[]>();
+
+                    for (let command of CommandParser.getCommands(context.handler.root)) {
+                        let category = command.category || "No category";
+
+                        let list = categories.get(category);
+                        if (list === undefined)
+                            list = [];
+                        list.push(command);
+                        categories.set(category, list);
+                    }
+
+                    for (let value of categories) {
+                        embed.addField(value[0], value[1]);
+                    }
+
+                    console.log(categories);
+
+                    switch (this.config.helpMode) {
+                        case HelpMode.Private:
+                            context.user.send({ embed: embed })
+                                .catch((reason) => context.channel.send("I cannot send the help to you, you need to allow me to send you a DM"))
+                            break;
+                        case HelpMode.Public:
+                            context.channel.send({ embed: embed })
+                            break;
+                    }
+
+                });
         }
 
         client.on('message', (message) => {
