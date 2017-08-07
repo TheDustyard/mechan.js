@@ -5,7 +5,7 @@
   </p>
   <br/>
   <p>
-    <a href="https://www.npmjs.com/package/mechan" align="center" style="width:100%">
+    <a href="https://www.npmjs.com/package/mechan.js" align="center" style="width:100%">
       <img src="https://img.shields.io/npm/v/mechan.js.svg?maxAge=3600" alt="NPM version" />
       <img src="https://img.shields.io/npm/dt/mechan.js.svg?maxAge=3600&colorB=1081C2" alt="NPM downloads" />
     </a>
