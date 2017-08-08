@@ -29,6 +29,7 @@ handler.createGroup("send", (a) => {
     a.setCategory("Send commands");
 
     a.createCommand("to")
+        .setDescription("Send a message to someone")
         .addParameter("username", 'required')
         .addParameter("message", "unparsed")
         .setCallback((context) => {
@@ -48,6 +49,7 @@ handler.createGroup("send", (a) => {
         b.setCategory("Thank commands");
 
         b.createCommand("to")
+            .setDescription("Send your thanks to someone")
             .addParameter("username", 'required')
             .setCallback((context) => {
                 //  Get member from name
@@ -64,6 +66,7 @@ handler.createGroup("send", (a) => {
 
     //  Groups and commands can have the same name
     a.createCommand("thanks")
+        .setDescription("Receive thanks")
         .setCategory("Thank commands")
         .setCallback((context) => {
             context.user.send("thanks m8");
@@ -73,6 +76,7 @@ handler.createGroup("send", (a) => {
 
 //  Create a command in the base group
 handler.createCommand("heman")
+    .setDescription("WHEN I WAKE UP IN THE MORNING AND...");
     .setCategory("yth0")
     .addCheck((context) => {
         if (context.user.id === "168827261682843648")
