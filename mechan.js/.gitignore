@@ -4,3 +4,4 @@ Obsolete/
 *.d.ts
 settings.json
 *.js
+.npmignore
