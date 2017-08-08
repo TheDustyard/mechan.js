@@ -82,7 +82,10 @@ export class CommandParser {
 
         /// Get commands that match string
         commands = commands.filter((item) => {
-            return input.startsWith(item.fullname + " ");
+            if (input.length > item.fullname.length)
+                return input.startsWith(item.fullname + " ");
+            else
+                return input.startsWith(item.fullname);
         });
 
         // Break if no command found

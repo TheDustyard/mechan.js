@@ -232,7 +232,7 @@ export class CommandHandler extends EventEmitter {
                 let parsedcommand = CommandParser.parseCommand(messagecontent, this.root);
 
                 if (!parsedcommand.wasSuccess) {
-                    this.console.failure(this, new CommandErrorContext(new Error("Unknow command"), CommandErrorType.UnknownCommand, new CommandContext(message, null, null, this)));
+                    this.console.failure(this, new CommandErrorContext(new Error("Unknown command"), CommandErrorType.UnknownCommand, new CommandContext(message, null, null, this)));
                     return;
                 }
 
