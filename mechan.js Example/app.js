@@ -29,7 +29,7 @@ handler.createGroup("send", (a) => {
     a.setCategory("Send commands");
 
     a.createCommand("to")
-        .addParameter("user", 'required')
+        .addParameter("username", 'required')
         .addParameter("message", "unparsed")
         .setCallback((context) => {
             //  Get member from name
@@ -48,7 +48,7 @@ handler.createGroup("send", (a) => {
         b.setCategory("Thank commands");
 
         b.createCommand("to")
-            .addParameter("user", 'required')
+            .addParameter("username", 'required')
             .setCallback((context) => {
                 //  Get member from name
                 let member = context.message.guild.members.find(x => x.displayName.toLowerCase() === context.args[0].toLowerCase()
