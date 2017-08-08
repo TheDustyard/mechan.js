@@ -21,7 +21,7 @@ export class Command {
      */
     public callback: (context: CommandContext) => void;
     /**
-     * Perameters for the command
+     * Parameters for the command
      */
     public parameters: CommandParameter[];
     /**

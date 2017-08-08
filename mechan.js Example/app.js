@@ -25,6 +25,9 @@ handler.on('failure', (handler, context) => context.channel.send(context.error.m
 
 //  Create a command group
 handler.createGroup("send", (a) => {
+
+    a.setCategory("Send commands");
+
     a.createCommand("to")
         .addParameter("user", 'required')
         .addParameter("message", "unparsed")
@@ -42,6 +45,8 @@ handler.createGroup("send", (a) => {
 
     //  Create a group inside a group
     a.createGroup("thanks", (b) => {
+        b.setCategory("Thank commands");
+
         b.createCommand("to")
             .addParameter("user", 'required')
             .setCallback((context) => {
@@ -59,6 +64,7 @@ handler.createGroup("send", (a) => {
 
     //  Groups and commands can have the same name
     a.createCommand("thanks")
+        .setCategory("Thank commands")
         .setCallback((context) => {
             context.user.send("thanks m8");
             context.channel.send(`sent you your thanks`);

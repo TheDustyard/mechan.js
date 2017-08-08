@@ -73,7 +73,7 @@ export class CommandParser {
         }
 
         let commands: Command[] = CommandParser.getCommands(root);
-        let command: Command = null;
+        let command: Command;
 
         // Sort alphabetically
         commands = commands.sort(function (a, b) {
@@ -82,12 +82,7 @@ export class CommandParser {
 
         /// Get commands that match string
         commands = commands.filter((item) => {
-            return input.startsWith(item.fullname);
-        });
-        
-        // Sort by length
-        commands = commands.sort(function (a, b) {
-            return b.fullname.length - a.fullname.length;
+            return input.startsWith(item.fullname + " ");
         });
 
         // Break if no command found
@@ -95,6 +90,11 @@ export class CommandParser {
             return new ParsedCommand(false, null, input);
         }
 
+        // Sort by length
+        commands = commands.sort(function (a, b) {
+            return b.fullname.length - a.fullname.length;
+        });
+        
         // Get command that matches for the most characters
         command = commands[0];
 
@@ -159,7 +159,7 @@ export class CommandParser {
             return new ParsedArgs(null, []);
         }
 
-        //if (input == "")
+        //if (input == "" && command.parameters.length !== 0)
         //    return new ParsedArgs(CommandErrorType.InvalidInput, null);
 
         while (endPosition < inputLength) {
@@ -180,8 +180,7 @@ export class CommandParser {
                 isEscaped = true;
 
             let isWhitespace: boolean = CommandParser.IsWhiteSpace(currentChar);
-            if (endPosition == startPosition + 1 && isWhitespace) //Has no text yet, and is another whitespace
-            {
+            if (endPosition == startPosition + 1 && isWhitespace) {
                 startPosition = endPosition;
                 continue;
             }

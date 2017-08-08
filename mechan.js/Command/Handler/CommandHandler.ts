@@ -29,7 +29,7 @@ export type CommandHandlerConfig = {
     isSelfBot: boolean
 };
 
-export class CommandHandler extends EventEmitter /*extends CommandHandlerEvents*/ {
+export class CommandHandler extends EventEmitter {
     /**
      * Custom logger
      */
@@ -95,41 +95,118 @@ export class CommandHandler extends EventEmitter /*extends CommandHandlerEvents*
             this.createCommand("help")
                 .setCategory("Help commands")
                 .setDescription("Get info on commands or see a list of commands")
-                .addParameter("command", ParameterType.Optional)
+                .addParameter("command", ParameterType.Unparsed)
                 .show()
                 .setCallback((context) => {
-                    //let commands = CommandParser.getCommands(context.handler.root);
-                    console.log(context.handler.root);
+                    if (context.args[0] === "") {
+                        let embed = new RichEmbed();
+                        embed.setColor((<any>context.message.guild).me.colorRole.color);
 
-                    let embed = new RichEmbed();
-                    embed.setColor((<any> context.message.guild).me.colorRole.color);
+                        let categories = new Map<string, string[]>();
 
-                    let categories = new Map<string, Command[]>();
+                        for (let command of CommandParser.getCommands(context.handler.root)) {
+                            if (!command.visible)
+                                return;
 
-                    for (let command of CommandParser.getCommands(context.handler.root)) {
-                        let category = command.category || "No category";
+                            let category = command.category || "No category";
 
-                        let list = categories.get(category);
-                        if (list === undefined)
-                            list = [];
-                        list.push(command);
-                        categories.set(category, list);
-                    }
+                            let list = categories.get(category);
+                            if (list === undefined)
+                                list = [];
 
-                    for (let value of categories) {
-                        embed.addField(value[0], value[1]);
-                    }
+                            let output = "";
+                            output += `${context.handler.config.prefix}**${command.fullname}**`;
 
-                    console.log(categories);
+                            for (let param of command.parameters) {
+                                switch (param.type) {
+                                    case ParameterType.Required:
+                                        output += ` <${param.name}>`;
+                                        break;
+                                    case ParameterType.Optional:
+                                        output += ` [${param.name}]`;
+                                        break;
+                                    case ParameterType.Multiple:
+                                        output += ` [${param.name}...]`;
+                                        break;
+                                    case ParameterType.Unparsed:
+                                        output += ` [${param.name}...]`;
+                                        break;
+                                }
+                            }
 
-                    switch (this.config.helpMode) {
-                        case HelpMode.Private:
-                            context.user.send({ embed: embed })
-                                .catch((reason) => context.channel.send("I cannot send the help to you, you need to allow me to send you a DM"))
-                            break;
-                        case HelpMode.Public:
-                            context.channel.send({ embed: embed })
-                            break;
+                            output += ` - *${command.description || "No description"}*`;
+
+                            list.push(output);
+                            categories.set(category, list);
+
+                        }
+
+                        categories = new Map([...categories.entries()].sort(([a, x], [b, y]) => a.localeCompare(b)));
+
+                        for (let value of categories) {
+                            embed.addField(value[0], value[1]);
+                        }
+
+                        switch (this.config.helpMode) {
+                            case HelpMode.Private:
+                                context.user.send({ embed: embed })
+                                    .catch((reason) => context.channel.send("Invalid perms, Cannot send DM to user"));
+                                break;
+                            case HelpMode.Public:
+                                context.channel.send({ embed: embed })
+                                break;
+                        }
+                    } else {
+                        let embed = new RichEmbed();
+                        embed.setColor((<any>context.message.guild).me.colorRole.color);
+
+                        let commands = CommandParser.getCommands(context.handler.root);
+                        commands = commands.filter(x => x.fullname.toLowerCase().includes(context.args[0].toLowerCase()));
+                        commands = commands = commands.sort((a, b) => a.fullname.length - b.fullname.length);
+
+                        for (let command of commands) {
+                            if (!command.visible)
+                                return;
+
+                            let output = "";
+                            output += `Parameters: `;
+
+                            for (let param of command.parameters) {
+                                switch (param.type) {
+                                    case ParameterType.Required:
+                                        output += ` <${param.name}>`;
+                                        break;
+                                    case ParameterType.Optional:
+                                        output += ` [${param.name}]`;
+                                        break;
+                                    case ParameterType.Multiple:
+                                        output += ` [${param.name}...]`;
+                                        break;
+                                    case ParameterType.Unparsed:
+                                        output += ` [${param.name}...]`;
+                                        break;
+                                }
+                            }
+
+                            output += `\nDescription: *${command.description || "No description"}*`;
+                            output += `\nCategory: *${command.category}*`;
+
+                            embed.addField(context.handler.config.prefix + command.fullname + ":", output)
+                        }
+
+                        if (embed.fields.length === 0) {
+                            embed.setTitle(`No command matched the search term "${context.args[0]}"`);
+                        }
+
+                        switch (this.config.helpMode) {
+                            case HelpMode.Private:
+                                context.user.send({ embed: embed })
+                                    .catch((reason) => context.channel.send("Invalid perms, Cannot send DM to user"));
+                                break;
+                            case HelpMode.Public:
+                                context.channel.send({ embed: embed })
+                                break;
+                        }
                     }
 
                 });
@@ -145,7 +222,7 @@ export class CommandHandler extends EventEmitter /*extends CommandHandlerEvents*
             let prefixed = messagecontent.startsWith(this.config.prefix);
             let mentionprefixed = messagecontent.startsWith(this.client.user.toString());
 
-            if (prefixed || mentionprefixed) {
+            if (prefixed || (mentionprefixed && this.config.mentionPrefix)) {
                 if (prefixed) {
                     messagecontent = messagecontent.replace(this.config.prefix, "");
                 } else if (mentionprefixed) {
@@ -165,7 +242,6 @@ export class CommandHandler extends EventEmitter /*extends CommandHandlerEvents*
                     this.console.failure(this, new CommandErrorContext(new Error(parsedargs.error), parsedargs.error, new CommandContext(message, parsedcommand.command, null, this)))
                     return;
                 }
-                
 
                 let context = new CommandContext(message, parsedcommand.command, parsedargs.args, this);
 
@@ -173,13 +249,13 @@ export class CommandHandler extends EventEmitter /*extends CommandHandlerEvents*
 
                 if (!canRun.canRun) {
                     this.console.failure(this, new CommandErrorContext(new Error(canRun.message), CommandErrorType.BadPermissions, context));
-                    return
+                    return;
                 }
 
                 try {
                     parsedcommand.command.callback(context);
                 } catch (e) {
-                    this.console.failure(this, new CommandErrorContext(e, CommandErrorType.Error, context))
+                    this.console.failure(this, new CommandErrorContext(e, CommandErrorType.Error, context));
                 }
             }
 
@@ -193,8 +269,9 @@ export class CommandHandler extends EventEmitter /*extends CommandHandlerEvents*
      * @param name - Command group name
      * @param callback - Callback to initialise all the commands in
      */
-    public createGroup(name: string, callback: (group: CommandGroupBuilder) => void = null): CommandGroupBuilder {
-       return this.root.createGroup(name, callback);
+    public createGroup(name: string, callback: (group: CommandGroupBuilder) => void = null): this {
+        this.root.createGroup(name, callback);
+        return this;
     }
 
     /**
@@ -223,11 +300,11 @@ export class CommandHandler extends EventEmitter /*extends CommandHandlerEvents*
     }
 
 }
+
 export interface CommandHandler {
     on(event: string, listener: Function): this;
     on(event: 'failure', listener: (handler: CommandHandler, context: CommandErrorContext) => void): this;
     on(event: 'success', listener: (handler: CommandHandler, context: CommandContext) => void): this;
-    on(event: 'commandLoad', listener: (handler: CommandHandler, command: Command) => void): this;
 
     on(event: 'debug', listener: (message: string) => void): this;
     on(event: 'warn', listener: (message: string) => void): this;
@@ -237,7 +314,6 @@ export interface CommandHandler {
     once(event: string, listener: Function): this;
     once(event: 'failure', listener: (handler: CommandHandler, context: CommandErrorContext) => void): this;
     once(event: 'success', listener: (handler: CommandHandler, context: CommandContext) => void): this;
-    once(event: 'commandLoad', listener: (handler: CommandHandler, command: Command) => void): this;
 
     once(event: 'debug', listener: (message: string) => void): this;
     once(event: 'warn', listener: (message: string) => void): this;
@@ -247,7 +323,6 @@ export interface CommandHandler {
     emit(event: string, ...args: any[]): boolean;
     emit(event: 'failure', handler: CommandHandler, conetxt: CommandErrorContext): boolean;
     emit(event: 'success', handler: CommandHandler, context: CommandContext): boolean;
-    emit(event: 'commandLoad', handler: CommandHandler, command: Command): boolean;
 
     emit(event: 'debug', message: string): boolean;
     emit(event: 'warn', message: string): boolean;

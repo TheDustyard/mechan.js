@@ -23,17 +23,17 @@ export enum ParameterType {
     /**
      * Catches a single required parameter.
      */
-    Required = "Required",
+    Required = "required",
     /**
      * Catches a single optional parameter.
      */
-    Optional = "Optional",
+    Optional = "optional",
     /**
      * Catches a zero or more optional parameters.
      */
-    Multiple = "Multiple",
+    Multiple = "multiple",
     /**
      * Catches all remaining text as a single optional parameter.
      */
-    Unparsed = "Unparsed"
+    Unparsed = "unparsed"
 }
