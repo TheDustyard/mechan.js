@@ -89,6 +89,11 @@ handler.createCommand("heman")
         context.channel.send("HEYA");
     });
 
+// Setup client on ready
+client.on('ready', () => {
+    client.user.setGame("mechan.js", "https://twitch.tv/dusterthefirst");
+});
+
 //  Install the handler onto the client and login
 handler.install(client)
     .login(Settings.token);
