@@ -24,9 +24,9 @@ import {
 
 export type CommandHandlerConfig = {
     prefix: string,
-    helpMode: HelpMode,
-    mentionPrefix: boolean,
-    isSelfBot: boolean
+    helpMode?: HelpMode,
+    mentionPrefix?: boolean,
+    isSelfBot?: boolean
 };
 
 export class CommandHandler extends EventEmitter {
@@ -78,6 +78,9 @@ export class CommandHandler extends EventEmitter {
     constructor(config: CommandHandlerConfig) {
         super();
         this.config = config;
+        if (config.helpMode === undefined) {
+            this.config.helpMode = HelpMode.Public;
+        }
         this.root = new CommandGroupBuilder(this);
     }
 

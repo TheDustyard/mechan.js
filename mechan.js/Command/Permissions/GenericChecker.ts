@@ -4,7 +4,7 @@
 
 export type PermissionCheckResult = {
     canRun: boolean,
-    message: string
+    message?: string
 }
 
 export type PermissionCheck =

@@ -1,16 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F9CDB635-5943-447C-B43A-3BBC83F00CCE}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "mechan.js Example", "mechan.js Example\mechan.js Example.njsproj", "{C04A6D31-1CE5-4150-B1EA-D940109B7AE2}"
-EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "mechan.js", "mechan.js\mechan.js.njsproj", "{350C0C73-BBE1-4A06-ABDA-B4A5A9987272}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "test", "test\test.njsproj", "{30B2E692-74DC-498C-9448-C87DA45D6ED3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,14 +18,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C04A6D31-1CE5-4150-B1EA-D940109B7AE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C04A6D31-1CE5-4150-B1EA-D940109B7AE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C04A6D31-1CE5-4150-B1EA-D940109B7AE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C04A6D31-1CE5-4150-B1EA-D940109B7AE2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{350C0C73-BBE1-4A06-ABDA-B4A5A9987272}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{350C0C73-BBE1-4A06-ABDA-B4A5A9987272}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{350C0C73-BBE1-4A06-ABDA-B4A5A9987272}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{350C0C73-BBE1-4A06-ABDA-B4A5A9987272}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30B2E692-74DC-498C-9448-C87DA45D6ED3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30B2E692-74DC-498C-9448-C87DA45D6ED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30B2E692-74DC-498C-9448-C87DA45D6ED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30B2E692-74DC-498C-9448-C87DA45D6ED3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
