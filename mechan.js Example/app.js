@@ -76,7 +76,7 @@ handler.createGroup("send", (a) => {
 
 //  Create a command in the base group
 handler.createCommand("heman")
-    .setDescription("WHEN I WAKE UP IN THE MORNING AND...");
+    .setDescription("WHEN I WAKE UP IN THE MORNING AND...")
     .setCategory("yth0")
     .addCheck((context) => {
         if (context.user.id === "168827261682843648")
