@@ -42,95 +42,58 @@
 
     <body>
         🔒 Locked until release 🔒
-        <pre class="prettyprint lang-js">
-const Settings = require('./settings.json');
-const Mechan = require('../mechan.js');
-const client = new Mechan.Discord.Client();
-
-
-//  Initialise a command handler
-var handler = new Mechan.CommandHandler({
-    prefix: 'd.',
-    helpMode: Mechan.HelpMode.Public
-});
-
-//  Events from the command handler
-/*
- * Events invlude:
- *     Debug
- *     Warn
- *     Error
- *     Failure
- *     Success
- */
-handler.on('debug', console.log);
-handler.on('warn', console.warn);
-handler.on('error', (message, error) => console.error(message + "\n" + error));
-handler.on('failure', (handler, context) => context.channel.send(context.error.message));
-
-//  Create a command group
-handler.createGroup("send", (a) => {
-    a.createCommand("to")
-        .addParameter("user", 'required')
-        .addParameter("message", "unparsed")
-        .setCallback((context) => {
-            //  Get member from name
-            let member = context.message.guild.members.find(x => x.displayName.toLowerCase() === context.args[0].toLowerCase()
-                || x.user.username.toLowerCase() === context.args[0].toLowerCase());
-            if (!member) {
-                context.channel.send(`member ${context.args[0]} not found`);
-                return;
+        <br>
+        <code class="prettyprint lang-ts">
+            export class Command {<br>
+                /**
+                 * Name of the command
+                 */
+                name: string;
+                /**
+                 * Fullname of the command
+                 */
+                fullname: string;
+                /**
+                 * Callback for the command
+                 */
+                callback: (context: CommandContext) => void;
+                /**
+                 * Parameters for the command
+                 */
+                parameters: CommandParameter[];
+                /**
+                 * Permission checks to perform
+                 */
+                checks: PermissionCheck[];
+                /**
+                 * Description of the command
+                 */
+                description: string;
+                /**
+                 * Category the command fits into
+                 */
+                category: string;
+                /**
+                 * Whether or not the command is visible in the default help menu
+                 */
+                visible: boolean;
+                /**
+                 * Create a command
+                 * @param name - Name of the command
+                 * @param callback - Callback for the command
+                 * @param parameters - Command parameters
+                 * @param checks - Permission checks to perform
+                 * @param description - Description of the command
+                 * @param category - Category the command fits into
+                 * @param hidden - Whether or not the command is visible in the default help menu
+                 */
+                constructor(name: string, callback: (event: CommandContext) => void, parameters: CommandParameter[], description?: string, category?: string, visible?: boolean, checks?: PermissionCheck[]);
+                /**
+                 * Checks all permission checks and verifies if a command can be run
+                 * @param context - The context for the command
+                 */
+                canRun(context: CommandContext): PermissionCheckResult;
             }
-            member.send(context.args[1]);
-            context.channel.send(`sent your message to ${member.user.tag}`);
-        });
-
-    //  Create a group inside a group
-    a.createGroup("thanks", (b) => {
-        b.createCommand("to")
-            .addParameter("user", 'required')
-            .setCallback((context) => {
-                //  Get member from name
-                let member = context.message.guild.members.find(x => x.displayName.toLowerCase() === context.args[0].toLowerCase()
-                    || x.user.username.toLowerCase() === context.args[0].toLowerCase());
-                if (!member) {
-                    context.channel.send(`member ${context.args[0]} not found`);
-                    return;
-                }
-                member.send("thx m8");
-                context.channel.send(`sent your thanks to ${member.user.tag}`);
-            });
-    });
-
-    //  Groups and commands can have the same name
-    a.createCommand("thanks")
-        .setCallback((context) => {
-            context.user.send("thanks m8");
-            context.channel.send(`sent you your thanks`);
-        });
-});
-
-//  Create a command in the base group
-handler.createCommand("heman")
-    .setCategory("yth0")
-    .addCheck((context) => {
-        if (context.user.id === "168827261682843648")
-            return {
-                canRun: true
-            };
-        else
-            return {
-                canRun: false,
-                message: "You must be Dadster to run this command"
-            };
-    })
-    .setCallback((context) => {
-        context.channel.send("HEYA");
-    });
-
-//  Install the handler onto the client and login
-handler.install(client)
-    .login(Settings.token);
-        </pre>
+        </code>
     </body>
 </html>
