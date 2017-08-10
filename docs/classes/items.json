@@ -1,0 +1,33 @@
+{
+    "General": [
+        "Welcome",
+        "FAQ"
+    ],
+    "Examples": [
+        "oo",
+        "oo",
+        "f"
+    ],
+    "Classes": [
+        "Command",
+        "CommandBuilder",
+        "CommandContext",
+        "CommandErrorContext",
+        "CommandGroup",
+        "CommandGroupBuilder",
+        "CommandHandler",
+        "CommandParameter",
+        "CommandParser"
+    ],
+    "Types": [
+        "CommandHandlerConfig",
+        "GenericChecker",
+        "ParsedCommand",
+        "PermissionCheckResult"
+    ],
+    "Enums": [
+        "CommandErrorType",
+        "HelpMode",
+        "ParameterType"
+    ]
+}
