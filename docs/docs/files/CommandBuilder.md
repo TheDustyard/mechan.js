@@ -8,7 +8,7 @@ new Mechan.CommandBuilder(name);
 |-------------|-----------------------------------------------------------------------------------------------------|----------|---------|----------------------------------------------------------------|
 | name        | [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)   |          |         | Name of the command                                            |
 
-|[Properties](#CommandBuilder?scrollTo=properties)  |[Functions](#CommandBuilder?scrollTo=functions)            |
+|[Properties](#CommandBuilder?scrollTo=properties)  |[Methods](#CommandBuilder?scrollTo=methods)            |
 |---------------------------------------------------|-----------------------------------------------------------|
 |[name](#CommandBuilder?scrollTo=name)              |[canRun](#CommandBuilder?scrollTo=canRun)                  |
 |[fullname](#CommandBuilder?scrollTo=fullname)      |[setCallback](#CommandBuilder?scrollTo=setCallback)        |
@@ -56,7 +56,7 @@ Category the command fits into
 Whether or not the command is visible in the default help menu
 **Type:** [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)
 
-## Functions
+## Methods
 <h3 id="canRun"> .canRun(context)</h3>
 Checks all permission checks and verifies if a command can be run
 |Parameter|Type                             |Optional|Default|Description                |

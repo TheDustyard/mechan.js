@@ -9,12 +9,12 @@ new Mechan.Command(name, callback, parameters, description, category, visible, c
 | name        | [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)   |          |         | Name of the command                                            |
 | callback    | (event: [CommandContext](#CommandContext)) => void                                                  |          |         | Callback for the command                                       |
 | parameters  | [CommandParameter](#CommandParameter)[]                                                             |          |         | Command parameters                                             |
-| checks      | [PermissionCheck](#PermissionCheck)[]                                                               | ✘        |         | Permission checks to perform                                   |
-| description | [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)   | ✘        |         | Description of the command                                     |
-| category    | [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)   | ✘        |         | Category the command fits into                                 |
-| hidden      | [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | ✘        |         | Whether or not the command is visible in the default help menu |
+| checks      | [PermissionCheck](#PermissionCheck)[]                                                               | ✘        |`[]`     | Permission checks to perform                                   |
+| description | [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)   | ✘        |`''`     | Description of the command                                     |
+| category    | [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)   | ✘        |`''`     | Category the command fits into                                 |
+| hidden      | [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | ✘        |`true`   | Whether or not the command is visible in the default help menu |
 
-|[Properties](#CommandBuilder?scrollTo=properties)|[Functions](#CommandBuilder?scrollTo=functions)|
+|[Properties](#CommandBuilder?scrollTo=properties)|[Methods](#CommandBuilder?scrollTo=methods)|
 |-------------------------------------------------|-----------------------------------------------|
 |[name](#Command?scrollTo=name)                   |[canRun](#Command?scrollTo=canRun)             |
 |[fullname](#Command?scrollTo=fullname)           |                                               |
@@ -58,7 +58,7 @@ Category the command fits into
 Whether or not the command is visible in the default help menu
 **Type:** [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)
 
-## Functions
+## Methods
 <h3 id="canRun"> .canRun(context)</h3>
 Checks all permission checks and verifies if a command can be run
 |Parameter|Type          |Optional|Default|Description                |
