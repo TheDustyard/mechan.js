@@ -1,10 +1,13 @@
 html, body {
     margin: 0;
     padding: 0;
+    top: 0px;
+    left: 0px;
     height: 100%;
     width: 100%;
     overflow: hidden;
     font-family: helvetica;
+    position: fixed;
 }
 
 #header {
@@ -111,4 +114,21 @@ html, body {
     text-align: left;
     font-weight: 900;
     font-size: 1.3em;
+}
+
+pre {
+    background: #474949 !important;
+    padding: .5em !important;
+    overflow-y: visible !important;
+    max-width: calc(100%) !important;
+    overflow-x: auto !important;
+}
+
+th {
+    background: #F0F0F0;
+}
+
+table * {
+    text-align: center;
+    white-space: nowrap;
 }

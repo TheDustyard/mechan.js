@@ -110,8 +110,9 @@ export class CommandBuilder extends Command {
     }
 
     /**
-     * Add a command perameter
-     * @param perameter - Perameter to add
+     * Add a command parameter
+     * @param name - Parameter name
+     * @param type - Parameter type
      */
     addParameter(name: string, type: ParameterType): this {
         let parameter = new CommandParameter(name, type);
@@ -160,26 +161,6 @@ export class CommandBuilder extends Command {
     }
 
     /**
-     * Remove a permission check
-     * @param check - Check to remove
-     */
-    removeCheck(check: PermissionCheck): this {
-        let index = this.checks.indexOf(check);
-        delete this.checks[index];
-        return this;
-    }
-
-    /**
-     * Remove permission checks
-     * @param checks - Checks to remove
-     */
-    removeChecks(checks: PermissionCheck[]): this {
-        for (let check of checks)
-            this.removeCheck(check);
-        return this;
-    }
-
-    /**
      * Remove all checks
      */
     clearChecks(): this {
@@ -220,16 +201,4 @@ export class CommandBuilder extends Command {
         this.visible = false;
         return this;
     }
-
-    /**
-     * Toggle the command's visibility
-     */
-    toggleVisibility(): this {
-        if (this.visible)
-            this.visible = false;
-        else
-            this.visible = true;
-        return this;
-    }
-
 }

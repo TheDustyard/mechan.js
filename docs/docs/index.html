@@ -18,8 +18,9 @@
 <!--        LINKS-->
         <script src="scripts.js"></script>
         <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="files/styles.css">
     </head>
-    <body onload="loadItems(); loadFile()">
+    <body onload="loadItems(); loadFile();" onhashchange="loadFile(); hljs.initHighlighting();">
         <div id="header">
             <a href="/">
                 <img src="../images/MECH4N.JS-invisible.png" height="50">
@@ -34,7 +35,7 @@
                 <input type="search" placeholder="Search" oninput="search(this)">
                 <div class="items"></div>
             </div>
-            <div id="information">
+            <div id="information" class="markdown-body">
                 
             </div>
         </div>
