@@ -13,7 +13,8 @@
         "CommandGroup",
         "CommandGroupBuilder",
         "CommandHandler",
-        "CommandParameter"
+        "CommandParameter",
+        "MessageHandler"
     ],
     "Types": [
         "CommandHandlerConfig",

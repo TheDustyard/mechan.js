@@ -79,12 +79,16 @@
     <Content Include=".npmignore" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <TypeScriptCompile Include="Message\MessageHandler.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="typings\node\node.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Command\" />
     <Folder Include="Command\Handler\" />
     <Folder Include="Command\Permissions\" />
+    <Folder Include="Message\" />
     <Folder Include="typings\" />
     <Folder Include="typings\node\" />
   </ItemGroup>

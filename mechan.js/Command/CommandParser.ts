@@ -83,9 +83,9 @@ export class CommandParser {
         /// Get commands that match string
         commands = commands.filter((item) => {
             if (input.length > item.fullname.length)
-                return input.startsWith(item.fullname + " ");
+                return input.toLowerCase().startsWith(item.fullname.toLowerCase() + " ");
             else
-                return input.startsWith(item.fullname);
+                return input.toLowerCase().startsWith(item.fullname.toLowerCase());
         });
 
         // Break if no command found
