@@ -76,6 +76,7 @@
     </TypeScriptCompile>
     <TypeScriptCompile Include="index.ts" />
     <Content Include=".gitignore" />
+    <Content Include=".npmignore" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <TypeScriptCompile Include="typings\node\node.d.ts" />
