@@ -1,107 +1,56 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <title>mechan.js - Home</title>
-
-        <!-- Css -->
-        <link rel="stylesheet" type="text/css" href="main.css">
-        <link rel="stylesheet" type="text/css" href="nav.css">
-        <link rel="stylesheet" type="text/css" href="other.css">
-        <!-- Icon -->
-        <link rel="icon" type="image/png" href="images/M.JS.png" sizes="16x16">
-        <link rel="icon" type="image/png" href="images/M.JS.png" sizes="32x32">
-        <!-- Font -->
-        <link href="https://fonts.googleapis.com/css?family=Zilla+Slab" rel="stylesheet">
-
-        <style>
-            #right {
-                float:right
-            }
-            #left {
-                float:left
-            }
-            #center {
-                text-align:center;
-                float:right
-            }
-            .card {
-                box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
-                transition: 0.3s;
-            }
-            .card:hover {
-                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-            }
-            .container {
-                padding: 2px 16px;
-            }
-            #center {
-                margin: auto;
-                width: 50%;
-            }
-            #rights {
-                margin:auto;
-                width:75%;
-            }
-            .a-left{
-                float:left;
-                margin:auto;
-            }
-        </style>
+        <meta 
+          name="viewport" 
+          content="width=device-width, initial-scale=1.0">
+        <title>mechan.js - Command</title>
+        <link rel="icon" href="./images/M.JS-invisible.png">
+<!--        3RD PARTY-->
+        <script
+          src="https://code.jquery.com/jquery-3.2.1.min.js"
+          integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+          crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="./highlight/styles/rainbow.css">
+        <script src="./highlight/highlight.pack.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.7.2/showdown.min.js"></script>
+        
+<!--        LINKS-->
+        <link rel="stylesheet" href="./styles.css">
     </head>
-
-<body>
-
-<img src="images/MECH4N.JS.png" alt="Banner" width="80%" height="auto" style="margin:0px auto;display:block" />
-
-<div id='cssmenu'>
-<ul>
-   <li class='active'><a href='#'>Home</a></li>
-   <li><a href='documentations.html'>Documentation</a></li>
-   <li><a href='#'>About</a></li>
-   <li><a href='discord.html' target="_blank">Support Server</a></li>
-   <div id="right">
-    <a href="https://js.org" target="_blank" title="JS.ORG | JavaScript Community">
-    <img src="https://logo.js.org/dark_horz.png" width="102" alt="JS.ORG Logo"/></a>
-   </div>
-</ul>
-</div>
-&nbsp;
-<h1 class="center">Welcome to the Official Mechan.js Website! </h1>
-<p class="center"> This is where all of the updates changelogs, full documentation, link to the support server will be posted </p>
-
-<div class="row a-left">
- <div class="col s12 m7">
-  <div class="card">
-   <div class="card-image">
-    <img src="images/smallicon.png" width="40%" height="auto" alt="About Us Icon">
-    <span class="card-title">About us</span>
-   </div>
-   <div class="card-content">
-    <p>Mechan.js was founded by DusterTheFirst, later on, ItsJustNasty.</p>
-   </div>
-   <div class="card-action">
-    <a href="#">Read more</a>
-   </div>
-  </div>
- </div>
-</div>
-<div class="row" id="center">
- <div class="col s12 m7">
-  <div class="card">
-   <div class="card-image">
-    <img src="images/npm.png" width="40%" height="auto" alt="About Us Icon">
-    <span class="card-title">Npm</span>
-   </div>
-   <div class="card-content">
-    <p>Npm Webpage</p>
-   </div>
-   <div class="card-action">
-    <a href="https://www.npmjs.com/package/mechan.js" target="_blank">Go to npm.js</a>
-   </div>
-  </div>
- </div>
-</div>
-
-</body>
+    <body onload="" onhashchange="hljs.initHighlighting();">
+        <div id="header">
+            <a href="/">
+                <img src="./images/MECH4N.JS-invisible.png" height="50">
+            </a>
+            <span class="right">
+                <a href="./docs">Documentation</a>
+                <a href="https://github.com/dusterthefirst/mechan.js">GitHub</a>
+            </span>
+        </div>
+        <div id="content">
+            <center>
+                <img src="images/MECH4N.JS-invisible.png" style="width: calc(100% - 200px);"><br>
+                <div style="font-size: 1.5em;">It's an extention for discord.js, what else am i supposed to say</div>
+                <a class="button" id="discord">Join the discord</a>
+                <a class="button" id="learn" href="docs/">Learn</a>
+            </center>
+        </div>
+    </body>
+    <style>
+        .button {
+            color: white; 
+            padding: 10px; 
+            margin: 10px; 
+            display: inline-block; 
+            border-radius: 5px; 
+            text-decoration: none
+        }
+        #discord {
+            background-color: #7289DA; 
+        }
+        #learn {
+            background-color: #00a100;
+        }
+    </style>
 </html>
