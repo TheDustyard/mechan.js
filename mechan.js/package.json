@@ -1,6 +1,6 @@
 {
   "name": "mechan.js",
-  "version": "1.0.3",
+  "version": "1.1.1",
   "description": "API - Extension for discord.js",
   "main": "./src/index.js",
   "author": {

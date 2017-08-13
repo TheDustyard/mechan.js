@@ -1,12 +1,9 @@
 {
     "General": [
-        "Welcome",
-        "FAQ"
+        "Welcome"
     ],
-    "Examples": [
-        "oo",
-        "oo",
-        "f"
+    "Tutorials": [
+        "The-Basics"
     ],
     "Classes": [
         "Command",
@@ -16,13 +13,11 @@
         "CommandGroup",
         "CommandGroupBuilder",
         "CommandHandler",
-        "CommandParameter",
-        "CommandParser"
+        "CommandParameter"
     ],
     "Types": [
         "CommandHandlerConfig",
-        "GenericChecker",
-        "ParsedCommand",
+        "PermissionCheck",
         "PermissionCheckResult"
     ],
     "Enums": [

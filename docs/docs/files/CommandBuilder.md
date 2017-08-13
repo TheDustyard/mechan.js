@@ -1,4 +1,4 @@
-# CommandBuilder
+# CommandBuilder <span style="font-weight:normal; font-size:.5em">extends [Command](#Command)</span>
 
 ## Constructor
 ```js
@@ -8,19 +8,19 @@ new Mechan.CommandBuilder(name);
 |-------------|-----------------------------------------------------------------------------------------------------|----------|---------|----------------------------------------------------------------|
 | name        | [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)   |          |         | Name of the command                                            |
 
-|[Properties](#CommandBuilder?scrollTo=properties)  |[Methods](#CommandBuilder?scrollTo=methods)            |
-|---------------------------------------------------|-----------------------------------------------------------|
-|[name](#CommandBuilder?scrollTo=name)              |[canRun](#CommandBuilder?scrollTo=canRun)                  |
-|[fullname](#CommandBuilder?scrollTo=fullname)      |[setCallback](#CommandBuilder?scrollTo=setCallback)        |
-|[callback](#CommandBuilder?scrollTo=callback)      |[addParameter](#CommandBuilder?scrollTo=addParameter)      |
-|[parameters](#CommandBuilder?scrollTo=parameters)  |[clearParameters](#CommandBuilder?scrollTo=clearParameters)|
-|[checks](#CommandBuilder?scrollTo=checks)          |[addCheck](#CommandBuilder?scrollTo=addCheck)              |
-|[description](#CommandBuilder?scrollTo=description)|[addChecks](#CommandBuilder?scrollTo=addChecks)            |
-|[category](#CommandBuilder?scrollTo=category)      |[clearChecks](#CommandBuilder?scrollTo=clearChecks)        |
-|[visible](#CommandBuilder?scrollTo=visible)        |[setDescription](#CommandBuilder?scrollTo=setDescription)  |
-|                                                   |[setCategory](#CommandBuilder?scrollTo=setCategory)        |
-|                                                   |[show](#CommandBuilder?scrollTo=show)                      |
-|                                                   |[hide](#CommandBuilder?scrollTo=hide)                      |
+|[Properties](#CommandBuilder?scrollTo=properties)  |[Methods](#CommandBuilder?scrollTo=methods)                |Events|
+|---------------------------------------------------|-----------------------------------------------------------|------|
+|[name](#CommandBuilder?scrollTo=name)              |[canRun](#CommandBuilder?scrollTo=canRun)                  |      |
+|[fullname](#CommandBuilder?scrollTo=fullname)      |[setCallback](#CommandBuilder?scrollTo=setCallback)        |      |
+|[callback](#CommandBuilder?scrollTo=callback)      |[addParameter](#CommandBuilder?scrollTo=addParameter)      |      |
+|[parameters](#CommandBuilder?scrollTo=parameters)  |[clearParameters](#CommandBuilder?scrollTo=clearParameters)|      |
+|[checks](#CommandBuilder?scrollTo=checks)          |[addCheck](#CommandBuilder?scrollTo=addCheck)              |      |
+|[description](#CommandBuilder?scrollTo=description)|[addChecks](#CommandBuilder?scrollTo=addChecks)            |      |
+|[category](#CommandBuilder?scrollTo=category)      |[clearChecks](#CommandBuilder?scrollTo=clearChecks)        |      |
+|[visible](#CommandBuilder?scrollTo=visible)        |[setDescription](#CommandBuilder?scrollTo=setDescription)  |      |
+|                                                   |[setCategory](#CommandBuilder?scrollTo=setCategory)        |      |
+|                                                   |[show](#CommandBuilder?scrollTo=show)                      |      |
+|                                                   |[hide](#CommandBuilder?scrollTo=hide)                      |      |
 
 
 ## Properties

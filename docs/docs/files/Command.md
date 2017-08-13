@@ -4,26 +4,26 @@
 ```js
 new Mechan.Command(name, callback, parameters, description, category, visible, checks);
 ```
-| Parameter   | Type                                                                                                | Optional | Default | Description                                                    |
-|-------------|-----------------------------------------------------------------------------------------------------|----------|---------|----------------------------------------------------------------|
-| name        | [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)   |          |         | Name of the command                                            |
-| callback    | (event: [CommandContext](#CommandContext)) => void                                                  |          |         | Callback for the command                                       |
-| parameters  | [CommandParameter](#CommandParameter)[]                                                             |          |         | Command parameters                                             |
-| checks      | [PermissionCheck](#PermissionCheck)[]                                                               | ✘        |`[]`     | Permission checks to perform                                   |
-| description | [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)   | ✘        |`''`     | Description of the command                                     |
-| category    | [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)   | ✘        |`''`     | Category the command fits into                                 |
-| hidden      | [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | ✘        |`true`   | Whether or not the command is visible in the default help menu |
+| Parameter   | Type                                                                                                | Optional | Default                    | Description                                                    |
+|-------------|-----------------------------------------------------------------------------------------------------|----------|----------------------------|----------------------------------------------------------------|
+| name        | [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)   |          |                            | Name of the command                                            |
+| callback    | (event: [CommandContext](#CommandContext)) => void                                                  |          |                            | Callback for the command                                       |
+| parameters  | [CommandParameter](#CommandParameter)[]                                                             |          |                            | Command parameters                                             |
+| checks      | [PermissionCheck](#PermissionCheck)[]                                                               | ✘        |<pre><code>[]</code></pre>  | Permission checks to perform                                   |
+| description | [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)   | ✘        |<pre><code>''</code></pre>  | Description of the command                                     |
+| category    | [string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)   | ✘        |<pre><code>''</code></pre>  | Category the command fits into                                 |
+| hidden      | [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean) | ✘        |<pre><code>true</code></pre>| Whether or not the command is visible in the default help menu |
 
-|[Properties](#CommandBuilder?scrollTo=properties)|[Methods](#CommandBuilder?scrollTo=methods)|
-|-------------------------------------------------|-----------------------------------------------|
-|[name](#Command?scrollTo=name)                   |[canRun](#Command?scrollTo=canRun)             |
-|[fullname](#Command?scrollTo=fullname)           |                                               |
-|[callback](#Command?scrollTo=callback)           |                                               |
-|[parameters](#Command?scrollTo=parameters)       |                                               |
-|[checks](#Command?scrollTo=checks)               |                                               |
-|[description](#Command?scrollTo=description)     |                                               |
-|[category](#Command?scrollTo=category)           |                                               |
-|[visible](#Command?scrollTo=visible)             |                                               |
+|[Properties](#CommandBuilder?scrollTo=properties)|[Methods](#CommandBuilder?scrollTo=methods)    |Events|
+|-------------------------------------------------|-----------------------------------------------|------|
+|[name](#Command?scrollTo=name)                   |[canRun](#Command?scrollTo=canRun)             |      |
+|[fullname](#Command?scrollTo=fullname)           |                                               |      |
+|[callback](#Command?scrollTo=callback)           |                                               |      |
+|[parameters](#Command?scrollTo=parameters)       |                                               |      |
+|[checks](#Command?scrollTo=checks)               |                                               |      |
+|[description](#Command?scrollTo=description)     |                                               |      |
+|[category](#Command?scrollTo=category)           |                                               |      |
+|[visible](#Command?scrollTo=visible)             |                                               |      |
 
 ## Properties
 ### .name

@@ -10,8 +10,8 @@
 
     /**
      * Create a command parameter
-     * @param name
-     * @param type
+     * @param name - Name of the parameter
+     * @param type - Type of the parameter
      */
     constructor(name: string, type: ParameterType) {
         this.name = name;
@@ -29,7 +29,7 @@ export enum ParameterType {
      */
     Optional = "optional",
     /**
-     * Catches a zero or more optional parameters.
+     * Catches zero or more optional parameters.
      */
     Multiple = "multiple",
     /**

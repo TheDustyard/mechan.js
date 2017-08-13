@@ -272,9 +272,8 @@ export class CommandHandler extends EventEmitter {
      * @param name - Command group name
      * @param callback - Callback to initialise all the commands in
      */
-    public createGroup(name: string, callback: (group: CommandGroupBuilder) => void = null): this {
-        this.root.createGroup(name, callback);
-        return this;
+    public createGroup(name: string, callback: (group: CommandGroupBuilder) => void = null): CommandGroupBuilder {
+        return this.root.createGroup(name, callback);
     }
 
     /**
@@ -306,11 +305,26 @@ export class CommandHandler extends EventEmitter {
 
 export interface CommandHandler {
     on(event: string, listener: Function): this;
+    /**
+     * Emitted when a command throws an error
+     */
     on(event: 'failure', listener: (handler: CommandHandler, context: CommandErrorContext) => void): this;
+    /**
+     * Emitted when a command runs successfully
+     */
     on(event: 'success', listener: (handler: CommandHandler, context: CommandContext) => void): this;
 
+    /**
+     * Emitted when the handler would log to the console
+     */
     on(event: 'debug', listener: (message: string) => void): this;
+    /**
+     * Emitted when the handler would log to the warn console
+     */
     on(event: 'warn', listener: (message: string) => void): this;
+    /**
+     * Emitted when the handler would log to the error console
+     */
     on(event: 'error', listener: (message: string, error?: Error) => void): this;
 
 

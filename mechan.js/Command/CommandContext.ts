@@ -32,7 +32,7 @@ export class CommandContext {
      */
     public handler: CommandHandler;
     /**
-     * Command's perameters
+     * Command's parameters
      */
     public args: string[];
 
@@ -40,7 +40,7 @@ export class CommandContext {
      * Create a command context
      * @param message - Message that called the command
      * @param command - Comamnd that was called
-     * @param args - parameters for the command
+     * @param args - Parameters for the command
      * @param handler - Command handler that handled the command
      */
     constructor(message: Message, command: Command, args: string[], handler: CommandHandler) {

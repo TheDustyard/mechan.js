@@ -47,7 +47,7 @@ export class CommandGroup {
 
     /**
      * Create a command group
-     * @param handler - Handler that handles the command
+     * @param handler - Handler that handles the commands
      * @param parent - Parent group
      * @param name - Name of the group
      * @param commands - Subcommands
@@ -104,7 +104,8 @@ export class CommandGroup {
 
     /**
      * Create a command group
-     * @param name - name of the group
+     * @param name - Name of the group
+     * @param callback - Initialisation function
      */
     public createGroup(name: string, callback?: (group: CommandGroupBuilder) => void): CommandGroupBuilder {
         let builder = new CommandGroupBuilder(this.handler, this, name, this.category, this.prechecks);
@@ -140,16 +141,16 @@ export class CommandGroupBuilder extends CommandGroup {
     }
 
     /**
-     * Adda a check
-     * @param checker - Checks to preform on all commands
+     * Add a permission check
+     * @param check - Checks to preform on all commands
      */
-    public addCheck(checker: PermissionCheck): this {
-        this.prechecks.push(checker);
+    public addCheck(check: PermissionCheck): this {
+        this.prechecks.push(check);
         return this;
     }
 
     /**
-     * Show the builder
+     * Show the group
      */
     public show(): this {
         this.visible = true;
@@ -157,7 +158,7 @@ export class CommandGroupBuilder extends CommandGroup {
     }
 
     /**
-     * Hide the builder
+     * Hide the group
      */
     public hide(): this {
         this.visible = false;
