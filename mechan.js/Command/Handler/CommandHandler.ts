@@ -161,7 +161,8 @@ export class CommandHandler extends EventEmitter {
                         }
                     } else {
                         let embed = new RichEmbed();
-                        embed.setColor((<any>context.message.guild).me.colorRole.color);
+                        if (context.message.guild)
+                            embed.setColor((<any>context.message.guild).me.colorRole.color);
 
                         let commands = CommandParser.getCommands(context.handler.root);
                         commands = commands.filter(x => x.fullname.toLowerCase().includes(context.args[0].toLowerCase()));

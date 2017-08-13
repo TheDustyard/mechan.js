@@ -4,6 +4,7 @@
     ],
     "Tutorials": [
         "The-Basics",
+        "Handle-Messages",
         "AFK-Command",
         "Rate-Limiter"
     ],
