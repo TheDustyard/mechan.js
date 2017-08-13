@@ -217,7 +217,7 @@ export class CommandHandler extends EventEmitter {
 
         client.on('message', (message) => {
 
-            if (this.config.isSelfBot && client.user.id != message.author.id)
+            if (this.config.isSelfBot && client.user.id !== message.author.id)
                 return;
 
             let messagecontent = message.content;

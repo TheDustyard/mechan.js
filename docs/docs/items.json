@@ -3,7 +3,9 @@
         "Welcome"
     ],
     "Tutorials": [
-        "The-Basics"
+        "The-Basics",
+        "AFK-Command",
+        "Rate-Limiter"
     ],
     "Classes": [
         "Command",
