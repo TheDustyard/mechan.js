@@ -8,11 +8,13 @@ new Mechan.CommandHandler(config)
 |----------|---------------------------------------------|----------|--------|------------------------------|
 |config    |[CommandHandlerConfig](#CommandHandlerConfig)|          |        | Configuration for the handler|
 
-|[Properties](#CommandHandler?scrollTo=properties)|[Methods](#CommandHandler?scrollTo=methods)          |[Events](#CommandHandler?scrollTo=events)|
-|-------------------------------------------------|-----------------------------------------------------|-----------------------------------------|
-|[config](#CommandHandler?scrollTo=config)        |                                                     |                                         |
-|[root](#CommandHandler?scrollTo=fullname)        |                                                     |                                         |
-|[client](#CommandHandler?scrollTo=handler)       |                                                     |                                         |
+|[Properties](#CommandHandler?scrollTo=properties)|[Methods](#CommandHandler?scrollTo=methods)            |[Events](#CommandHandler?scrollTo=events)  |
+|-------------------------------------------------|-------------------------------------------------------|-------------------------------------------|
+|[config](#CommandHandler?scrollTo=config)        |[install](#CommandHandler?scrollTo=install)            |[failure](#CommandHandler?scrollTo=failure)|
+|[root](#CommandHandler?scrollTo=fullname)        |[createGroup](#CommandHandler?scrollTo=createGroup)    |[success](#CommandHandler?scrollTo=success)|
+|[client](#CommandHandler?scrollTo=handler)       |[createCommand](#CommandHandler?scrollTo=createCommand)|[debug](#CommandHandler?scrollTo=debug)    |
+|                                                 |                                                       |[warn](#CommandHandler?scrollTo=warn)      |
+|                                                 |                                                       |[error](#CommandHandler?scrollTo=error)    |
 
 ## Properties
 ### .config
