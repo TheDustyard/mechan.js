@@ -42,9 +42,10 @@ handler.createCommand("heman")
                 canRun: true
             };
         else
+            context.channel.send("You must be Dadster to run this command");
             return {
                 canRun: false,
-                message: "You must be Dadster to run this command"
+                message: "Invalid user"
             };
     })
     .setCallback((context) => {
