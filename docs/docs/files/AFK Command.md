@@ -1,3 +1,4 @@
+# AFK Command
 ## Create the variables
 Near the top of your file you wouls want to add the following
 ```js
