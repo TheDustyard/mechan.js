@@ -6,7 +6,8 @@
         "The-Basics",
         "Handle-Messages",
         "AFK-Command",
-        "Rate-Limiter"
+        "Rate-Limiter",
+        "Warning-Command"
     ],
     "Classes": [
         "Command",
