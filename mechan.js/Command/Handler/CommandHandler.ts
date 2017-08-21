@@ -109,7 +109,7 @@ export class CommandHandler extends EventEmitter {
 
                         for (let command of CommandParser.getCommands(context.handler.root)) {
                             if (!command.visible)
-                                return;
+                                continue;
 
                             let category = command.category || "No category";
 
