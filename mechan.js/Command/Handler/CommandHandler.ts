@@ -103,7 +103,9 @@ export class CommandHandler extends EventEmitter {
                 .setCallback((context) => {
                     if (context.args[0] === "") {
                         let embed = new RichEmbed();
-                        embed.setColor((<any>context.message.guild).me.colorRole.color);
+                        let colorRole = (<any>context.message.guild).me.colorRole;
+                        if (colorRole)
+                            embed.setColor(colorRole.color);
 
                         let categories = new Map<string, string[]>();
 
