@@ -19,8 +19,12 @@ export class MessageHandler {
      */
     constructor(client: Client) {
         this.client = client;
+        this.messages = new Map<string, (message: Message) => void>()
 
         client.on('message', (message) => {
+            if (message.author.bot)
+                return;
+
             let messagecontent = message.content;
 
             let callback = this.messages.get(messagecontent.toLowerCase());

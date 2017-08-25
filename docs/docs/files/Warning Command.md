@@ -5,6 +5,7 @@ We will be storing the warnings in a file, so if the bot restarts, they will not
 Create a file called warnings.json in the same directory as the `app.json` file
 Load the file into a variable with nodejs's `require` command, you could also use the filesystem, but I will use nodse's `require` for ease
 ```js
+const fs = require('fs');
 var warnings = require('./warnings.json');
 ```
 

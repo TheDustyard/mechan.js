@@ -14,3 +14,5 @@ export * from './Command/CommandErrorContext';
 export * from './Command/CommandGroup';
 export * from './Command/CommandParameter';
 export * from './Command/CommandParser';
+
+export * from './Message/MessageHandler';
