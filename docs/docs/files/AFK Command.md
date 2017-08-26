@@ -65,7 +65,7 @@ We need to declare the command to enable the AFK
 handler.createCommand("afk")
     .setCategory("Util commands")
     .setDescription("Go afk")
-    // Set callback to the functiuon we just made
+    // Set callback to the function we just made
     .setCallback(AFK)
 ```
 

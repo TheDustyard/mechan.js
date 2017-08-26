@@ -139,10 +139,10 @@ handler.createCommand("warnings")
     .setCategory("Moderator Commands")
     .addCheck(permCheck)
     .setCallback((context) => {
-        if (context.args.length === 1) {
+        if (context.args[0] === "") {
             allWarningsCommand(context);
         } else {
-            warnCommand(context);
+            warningsCommand(context);
         }
     });
 
