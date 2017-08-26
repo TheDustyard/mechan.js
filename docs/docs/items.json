@@ -22,8 +22,7 @@
     ],
     "Types": [
         "CommandHandlerConfig",
-        "PermissionCheck",
-        "PermissionCheckResult"
+        "PermissionCheck"
     ],
     "Enums": [
         "CommandErrorType",

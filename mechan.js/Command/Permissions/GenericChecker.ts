@@ -2,10 +2,10 @@
     CommandContext
 } from '../../';
 
-export type PermissionCheckResult = {
-    canRun: boolean,
-    message?: string
-}
+//export type PermissionCheckResult = {
+//    canRun: boolean,
+//    message?: string
+//}
 
 export type PermissionCheck =
-    (event: CommandContext) => PermissionCheckResult;
+    (event: CommandContext) => boolean;

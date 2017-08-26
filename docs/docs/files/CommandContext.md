@@ -16,6 +16,7 @@ new Mechan.CommandContext(message, command, args, handler)
 |[user](#CommandContext?scrollTo=user)              |       |      |
 |[message](#CommandContext?scrollTo=message)        |       |      |
 |[channel](#CommandContext?scrollTo=channel)        |       |      |
+|[guild](#CommandContext?scrollTo=guild)            |       |      |
 |[command](#CommandContext?scrollTo=command)        |       |      |
 |[handler](#CommandContext?scrollTo=handler)        |       |      |
 |[args](#CommandContext?scrollTo=args)              |       |      |
@@ -32,6 +33,10 @@ Message that called the command
 ### .channel
 Channel that the command was run in
 **Type:** [TextChannel](https://discord.js.org/#/docs/main/stable/class/TextChannel) | [DMChannel](https://discord.js.org/#/docs/main/stable/class/DMChannel) | [GroupDMChannel](https://discord.js.org/#/docs/main/stable/class/GroupDMChannel) 
+
+### .guild
+Guild that the command was run in
+**Type:** [Guild](https://discord.js.org/#/docs/main/stable/class/Guild)
    
 ### .command
 Comamnd that was called

@@ -24,13 +24,9 @@ isLimited(user) {
 //And lastly, one to use as a PermissionCheck
 rateLimiter(context) {
     if(isLimited(context.message.author))
-        return {
-            canRun: false
-        };
+        return false;
     else {
-        return {
-            canRun: true
-        };
+        return true;
         //Change 1000 to the delay in miliseconds
         rateLimit(context.message.author, 1000)
     }

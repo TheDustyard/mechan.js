@@ -5,4 +5,4 @@
 |---------|---------------------------------|
 |event    |[CommandContext](#CommandContext)|
 
-**Returns: [PermissionCheckResult](#PermissionCheckResult)**
+**Returns: [boolean](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**

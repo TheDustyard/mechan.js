@@ -253,8 +253,8 @@ export class CommandHandler extends EventEmitter {
 
                 let canRun = parsedcommand.command.canRun(context);
 
-                if (!canRun.canRun) {
-                    this.console.failure(this, new CommandErrorContext(new Error(canRun.message), CommandErrorType.BadPermissions, context));
+                if (!canRun) {
+                    this.console.failure(this, new CommandErrorContext(new Error("Precheck returned false"), CommandErrorType.BadPermissions, context));
                     return;
                 }
 

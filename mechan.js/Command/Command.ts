@@ -2,8 +2,7 @@
     CommandContext,
     CommandParameter,
     PermissionCheck,
-    ParameterType,
-    PermissionCheckResult
+    ParameterType
 } from '../';
 import { User, TextChannel } from 'discord.js';
 
@@ -71,19 +70,13 @@ export class Command {
      * Checks all permission checks and verifies if a command can be run
      * @param context - The context for the command
      */
-    canRun(context: CommandContext): PermissionCheckResult {
+    canRun(context: CommandContext): boolean {
         for (let i: number = 0; i < this.checks.length; i++) {
             let result = this.checks[i](context)
-            if (!result.canRun)
-                return {
-                    canRun: false,
-                    message: result.message
-                };
+            if (!result)
+                return false
         }
-        return {
-            canRun: true,
-            message: null
-        };
+        return true;
     }
 }
 

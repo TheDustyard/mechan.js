@@ -3,7 +3,8 @@
     Message,
     TextChannel,
     DMChannel,
-    GroupDMChannel
+    GroupDMChannel,
+    Guild
 } from 'discord.js';
 import {
     Command,
@@ -23,6 +24,10 @@ export class CommandContext {
      * Channel that the command was run in
      */
     public channel: TextChannel | DMChannel | GroupDMChannel;
+    /**
+     * Guild that the command was run in
+     */
+    public guild: Guild;
     /**
      * Comamnd that was called
      */
@@ -46,6 +51,7 @@ export class CommandContext {
     constructor(message: Message, command: Command, args: string[], handler: CommandHandler) {
         this.user = message.author;
         this.channel = message.channel;
+        this.guild = message.guild;
         this.message = message;
         this.command = command;
         this.handler = handler;
