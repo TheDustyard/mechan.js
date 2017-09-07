@@ -48,13 +48,12 @@ function checkMention(msg) {
     // Get all mentions as an array
     var mentions = msg.mentions.members.array();
     
-    // Loop through all AFK people
-    for (person in AFKs) {
-        // Check if their id is in the list
-        if (mentions.some(x => x.user.id === person))
-            // If it is, warn the sender
-            msg.channel.send(`**${person.tag }** is *AFK* : ${afks.get(person)}`)
-                .then(x => setTimeout(() => x.delete(), 10000));
+    //Check if each member is afk
+    for (let user of mentions) {
+      if (AFKs.has(user.id))
+        // If it is, warn the sender
+       msg.channel.send(`**${user}** is *AFK* : ${AFKs.get(user.id)}`)
+         .then(x => setTimeout(() => x.delete(), 10000));
     }
 }
 ```
