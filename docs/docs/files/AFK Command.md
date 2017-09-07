@@ -31,7 +31,7 @@ function UnAFK(message) {
         return;
 
     // Remove them from the AFK list
-    AFKs.delete(message.author.username);
+    AFKs.delete(message.author.id);
 
     // Welcome them back
     message.channel.send(`Welcome back ${message.author } `)
