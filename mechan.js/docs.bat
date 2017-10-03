@@ -1,0 +1,1 @@
+typedoc --json ../docs/docs/docs.json
