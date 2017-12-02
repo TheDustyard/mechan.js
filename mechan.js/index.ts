@@ -1,8 +1,5 @@
 ﻿export const version: string = require('./package').version;
 
-import * as dcord from 'discord.js';
-export const Discord = dcord;
-
 export * from './Command/Handler/CommandHandler';
 export * from './Command/Handler/HelpMode';
 

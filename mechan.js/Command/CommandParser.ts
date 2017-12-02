@@ -51,15 +51,21 @@ export class ParsedArgs {
      * Args parsed out
      */
     args: string[];
+    /**
+     * Parameters parsed out
+     */
+    parameters: Map<string, any>;
 
     /**
      * create an instance
      * @param error - Error type
      * @param args - Args parsed out
+     * @param parameters - Parameters parsed out
      */
-    constructor(error: CommandErrorType, args: string[]) {
+    constructor(error: CommandErrorType, args: string[], parameters: Map<string, any>) {
         this.error = error;
         this.args = args;
+        this.parameters = parameters;
     }
 
 }
@@ -72,11 +78,12 @@ export class CommandParser {
             return new ParsedCommand(false, null, input);
         }
 
+        //#region COMMAND
         let commands: Command[] = CommandParser.getCommands(root);
         let command: Command;
 
         // Sort alphabetically
-        commands = commands.sort(function (a, b) {
+        commands = commands.sort((a, b) => {
             return a.fullname.localeCompare(b.fullname);
         });
 
@@ -89,24 +96,58 @@ export class CommandParser {
         });
 
         // Break if no command found
-        if (commands.length === 0) {
-            return new ParsedCommand(false, null, input);
-        }
+        if (commands.length !== 0) {
+            // Sort by length
+            commands = commands.sort(function (a, b) {
+                return b.fullname.length - a.fullname.length;
+            });
+            
+            // Get command that matches for the most characters
+            command = commands[0];
 
-        // Sort by length
-        commands = commands.sort(function (a, b) {
-            return b.fullname.length - a.fullname.length;
+            // Return if command found
+            if (command) {
+                return new ParsedCommand(true, command, input.replace(command.fullname, "").trim());
+            }
+        }
+        //#endregion
+
+        let groups: CommandGroup[] = CommandParser.getGroups(root);
+        let group: CommandGroup;
+
+        // Sort alphabetically
+        groups = groups.sort((a, b) => {
+            return a.fullname.localeCompare(b.fullname);
         });
-        
-        // Get command that matches for the most characters
-        command = commands[0];
+
+        /// Get commands that match string
+        groups = groups.filter((item) => {
+            if (input.length > item.fullname.length)
+                return input.toLowerCase().startsWith(item.fullname.toLowerCase() + " ");
+            else
+                return input.toLowerCase().startsWith(item.fullname.toLowerCase());
+        });
 
         // Break if no command found
-        if (!command) {
-            return new ParsedCommand(false, null, input);
+        if (groups.length !== 0) {
+            // Sort by length
+            groups = groups.sort(function (a, b) {
+                return b.fullname.length - a.fullname.length;
+            });
+            
+            // Get command that matches for the most characters
+            group = groups[0];
+
+
+            // Return if command found
+            if (group) {
+                return new ParsedCommand(true, group.help(group.fullname), input.replace(group.fullname, "").trim());
+            }
         }
 
-        return new ParsedCommand(true, command, input.replace(command.fullname, "").trim());
+        return new ParsedCommand(false, null, input);
+        
+
     }
 
     public static getCommands(commandgroup: CommandGroup): Command[] {
@@ -139,125 +180,339 @@ export class CommandParser {
      * Check if c is whitespace
      * @param c - Character to check
      */
-    private static IsWhiteSpace(c: string): boolean {
-        return c == ' ' || c == '\n' || c == '\r' || c == '\t'
+    private static isWhiteSpace(c: string): boolean {
+        return /\s/.test(c);
     };
 
     public static parseArgs(input: string, command: Command): ParsedArgs {
-        let args: string[];
+        let args: Map<string, any> = new Map<string, any>();
 
-        let currentPart: ParserPart = ParserPart.None;
+        let currentpart: ParserPart = ParserPart.None;
         let startPosition: number = 0;
         let endPosition: number = 0;
-        let inputLength: number = input.length;
-        let isEscaped: boolean = false;
+        let inputlength: number = input.length;
+        let escaped: boolean = false;
 
-        let expectedArgs: CommandParameter[] = command.parameters;
-        let argList: string[] = [];
-        let parameter: CommandParameter = null;
+        let currentchar;
 
-        args = null;
+        let expectedparameters: CommandParameter[] = command.parameters;
+        let currentparameter: CommandParameter = expectedparameters[0];
 
-        if (command.parameters.length === 0 && input == "") {
-            return new ParsedArgs(null, []);
-        }
+        if (command.parameters.length === 0 && input.trim().length === 0)
+            return new ParsedArgs(null, Array.from(args.values()), args);
+        
+        // if (command.parameters.length > 0 && input.trim().length === 0)
+        //     return new ParsedArgs(CommandErrorType.BadArgCount, Array.from(args.values()), args);
 
-        //if (input == "" && command.parameters.length !== 0)
-        //    return new ParsedArgs(CommandErrorType.InvalidInput, null);
+        while (endPosition < inputlength) {
 
-        while (endPosition < inputLength) {
-            if (startPosition == endPosition && (parameter == null || parameter.type != ParameterType.Multiple)) { //Is first char of a new arg
-                if (argList.length >= expectedArgs.length)
-                    return new ParsedArgs(CommandErrorType.BadArgCount, null); //Too many args
-                parameter = expectedArgs[argList.length];
-                if (parameter.type == ParameterType.Unparsed) {
-                    argList.push(input.substring(startPosition));
-                    break;
-                }
+            // console.log('-----------')
+            // console.log('args:', args);
+            // console.log('currentpart:', currentpart);
+            // console.log('startPosition:', startPosition);
+            // console.log('endPosition:', endPosition);
+            // console.log('inputlength:', inputlength);
+            // console.log('escaped:', escaped);
+            // console.log('currentchar:', currentchar);
+            // console.log('expectedparameters:', expectedparameters);
+            // console.log('currentparameter:', currentparameter);
+
+            if (currentparameter.type === ParameterType.Multiple) {
+                currentparameter = expectedparameters[expectedparameters.length - 1];
+            } else {
+                currentparameter = expectedparameters[args.size];                
             }
 
-            let currentChar: string = input[endPosition++];
-            if (isEscaped)
-                isEscaped = false;
-            else if (currentChar == '\\')
-                isEscaped = true;
+            if (currentparameter.type === ParameterType.Multiple) {
+                //console.log(`${currentpart}: MULTIPLE`)
+            }
+            if (currentparameter.type === ParameterType.Unparsed) {
+                endPosition = inputlength;
+                args.set(currentparameter.name, input.substring(startPosition, endPosition));                
+                break;
+            }
 
-            let isWhitespace: boolean = CommandParser.IsWhiteSpace(currentChar);
-            if (endPosition == startPosition + 1 && isWhitespace) {
-                startPosition = endPosition;
+            currentchar = input[endPosition];
+            //console.log(currentchar, currentpart);
+
+            // Charecter is a \, therefore escaping the next char
+            if (currentchar === "\\") {
+                // Tell the parser the current char is escaped
+                escaped = true;
+
+                // Move on
+                endPosition ++;
+                if (currentpart === ParserPart.None)
+                    startPosition ++;
+
+                currentchar = input[endPosition];
+
+                //console.log(`Escaped '${currentchar}'`, startPosition, endPosition);             
+            } else {
+                // Tell the parser the current char is not escaped
+                escaped = false;
+            }
+
+            // The current char is whitespace and the parser is not in a part
+            if (currentpart === ParserPart.None && CommandParser.isWhiteSpace(currentchar)) {
+                // Move on
+                startPosition ++;
+                endPosition ++;
+
+                //console.log('Skipped whitespace', startPosition, endPosition);
+                
+                // Run full check on next char
                 continue;
             }
-            
-            switch (currentPart) {
-                case ParserPart.None:
-                    if ((!isEscaped && currentChar == '\"')) {
-                        currentPart = ParserPart.DoubleQuotedParameter;
-                        startPosition = endPosition;
+
+            // START OF SINGLE QOUTE
+            // The current char is a single qoute and the parser is not in a part
+            if (currentpart === ParserPart.None && currentchar === '\'' && !escaped) {
+                // Set the current part
+                currentpart = ParserPart.QuotedParameter;
+
+                // e x p a n d
+                endPosition ++;
+                startPosition ++;
+ 
+                //console.log('Captured single qoute', startPosition, endPosition)
+
+                 // Run full check on next char
+                 continue;
+                
+            }
+
+            // MIDDLE OF SINGLE QOUTE
+            // The current part is single qouted and the current char is not a single qoute
+            if (currentpart === ParserPart.QuotedParameter && ((currentchar === '\'' && escaped) || currentchar !== '\'')) {
+
+                // e x p a n d
+                endPosition ++;
+
+                //console.log('Expanded single qoute', startPosition, endPosition);
+
+                // Run full check on next char
+                continue;
+            }
+
+            // END OF SINGLE QOUTE
+            // The current char is a single qoute and the parser is in a single qouted part
+            if (currentpart === ParserPart.QuotedParameter && currentchar === '\'' && !escaped) {
+                // Set the current part
+                currentpart = ParserPart.None;
+                
+                // Add argument
+                if (currentparameter.type === ParameterType.Multiple) {
+                    let current = args.get(currentparameter.name);
+                    if (!current) {
+                        current = [];
                     }
-                    else if ((!isEscaped && currentChar == '\'')) {
-                        currentPart = ParserPart.QuotedParameter;
-                        startPosition = endPosition;
+                    
+                    if (current instanceof Array)
+                        current.push(input.substring(startPosition, endPosition));
+    
+                    args.set(currentparameter.name, current);
+                } else {
+                    args.set(currentparameter.name, input.substring(startPosition, endPosition));
+                }
+
+                // Continue
+                endPosition ++;
+                // Catch up
+                startPosition = endPosition;
+
+                //console.log('Ended single qoute', startPosition, endPosition);
+
+                // Run full check on next char
+                continue;
+            }
+
+            // START OF DOUBLE QOUTE
+            // The current char is a double qoute and the parser is not in a part
+            if (currentpart === ParserPart.None && currentchar === '\"' && !escaped) {
+
+                // Set the currentpart
+                currentpart = ParserPart.DoubleQuotedParameter;
+
+                // e x p a n d
+                endPosition ++;
+                startPosition ++;                
+
+                //console.log('Captured double qoute', startPosition, endPosition);
+
+                // Run full check on next char
+                continue;
+            }
+
+            // MIDDLE OF DOUBLE QOUTE
+            // The current part is double qouted and the current char is not a double qoute
+            if (currentpart === ParserPart.DoubleQuotedParameter && ((currentchar === '\"' && escaped) || currentchar !== '\"')) {
+
+                // e x p a n d
+                endPosition ++;
+
+                //console.log('Expanded double qoute', startPosition, endPosition);
+
+                // Run full check on next char
+                continue;
+            }
+
+            // END OF DOUBLE QOUTE
+            // The current char is a double qoute and the parser is in a double qouted part
+            if (currentpart === ParserPart.DoubleQuotedParameter && currentchar === '\"' && !escaped) {
+                // Set the current part
+                currentpart = ParserPart.None;
+
+                // Add argument
+                if (currentparameter.type === ParameterType.Multiple) {
+                    let current = args.get(currentparameter.name);
+                    if (!current) {
+                        current = [];
                     }
-                    else if ((!isEscaped && isWhitespace) || endPosition >= inputLength) {
-                        let length: number = (isWhitespace ? endPosition - 1 : endPosition) - startPosition;
-                        if (length == 0)
-                            startPosition = endPosition;
-                        else {
-                            let temp: string = input.substring(startPosition, length);
-                            argList.push(temp);
-                            currentPart = ParserPart.None;
-                            startPosition = endPosition;
-                        }
+                    
+                    if (current instanceof Array)
+                        current.push(input.substring(startPosition, endPosition));
+    
+                    args.set(currentparameter.name, current);
+                } else {
+                    args.set(currentparameter.name, input.substring(startPosition, endPosition));
+                }
+                
+                // Continue
+                endPosition ++;
+                // Catch up
+                startPosition = endPosition;
+
+                //console.log('Ended double qoute', startPosition, endPosition);
+
+                // Run full check on next char
+                continue;
+            }
+
+            // START OF PARAMETER
+            // The current char is not whitespace and the parser is not in a part
+            if (currentpart === ParserPart.None && !CommandParser.isWhiteSpace(currentchar)) {
+                // Set current part
+                currentpart = ParserPart.Parameter;
+
+                // e x p a n d
+                endPosition ++;
+
+                //console.log('Captured parameter', startPosition, endPosition);
+
+                // Run full check on next char
+                continue;
+            }
+
+            // MIDDLE OF PARAMETER
+            // The current char is not unescaped whitespace and the parser is in a unqouted part
+            if ((currentpart === ParserPart.Parameter && !CommandParser.isWhiteSpace(currentchar))
+            || (currentpart === ParserPart.Parameter && CommandParser.isWhiteSpace(currentchar) && escaped)) {
+                // e x p a n d
+                endPosition ++;
+
+                //console.log('Expanded parameter', startPosition, endPosition);
+
+                // Run full check on next char
+                continue;
+            }
+
+            // END OF PARAMETER
+            // The current char is whitespace and the parser is in a unqouted part
+            if (currentpart === ParserPart.Parameter && CommandParser.isWhiteSpace(currentchar) && !escaped) {
+                // Set current part
+                currentpart = ParserPart.None;
+
+                // Add argument
+                if (currentparameter.type === ParameterType.Multiple) {
+                    let current = args.get(currentparameter.name);
+                    if (!current) {
+                        current = [];
                     }
-                    break;
-                case ParserPart.QuotedParameter:
-                    if ((!isEscaped && currentChar == '\'')) {
-                        let temp: string = input.substring(startPosition, endPosition - 1);
-                        argList.push(temp);
-                        currentPart = ParserPart.None;
-                        startPosition = endPosition;
-                    }
-                    else if (endPosition >= inputLength)
-                        return new ParsedArgs(CommandErrorType.InvalidInput, null);
-                    break;
-                case ParserPart.DoubleQuotedParameter:
-                    if ((!isEscaped && currentChar == '\"')) {
-                        let temp: string = input.substring(startPosition, endPosition - 1);
-                        argList.push(temp);
-                        currentPart = ParserPart.None;
-                        startPosition = endPosition;
-                    }
-                    else if (endPosition >= inputLength)
-                        return new ParsedArgs(CommandErrorType.InvalidInput, null);
-                    break;
+                    
+                    if (current instanceof Array)
+                        current.push(input.substring(startPosition, endPosition));
+    
+                    args.set(currentparameter.name, current);
+                } else {
+                    args.set(currentparameter.name, input.substring(startPosition, endPosition));
+                }
+
+                // Continue
+                endPosition ++;
+                // Catch up
+                startPosition = endPosition;
+
+                //console.log('Ended parameter', startPosition, endPosition);
+
+                // Run full check on next char
+                continue;
+            }
+
+
+            // Somehow the start of the arg is before the end, kill the process, something went really wrong
+            if (startPosition > endPosition) {
+                console.error(`COMMAND PARSER FAILED CATASTROPHICALLY, DUMPING INFO:`)
+                console.log('-----------')
+                console.log('args:', args);
+                console.log('currentpart:', currentpart);
+                console.log('startPosition:', startPosition);
+                console.log('endPosition:', endPosition);
+                console.log('inputlength:', inputlength);
+                console.log('escaped:', escaped);
+                console.log('currentchar:', currentchar);
+                console.log('expectedparameters:', expectedparameters);
+                console.log('currentparameter:', currentparameter);
+                return new ParsedArgs(CommandErrorType.Catastrophe, Array.from(args.values()), args);
             }
         }
 
-        //Unclosed quotes
-        if (currentPart == ParserPart.QuotedParameter || currentPart == ParserPart.DoubleQuotedParameter)
-            return new ParsedArgs(CommandErrorType.InvalidInput, null);
+        // END OF PARAMETER
+        if (currentpart === ParserPart.Parameter) {
+            // Set current part
+            currentpart = ParserPart.None;
 
-        //Too few args
-        for (let i: number = argList.length; i < expectedArgs.length; i++) {
-            var param = expectedArgs[i];
-            switch (param.type) {
-                case ParameterType.Required:
-                    return new ParsedArgs(CommandErrorType.BadArgCount, null);
-                case ParameterType.Optional:
-                case ParameterType.Unparsed:
-                    argList.push("");
-                    break;
+            // Add argument
+            if (currentparameter.type === ParameterType.Multiple) {
+                let current = args.get(currentparameter.name);
+                if (!current) {
+                    current = [];
+                }
+                
+                if (current instanceof Array)
+                    current.push(input.substring(startPosition, endPosition));
+
+                args.set(currentparameter.name, current);
+            } else {
+                args.set(currentparameter.name, input.substring(startPosition, endPosition));
             }
+
+            // Continue
+            endPosition ++;
+            // Catch up
+            startPosition = endPosition;
+
+            //console.log('Ended parameter', startPosition, endPosition);
         }
 
-        /*if (argList.Count > expectedArgs.Length)
-        {
-            if (expectedArgs.Length == 0 || expectedArgs[expectedArgs.Length - 1].Type != ParameterType.Multiple)
-                return CommandErrorType.BadArgCount;
-        }*/
 
-        args = argList;
-        return new ParsedArgs(null, args);
+        // console.log('------DONE-----')
+        // console.log('args:', args);
+        // console.log('currentpart:', currentpart);
+        // console.log('startPosition:', startPosition);
+        // console.log('endPosition:', endPosition);
+        // console.log('inputlength:', inputlength);
+        // console.log('escaped:', escaped);
+        // console.log('currentchar:', currentchar);
+        // console.log('expectedparameters:', expectedparameters);
+        // console.log('currentparameter:', currentparameter);
+
+        if (args.size < expectedparameters.filter(x => x.type === ParameterType.Required).length)
+            return new ParsedArgs(CommandErrorType.BadArgCount, Array.from(args.values()), args);
+
+        // console.log(args);
+
+        return new ParsedArgs(null, Array.from(args.values()), args);
     }
 
     static appendPrefix(prefix: string, cmd: string): string {

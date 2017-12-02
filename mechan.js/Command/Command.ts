@@ -112,7 +112,7 @@ export class CommandBuilder extends Command {
         if (this.paramsClosed)
             throw "No parameters may be added after a 'Multiple' or 'Unparsed' parameter.";
 
-        if (!this.allowRequiredParameters)
+        if (!this.allowRequiredParameters && type === ParameterType.Required)
             throw "`Required` parameters may not be added after an optional one";
 
         this.parameters.push(parameter);

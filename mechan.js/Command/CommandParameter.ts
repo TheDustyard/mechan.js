@@ -29,7 +29,7 @@ export enum ParameterType {
      */
     Optional = "optional",
     /**
-     * Catches zero or more optional parameters.
+     * Catches zero or more optional parameters, stored as list.
      */
     Multiple = "multiple",
     /**

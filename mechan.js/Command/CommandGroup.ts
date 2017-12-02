@@ -4,8 +4,13 @@
     CommandHandler,
     CommandParser,
     PermissionCheck,
-    CommandContext
+    CommandContext,
+    ParameterType,
+    HelpMode
 } from '../';
+import {
+    RichEmbed
+} from 'discord.js';
 
 export class CommandGroup {
     /**
@@ -41,9 +46,17 @@ export class CommandGroup {
      */
     public category: string;
     /**
+     * Description of the category
+     */
+    public description: string;
+    /**
      * Whether or not the command is visible in the default help menu
      */
     public visible: boolean;
+    /**
+     * Command to fire when called
+     */
+    public help: (fullname: string) => Command;
 
     /**
      * Create a command group
@@ -52,10 +65,11 @@ export class CommandGroup {
      * @param name - Name of the group
      * @param commands - Subcommands
      * @param prechecks - Checks to preform on all commands
+     * @param description - Description of the Category
      * @param category - Category the command fits into
      * @param visible - Whether or not the command is visible in the default help menu
      */
-    constructor(handler: CommandHandler, parent: CommandGroup, name: string, commands: Command[] = [], prechecks: PermissionCheck[] = [], category: string = null, visible: boolean = true) {
+    constructor(handler: CommandHandler, parent: CommandGroup, name: string, description: string = null, commands: Command[] = [], prechecks: PermissionCheck[] = [], category: string = null, visible: boolean = true) {
         if (/ /g.test(name))
             throw "Command group name cannot contain a space";
         if ((name === "" || name === null || name === undefined) && parent !== null)
@@ -72,6 +86,71 @@ export class CommandGroup {
         this.visible = visible;
         this.groups = new Map<string, CommandGroup>();
         this.fullname = "";
+        this.description = description;
+
+        this.help = (fullname: string) => new CommandBuilder(this.handler.config.prefix + fullname)
+                                                .addParameter('void', ParameterType.Unparsed)
+                                                .setCallback((context) => {
+                                                    let embed = new RichEmbed();
+                                                    let colorRole = (<any>context.message.guild).me.colorRole;
+                                                    if (colorRole)
+                                                        embed.setColor(colorRole.color);
+                            
+                                                    let categories = new Map<string, string[]>();
+                            
+                                                    for (let command of CommandParser.getCommands(this)) {
+                                                        if (!command.visible)
+                                                            continue;
+                            
+                                                        let category = command.category || "No category";
+                            
+                                                        let list = categories.get(category);
+                                                        if (list === undefined)
+                                                            list = [];
+                            
+                                                        let output = "";
+                                                        output += `${context.handler.config.prefix}**${command.fullname}**`;
+                            
+                                                        for (let param of command.parameters) {
+                                                            switch (param.type) {
+                                                                case ParameterType.Required:
+                                                                    output += ` <${param.name}>`;
+                                                                    break;
+                                                                case ParameterType.Optional:
+                                                                    output += ` [${param.name}]`;
+                                                                    break;
+                                                                case ParameterType.Multiple:
+                                                                    output += ` [${param.name}...]`;
+                                                                    break;
+                                                                case ParameterType.Unparsed:
+                                                                    output += ` [${param.name}...]`;
+                                                                    break;
+                                                            }
+                                                        }
+                            
+                                                        output += ` - *${command.description || "No description"}*`;
+                            
+                                                        list.push(output);
+                                                        categories.set(category, list);
+                            
+                                                    }
+                            
+                                                    categories = new Map([...categories.entries()].sort(([a, x], [b, y]) => a.localeCompare(b)));
+                            
+                                                    for (let value of categories) {
+                                                        embed.addField(value[0], value[1]);
+                                                    }
+                            
+                                                    switch (handler.config.helpMode) {
+                                                        case HelpMode.Private:
+                                                            context.user.send({ embed: embed })
+                                                                .catch((reason) => context.channel.send("Invalid perms, Cannot send DM to user"));
+                                                            break;
+                                                        case HelpMode.Public:
+                                                            context.channel.send({ embed: embed })
+                                                            break;
+                                                    }
+                                                });
     }
 
     private addCommand(command: Command): void {
@@ -108,7 +187,7 @@ export class CommandGroup {
      * @param callback - Initialisation function
      */
     public createGroup(name: string, callback?: (group: CommandGroupBuilder) => void): CommandGroupBuilder {
-        let builder = new CommandGroupBuilder(this.handler, this, name, this.category, this.prechecks);
+        let builder = new CommandGroupBuilder(this.handler, this, name, null, this.category, this.prechecks);
         this.addGroup(builder);
         if (callback)
             callback(builder);
@@ -124,11 +203,21 @@ export class CommandGroupBuilder extends CommandGroup {
      * @param handler - Command handler to regester to
      * @param parent - Parent group
      * @param name - Name of the group
+     * @param description - Description of the group
      * @param category - Category of the group
      * @param prechecks - Prechecks to run
      */
-    constructor(handler: CommandHandler, parent: CommandGroup = null, name: string = "", category: string = null, prechecks: PermissionCheck[] = []) {
-        super(handler, parent, name, [], prechecks, category, true);
+    constructor(handler: CommandHandler, parent: CommandGroup = null, name: string = "", description: string = null, category: string = null, prechecks: PermissionCheck[] = []) {
+        super(handler, parent, name, description, [], prechecks, category, true);
+    }
+
+    /** 
+     * Set the description of the group
+     * @param description - Description of the group
+     */
+    public setDescription(description: string): this {
+        this.description = description;
+        return this;
     }
 
     /**

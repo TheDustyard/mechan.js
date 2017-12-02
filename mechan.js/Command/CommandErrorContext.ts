@@ -9,7 +9,8 @@ export enum CommandErrorType {
     UnknownCommand = "Unknown command",
     BadPermissions = "Missing permissions",
     BadArgCount = "Bad args count",
-    InvalidInput = "Invalid input"
+    InvalidInput = "Invalid input",
+    Catastrophe = "Catastrophe"
 }
 
 export class CommandErrorContext extends CommandContext {
@@ -30,7 +31,7 @@ export class CommandErrorContext extends CommandContext {
      * @param context - The command context to inherit
      */
     constructor(error: Error, errorType: CommandErrorType, context: CommandContext) {
-        super(context.message, context.command, context.args, context.handler);
+        super(context.message, context.command, context.args, context.params, context.handler);
 
         this.error = error;
         this.errorType = errorType;

@@ -12,4 +12,4 @@ echo Cleaned directory
 echo Compiling...
 call tsc -p "tsconfig.json"
 echo Compiled
-call node --inspect-brk=6969 app.js
+node --inspect-brk=6969 ../test/app.js

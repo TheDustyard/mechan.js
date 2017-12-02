@@ -101,7 +101,7 @@ export class CommandHandler extends EventEmitter {
                 .addParameter("command", ParameterType.Unparsed)
                 .show()
                 .setCallback((context) => {
-                    if (context.args[0] === "") {
+                    if (!context.params.get('command')) {
                         let embed = new RichEmbed();
                         let colorRole = (<any>context.message.guild).me.colorRole;
                         if (colorRole)
@@ -167,7 +167,7 @@ export class CommandHandler extends EventEmitter {
                             embed.setColor((<any>context.message.guild).me.colorRole.color);
 
                         let commands = CommandParser.getCommands(context.handler.root);
-                        commands = commands.filter(x => x.fullname.toLowerCase().includes(context.args[0].toLowerCase()));
+                        commands = commands.filter(x => x.fullname.toLowerCase().includes((<string> context.params.get('command')).toLowerCase()));
                         commands = commands = commands.sort((a, b) => a.fullname.length - b.fullname.length);
 
                         for (let command of commands) {
@@ -201,7 +201,7 @@ export class CommandHandler extends EventEmitter {
                         }
 
                         if (embed.fields.length === 0) {
-                            embed.setTitle(`No command matched the search term "${context.args[0]}"`);
+                            embed.setTitle(`No command matched the search term "${context.params.get('command')}"`);
                         }
 
                         switch (this.config.helpMode) {
@@ -230,31 +230,31 @@ export class CommandHandler extends EventEmitter {
 
             if (prefixed || (mentionprefixed && this.config.mentionPrefix)) {
                 if (prefixed) {
-                    messagecontent = messagecontent.replace(this.config.prefix, "");
+                    messagecontent = messagecontent.replace(this.config.prefix, "").trim();
                 } else if (mentionprefixed) {
-                    messagecontent = messagecontent.replace(this.client.user.toString(), "");
+                    messagecontent = messagecontent.replace(this.client.user.toString(), "").trim();
                 }
 
                 let parsedcommand = CommandParser.parseCommand(messagecontent, this.root);
 
                 if (!parsedcommand.wasSuccess) {
-                    this.console.failure(this, new CommandErrorContext(new Error("Unknown command"), CommandErrorType.UnknownCommand, new CommandContext(message, null, null, this)));
+                    this.console.failure(this, new CommandErrorContext(new Error("Unknown command"), CommandErrorType.UnknownCommand, new CommandContext(message, null, null, null, this)));
                     return;
                 }
 
                 let parsedargs = CommandParser.parseArgs(parsedcommand.args, parsedcommand.command);
 
                 if (parsedargs.error) {
-                    this.console.failure(this, new CommandErrorContext(new Error(parsedargs.error), parsedargs.error, new CommandContext(message, parsedcommand.command, null, this)))
+                    this.console.failure(this, new CommandErrorContext(new Error(parsedargs.error), parsedargs.error, new CommandContext(message, parsedcommand.command, null, null, this)))
                     return;
                 }
 
-                let context = new CommandContext(message, parsedcommand.command, parsedargs.args, this);
+                let context = new CommandContext(message, parsedcommand.command, parsedargs.args, parsedargs.parameters, this);
 
                 let canRun = parsedcommand.command.canRun(context);
 
                 if (!canRun) {
-                    this.console.failure(this, new CommandErrorContext(new Error("Precheck returned false"), CommandErrorType.BadPermissions, context));
+                    this.console.failure(this, new CommandErrorContext(new Error("Precheck failed"), CommandErrorType.BadPermissions, context));
                     return;
                 }
 
