@@ -34,26 +34,20 @@ export class CommandHandler extends EventEmitter {
      * Custom logger
      */
     private console = {
-        log: (message: string) => {
-            this.emit('debug', message);
-        },
-        warn: (message: string) => {
-            this.emit('warn', message);
-        },
-        error: (message: string, error?: Error) => {
-            this.emit('error', message, error);
-        },
+        // log: (message: string) => {
+        //     this.emit('debug', message);
+        // },
+        // warn: (message: string) => {
+        //     this.emit('warn', message);
+        // },
+        // error: (message: string, error?: Error) => {
+        //     this.emit('error', message, error);
+        // },
         success: (handler: CommandHandler, context: CommandContext) => {
             this.emit('success', handler, context);
-            this.console.log(`${context.command.fullname} executed successfully`);
         },
         failure: (handler: CommandHandler, context: CommandErrorContext) => {
             this.emit('failure', handler, context);
-            try {
-                this.console.error(`${context.command.fullname} failed execution`, context.error);
-            } catch (e) {
-
-            }
         }
     };
 
@@ -317,34 +311,34 @@ export interface CommandHandler {
      */
     on(event: 'success', listener: (handler: CommandHandler, context: CommandContext) => void): this;
 
-    /**
-     * Emitted when the handler would log to the console
-     */
-    on(event: 'debug', listener: (message: string) => void): this;
-    /**
-     * Emitted when the handler would log to the warn console
-     */
-    on(event: 'warn', listener: (message: string) => void): this;
-    /**
-     * Emitted when the handler would log to the error console
-     */
-    on(event: 'error', listener: (message: string, error?: Error) => void): this;
+    // /**
+    //  * Emitted when the handler would log to the console
+    //  */
+    // on(event: 'debug', listener: (message: string) => void): this;
+    // /**
+    //  * Emitted when the handler would log to the warn console
+    //  */
+    // on(event: 'warn', listener: (message: string) => void): this;
+    // /**
+    //  * Emitted when the handler would log to the error console
+    //  */
+    // on(event: 'error', listener: (message: string, error?: Error) => void): this;
 
 
     once(event: string, listener: Function): this;
     once(event: 'failure', listener: (handler: CommandHandler, context: CommandErrorContext) => void): this;
     once(event: 'success', listener: (handler: CommandHandler, context: CommandContext) => void): this;
 
-    once(event: 'debug', listener: (message: string) => void): this;
-    once(event: 'warn', listener: (message: string) => void): this;
-    once(event: 'error', listener: (message: string, error?: Error) => void): this;
+    // once(event: 'debug', listener: (message: string) => void): this;
+    // once(event: 'warn', listener: (message: string) => void): this;
+    // once(event: 'error', listener: (message: string, error?: Error) => void): this;
 
 
     emit(event: string, ...args: any[]): boolean;
     emit(event: 'failure', handler: CommandHandler, conetxt: CommandErrorContext): boolean;
     emit(event: 'success', handler: CommandHandler, context: CommandContext): boolean;
 
-    emit(event: 'debug', message: string): boolean;
-    emit(event: 'warn', message: string): boolean;
-    emit(event: 'error', message: string, error?: Error): boolean;
+    // emit(event: 'debug', message: string): boolean;
+    // emit(event: 'warn', message: string): boolean;
+    // emit(event: 'error', message: string, error?: Error): boolean;
 }
