@@ -8,7 +8,7 @@
     CommandErrorType,
     CommandErrorContext,
     CommandParameter
-} from '../../';
+} from '../../index';
 import { EventEmitter } from 'events';
 import {
     Client,
@@ -294,8 +294,7 @@ export class CommandHandler extends EventEmitter {
      * @param cmd - Command name
      */
     public getCommand(cmd: string): Command {
-        let command = this.root.commands.get(name);
-        return command;
+        return this.root.getCommand(cmd);
     }
 
     /**
@@ -303,20 +302,7 @@ export class CommandHandler extends EventEmitter {
      * @param cmd - Command full name
      */
     public createNestedCommand(name: string): Command {
-        let parts = name.split(' ');
-        let command = parts[parts.length - 1];
-        let groups = parts.slice(0, parts.length - 1);
-
-        if (!command || /  /g.test(name))
-            throw 'Invalid name';
-
-        let currentGroup: CommandGroup;
-        for (let part of groups) {
-            let group = (currentGroup || this.root).createGroup(part);
-            currentGroup = group;
-        }
-
-        return currentGroup.createCommand(command);
+        return this.root.createNestedCommand(name);
     }
 
     /**
@@ -324,20 +310,7 @@ export class CommandHandler extends EventEmitter {
      * @param cmd - Command full name
      */
     public getNestedCommand(name: string): Command {
-        let parts = name.split(' ');
-        let command = parts[parts.length - 1];
-        let groups = parts.slice(0, parts.length - 1);
-
-        if (!command || /  /g.test(name))
-            throw 'Invalid name';
-
-        let currentGroup: CommandGroup;
-        for (let part of groups) {
-            let group = Array.from((currentGroup || this.root).groups.values()).find(x => x.name === part);
-            currentGroup = group;
-        }
-
-        return Array.from(currentGroup.commands.values()).find(x => x.name === command);
+        return this.root.getNestedCommand(name);
     }
 
     /**

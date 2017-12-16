@@ -2,7 +2,7 @@
     CommandContext,
     Command,
     CommandHandler
-} from '../';
+} from '../index';
 
 export enum CommandErrorType {
     Error = "Error",

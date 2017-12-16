@@ -6,7 +6,7 @@
     ParameterType,
     CommandHandler,
     CommandContext
-} from "../";
+} from "../index";
 
 enum ParserPart {
     None = "none",

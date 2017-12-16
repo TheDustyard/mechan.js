@@ -10,7 +10,7 @@
 import {
     Command,
     CommandHandler
-} from '../';
+} from '../index';
 
 export class CommandContext {
     /**

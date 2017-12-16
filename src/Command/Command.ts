@@ -3,7 +3,7 @@
     CommandParameter,
     PermissionCheck,
     ParameterType
-} from '../';
+} from '../index';
 import { User, TextChannel } from 'discord.js';
 
 export class Command {

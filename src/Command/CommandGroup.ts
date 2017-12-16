@@ -6,7 +6,7 @@
     CommandContext,
     ParameterType,
     HelpMode
-} from '../';
+} from '../index';
 import {
     RichEmbed
 } from 'discord.js';
@@ -150,6 +150,58 @@ export class CommandGroup {
                                                             break;
                                                     }
                                                 });
+    }
+
+    /**
+     * Get a command from the handler
+     * @param cmd - Command name
+     */
+    public getCommand(cmd: string): Command {
+        let command = this.commands.get(name);
+        return command;
+    }
+
+    /**
+     * Create a nested command with the full name given
+     * @param cmd - Command full name
+     */
+    public createNestedCommand(name: string): Command {
+        name = name.replace(this.fullname, '')
+        let parts = name.split(' ');
+        let command = parts[parts.length - 1];
+        let groups = parts.slice(0, parts.length - 1);
+
+        if (!command || /  /g.test(name))
+            throw 'Invalid name';
+
+        let currentGroup: CommandGroup;
+        for (let part of groups) {
+            let group = (currentGroup || this).createGroup(part);
+            currentGroup = group;
+        }
+
+        return currentGroup.createCommand(command);
+    }
+
+    /**
+     * Get a nested command with the full name given
+     * @param cmd - Command full name
+     */
+    public getNestedCommand(name: string): Command {
+        let parts = name.split(' ');
+        let command = parts[parts.length - 1];
+        let groups = parts.slice(0, parts.length - 1);
+
+        if (!command || /  /g.test(name))
+            throw 'Invalid name';
+
+        let currentGroup: CommandGroup;
+        for (let part of groups) {
+            let group = Array.from((currentGroup || this).groups.values()).find(x => x.name === part);
+            currentGroup = group;
+        }
+
+        return Array.from(currentGroup.commands.values()).find(x => x.name === command);
     }
 
     private addCommand(command: Command): void {
