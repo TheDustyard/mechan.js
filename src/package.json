@@ -1,6 +1,6 @@
 {
   "name": "mechan.js",
-  "version": "2.1.2",
+  "version": "2.1.1",
   "description": "API - Extension for discord.js",
   "main": "./index.js",
   "author": {
@@ -17,5 +17,7 @@
   "devDependencies": {
     "@types/node": "^8.0.32"
   },
-  "types": "./index.d.ts"
+  "scripts": {
+    "prepublish": "tsc -p ./tsconfig.json"
+  }
 }
