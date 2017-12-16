@@ -74,11 +74,6 @@
 				<ul class="tsd-hierarchy">
 					<li>
 						<span class="target">Command</span>
-						<ul class="tsd-hierarchy">
-							<li>
-								<a href="_command_command_.commandbuilder.html" class="tsd-signature-type">CommandBuilder</a>
-							</li>
-						</ul>
 					</li>
 				</ul>
 			</section>
@@ -95,6 +90,7 @@
 						<section class="tsd-index-section tsd-is-external">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-external"><a href="_command_command_.command.html#allowrequiredparameters" class="tsd-kind-icon">allow<wbr>Required<wbr>Parameters</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_command_command_.command.html#callback" class="tsd-kind-icon">callback</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_command_command_.command.html#category" class="tsd-kind-icon">category</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_command_command_.command.html#checks" class="tsd-kind-icon">checks</a></li>
@@ -102,13 +98,24 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_command_command_.command.html#fullname" class="tsd-kind-icon">fullname</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_command_command_.command.html#name" class="tsd-kind-icon">name</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_command_command_.command.html#parameters" class="tsd-kind-icon">parameters</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-external"><a href="_command_command_.command.html#paramsclosed" class="tsd-kind-icon">params<wbr>Closed</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-external"><a href="_command_command_.command.html#visible" class="tsd-kind-icon">visible</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-external">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_command_command_.command.html#addcheck" class="tsd-kind-icon">add<wbr>Check</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_command_command_.command.html#addchecks" class="tsd-kind-icon">add<wbr>Checks</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_command_command_.command.html#addparameter" class="tsd-kind-icon">add<wbr>Parameter</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_command_command_.command.html#canrun" class="tsd-kind-icon">can<wbr>Run</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_command_command_.command.html#clearchecks" class="tsd-kind-icon">clear<wbr>Checks</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_command_command_.command.html#clearparameters" class="tsd-kind-icon">clear<wbr>Parameters</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_command_command_.command.html#hide" class="tsd-kind-icon">hide</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_command_command_.command.html#setcallback" class="tsd-kind-icon">set<wbr>Callback</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_command_command_.command.html#setcategory" class="tsd-kind-icon">set<wbr>Category</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_command_command_.command.html#setdescription" class="tsd-kind-icon">set<wbr>Description</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-external"><a href="_command_command_.command.html#show" class="tsd-kind-icon">show</a></li>
 							</ul>
 						</section>
 					</div>
@@ -120,13 +127,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Command<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span>, parameters<span class="tsd-signature-symbol">: </span><a href="_command_commandparameter_.commandparameter.html" class="tsd-signature-type">CommandParameter</a><span class="tsd-signature-symbol">[]</span>, description<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, category<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, visible<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, checks<span class="tsd-signature-symbol">?: </span><a href="../modules/_command_permissions_genericchecker_.html#permissioncheck" class="tsd-signature-type">PermissionCheck</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_command_command_.command.html" class="tsd-signature-type">Command</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Command<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span>, parameters<span class="tsd-signature-symbol">?: </span><a href="_command_commandparameter_.commandparameter.html" class="tsd-signature-type">CommandParameter</a><span class="tsd-signature-symbol">[]</span>, description<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, category<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, visible<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, checks<span class="tsd-signature-symbol">?: </span><a href="../modules/_command_permissions_genericchecker_.html#permissioncheck" class="tsd-signature-type">PermissionCheck</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_command_command_.command.html" class="tsd-signature-type">Command</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/a9d7798/mechan.js/Command/Command.ts#L41">Command/Command.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L43">Command/Command.ts:43</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -145,7 +152,7 @@
 									</div>
 								</li>
 								<li>
-									<h5>callback: <span class="tsd-signature-type">function</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> callback: <span class="tsd-signature-type">function</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
 											<p>Callback for the command</p>
@@ -171,7 +178,7 @@
 									</ul>
 								</li>
 								<li>
-									<h5>parameters: <a href="_command_commandparameter_.commandparameter.html" class="tsd-signature-type">CommandParameter</a><span class="tsd-signature-symbol">[]</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> parameters: <a href="_command_commandparameter_.commandparameter.html" class="tsd-signature-type">CommandParameter</a><span class="tsd-signature-symbol">[]</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
 											<p>Command parameters</p>
@@ -213,13 +220,23 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-external">
+					<a name="allowrequiredparameters" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> allow<wbr>Required<wbr>Parameters</h3>
+					<div class="tsd-signature tsd-kind-icon">allow<wbr>Required<wbr>Parameters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L11">Command/Command.ts:11</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
 					<a name="callback" class="tsd-anchor"></a>
 					<h3>callback</h3>
 					<div class="tsd-signature tsd-kind-icon">callback<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/a9d7798/mechan.js/Command/Command.ts#L21">Command/Command.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L23">Command/Command.ts:23</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -255,7 +272,7 @@
 					<div class="tsd-signature tsd-kind-icon">category<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/a9d7798/mechan.js/Command/Command.ts#L37">Command/Command.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L39">Command/Command.ts:39</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -270,7 +287,7 @@
 					<div class="tsd-signature tsd-kind-icon">checks<span class="tsd-signature-symbol">:</span> <a href="../modules/_command_permissions_genericchecker_.html#permissioncheck" class="tsd-signature-type">PermissionCheck</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/a9d7798/mechan.js/Command/Command.ts#L29">Command/Command.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L31">Command/Command.ts:31</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -285,7 +302,7 @@
 					<div class="tsd-signature tsd-kind-icon">description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/a9d7798/mechan.js/Command/Command.ts#L33">Command/Command.ts:33</a></li>
+							<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L35">Command/Command.ts:35</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -300,7 +317,7 @@
 					<div class="tsd-signature tsd-kind-icon">fullname<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/a9d7798/mechan.js/Command/Command.ts#L17">Command/Command.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L19">Command/Command.ts:19</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -315,7 +332,7 @@
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/a9d7798/mechan.js/Command/Command.ts#L13">Command/Command.ts:13</a></li>
+							<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L15">Command/Command.ts:15</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -330,7 +347,7 @@
 					<div class="tsd-signature tsd-kind-icon">parameters<span class="tsd-signature-symbol">:</span> <a href="_command_commandparameter_.commandparameter.html" class="tsd-signature-type">CommandParameter</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/a9d7798/mechan.js/Command/Command.ts#L25">Command/Command.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L27">Command/Command.ts:27</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -339,13 +356,23 @@
 						</div>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-external">
+					<a name="paramsclosed" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> params<wbr>Closed</h3>
+					<div class="tsd-signature tsd-kind-icon">params<wbr>Closed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L10">Command/Command.ts:10</a></li>
+						</ul>
+					</aside>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-external">
 					<a name="visible" class="tsd-anchor"></a>
 					<h3>visible</h3>
 					<div class="tsd-signature tsd-kind-icon">visible<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/a9d7798/mechan.js/Command/Command.ts#L41">Command/Command.ts:41</a></li>
+							<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L43">Command/Command.ts:43</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -358,6 +385,105 @@
 			<section class="tsd-panel-group tsd-member-group tsd-is-external">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="addcheck" class="tsd-anchor"></a>
+					<h3>add<wbr>Check</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Check<span class="tsd-signature-symbol">(</span>check<span class="tsd-signature-symbol">: </span><a href="../modules/_command_permissions_genericchecker_.html#permissioncheck" class="tsd-signature-type">PermissionCheck</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L119">Command/Command.ts:119</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Add a permission check</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>check: <a href="../modules/_command_permissions_genericchecker_.html#permissioncheck" class="tsd-signature-type">PermissionCheck</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Check to add</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="addchecks" class="tsd-anchor"></a>
+					<h3>add<wbr>Checks</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Checks<span class="tsd-signature-symbol">(</span>checks<span class="tsd-signature-symbol">: </span><a href="../modules/_command_permissions_genericchecker_.html#permissioncheck" class="tsd-signature-type">PermissionCheck</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L128">Command/Command.ts:128</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Add permission checks</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>checks: <a href="../modules/_command_permissions_genericchecker_.html#permissioncheck" class="tsd-signature-type">PermissionCheck</a><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Checks to add</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="addparameter" class="tsd-anchor"></a>
+					<h3>add<wbr>Parameter</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Parameter<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">"required"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"optional"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"multiple"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"unparsed"</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L88">Command/Command.ts:88</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Add a command parameter</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>name: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Parameter name</p>
+									</div>
+								</li>
+								<li>
+									<h5>type: <span class="tsd-signature-type">"required"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"optional"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"multiple"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"unparsed"</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Parameter type</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
 					<a name="canrun" class="tsd-anchor"></a>
 					<h3>can<wbr>Run</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
@@ -367,7 +493,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/a9d7798/mechan.js/Command/Command.ts#L73">Command/Command.ts:73</a></li>
+									<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L180">Command/Command.ts:180</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -385,6 +511,202 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="clearchecks" class="tsd-anchor"></a>
+					<h3>clear<wbr>Checks</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">clear<wbr>Checks<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L137">Command/Command.ts:137</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Remove all checks</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="clearparameters" class="tsd-anchor"></a>
+					<h3>clear<wbr>Parameters</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">clear<wbr>Parameters<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L110">Command/Command.ts:110</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Remove all perameters</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="hide" class="tsd-anchor"></a>
+					<h3>hide</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">hide<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L171">Command/Command.ts:171</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set the command&#39;s visibility to false</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="setcallback" class="tsd-anchor"></a>
+					<h3>set<wbr>Callback</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Callback<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L78">Command/Command.ts:78</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set the command&#39;s callback</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>callback: <span class="tsd-signature-type">function</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-siganture">
+											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>context<span class="tsd-signature-symbol">: </span><a href="_command_commandcontext_.commandcontext.html" class="tsd-signature-type">CommandContext</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+											</ul>
+											<ul class="tsd-descriptions">
+												<li class="tsd-description">
+													<h4 class="tsd-parameters-title">Parameters</h4>
+													<ul class="tsd-parameters">
+														<li>
+															<h5>context: <a href="_command_commandcontext_.commandcontext.html" class="tsd-signature-type">CommandContext</a></h5>
+														</li>
+													</ul>
+													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="setcategory" class="tsd-anchor"></a>
+					<h3>set<wbr>Category</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Category<span class="tsd-signature-symbol">(</span>category<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L155">Command/Command.ts:155</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set command&#39;s Category</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>category: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Category the command fits into</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="setdescription" class="tsd-anchor"></a>
+					<h3>set<wbr>Description</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Description<span class="tsd-signature-symbol">(</span>description<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L146">Command/Command.ts:146</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set command&#39;s description</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>description: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Description of the command</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-external">
+					<a name="show" class="tsd-anchor"></a>
+					<h3>show</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">show<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">this</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/DusterTheFirst/Mechan/blob/da68666/src/Command/Command.ts#L163">Command/Command.ts:163</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set the command&#39;s visibility to true</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">this</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -447,6 +769,9 @@
 							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-external">
 								<a href="_command_command_.command.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-external">
+								<a href="_command_command_.command.html#allowrequiredparameters" class="tsd-kind-icon">allow<wbr>Required<wbr>Parameters</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
 								<a href="_command_command_.command.html#callback" class="tsd-kind-icon">callback</a>
 							</li>
@@ -468,19 +793,49 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
 								<a href="_command_command_.command.html#parameters" class="tsd-kind-icon">parameters</a>
 							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private tsd-is-external">
+								<a href="_command_command_.command.html#paramsclosed" class="tsd-kind-icon">params<wbr>Closed</a>
+							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-external">
 								<a href="_command_command_.command.html#visible" class="tsd-kind-icon">visible</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="_command_command_.command.html#addcheck" class="tsd-kind-icon">add<wbr>Check</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="_command_command_.command.html#addchecks" class="tsd-kind-icon">add<wbr>Checks</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="_command_command_.command.html#addparameter" class="tsd-kind-icon">add<wbr>Parameter</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
 								<a href="_command_command_.command.html#canrun" class="tsd-kind-icon">can<wbr>Run</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="_command_command_.command.html#clearchecks" class="tsd-kind-icon">clear<wbr>Checks</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="_command_command_.command.html#clearparameters" class="tsd-kind-icon">clear<wbr>Parameters</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="_command_command_.command.html#hide" class="tsd-kind-icon">hide</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="_command_command_.command.html#setcallback" class="tsd-kind-icon">set<wbr>Callback</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="_command_command_.command.html#setcategory" class="tsd-kind-icon">set<wbr>Category</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="_command_command_.command.html#setdescription" class="tsd-kind-icon">set<wbr>Description</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-external">
+								<a href="_command_command_.command.html#show" class="tsd-kind-icon">show</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-external">
-						<a href="_command_command_.commandbuilder.html" class="tsd-kind-icon">Command<wbr>Builder</a>
-					</li>
 				</ul>
 			</nav>
 		</div>
