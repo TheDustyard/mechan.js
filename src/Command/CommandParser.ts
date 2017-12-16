@@ -206,16 +206,16 @@ export class CommandParser {
 
         while (endPosition < inputlength) {
 
-            console.log('-----------')
-            console.log('args:', args);
-            console.log('currentpart:', currentpart);
-            console.log('startPosition:', startPosition);
-            console.log('endPosition:', endPosition);
-            console.log('inputlength:', inputlength);
-            console.log('escaped:', escaped);
-            console.log('currentchar:', currentchar);
-            console.log('expectedparameters:', expectedparameters);
-            console.log('currentparameter:', currentparameter);
+            // console.log('-----------')
+            // console.log('args:', args);
+            // console.log('currentpart:', currentpart);
+            // console.log('startPosition:', startPosition);
+            // console.log('endPosition:', endPosition);
+            // console.log('inputlength:', inputlength);
+            // console.log('escaped:', escaped);
+            // console.log('currentchar:', currentchar);
+            // console.log('expectedparameters:', expectedparameters);
+            // console.log('currentparameter:', currentparameter);
 
             if (currentparameter.type === ParameterType.Multiple) {
                 currentparameter = expectedparameters[expectedparameters.length - 1];
