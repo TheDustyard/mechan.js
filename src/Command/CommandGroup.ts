@@ -87,7 +87,7 @@ export class CommandGroup {
         this.fullname = "";
         this.description = description;
 
-        this.help = (fullname: string) => new Command(this.handler.config.prefix + fullname)
+        this.help = (fullname: string) => this.createHelpCommand()
                                                 .addParameter('void', ParameterType.Unparsed)
                                                 .setCallback((context) => {
                                                     let embed = new RichEmbed();
@@ -166,7 +166,6 @@ export class CommandGroup {
      * @param cmd - Command full name
      */
     public createNestedCommand(name: string): Command {
-        name = name.replace(this.fullname, '')
         let parts = name.split(' ');
         let command = parts[parts.length - 1];
         let groups = parts.slice(0, parts.length - 1);
@@ -181,6 +180,30 @@ export class CommandGroup {
         }
 
         return currentGroup.createCommand(command);
+    }
+
+    /**
+     * Create the Help Command
+     */
+    protected createHelpCommand(): Command {
+        let parts = this.fullname.split(' ');
+        let command = parts[parts.length - 1];
+        let groups = parts.slice(0, parts.length - 1);
+
+        if (!command)
+            throw 'Invalid name';
+
+        if (groups.length > 0) {
+            let base = new CommandGroup(this.handler, this.handler.root, groups[0]);
+            groups.shift();
+            let last: CommandGroup;
+            for (let group of groups) {
+                last = base.createGroup(group);
+            }
+            return (last || base).createCommand(command);
+        } else {
+            return new Command(this.fullname);
+        }
     }
 
     /**
