@@ -2,13 +2,11 @@
     HelpMode,
     ParameterType,
     CommandGroup,
-    CommandGroupBuilder,
     Command,
     CommandContext,
     CommandParser,
     CommandErrorType,
     CommandErrorContext,
-    CommandBuilder,
     CommandParameter
 } from '../../';
 import { EventEmitter } from 'events';
@@ -59,7 +57,7 @@ export class CommandHandler extends EventEmitter {
     /**
      * Root group for the handler
      */
-    public root: CommandGroupBuilder;
+    public root: CommandGroup;
     /**
      * Client to handle
      */
@@ -75,7 +73,7 @@ export class CommandHandler extends EventEmitter {
         if (config.helpMode === undefined) {
             this.config.helpMode = HelpMode.Public;
         }
-        this.root = new CommandGroupBuilder(this);
+        this.root = new CommandGroup(this, null, '');
     }
 
     /**
@@ -269,16 +267,77 @@ export class CommandHandler extends EventEmitter {
      * @param name - Command group name
      * @param callback - Callback to initialise all the commands in
      */
-    public createGroup(name: string, callback: (group: CommandGroupBuilder) => void = null): CommandGroupBuilder {
+    public createGroup(name: string, callback: (group: CommandGroup) => void = null): CommandGroup {
         return this.root.createGroup(name, callback);
+    }
+
+    /**
+     * Get a command group from the handler
+     * @param name - Command group name
+     * @param callback - Callback to initialise all the commands in
+     */
+    public getGroup(name: string, callback: (group: CommandGroup) => void = null): CommandGroup {
+        let group = this.root.groups.get(name);
+        callback(group);
+        return group;
     }
 
     /**
      * Create a command for the handler
      * @param cmd - Command name
      */
-    public createCommand(cmd: string): CommandBuilder {
+    public createCommand(cmd: string): Command {
         return this.root.createCommand(cmd);
+    }
+    /**
+     * Get a command from the handler
+     * @param cmd - Command name
+     */
+    public getCommand(cmd: string): Command {
+        let command = this.root.commands.get(name);
+        return command;
+    }
+
+    /**
+     * Create a nested command with the full name given
+     * @param cmd - Command full name
+     */
+    public createNestedCommand(name: string): Command {
+        let parts = name.split(' ');
+        let command = parts[parts.length - 1];
+        let groups = parts.slice(0, parts.length - 1);
+
+        if (!command || /  /g.test(name))
+            throw 'Invalid name';
+
+        let currentGroup: CommandGroup;
+        for (let part of groups) {
+            let group = (currentGroup || this.root).createGroup(part);
+            currentGroup = group;
+        }
+
+        return currentGroup.createCommand(command);
+    }
+
+    /**
+     * Get a nested command with the full name given
+     * @param cmd - Command full name
+     */
+    public getNestedCommand(name: string): Command {
+        let parts = name.split(' ');
+        let command = parts[parts.length - 1];
+        let groups = parts.slice(0, parts.length - 1);
+
+        if (!command || /  /g.test(name))
+            throw 'Invalid name';
+
+        let currentGroup: CommandGroup;
+        for (let part of groups) {
+            let group = Array.from((currentGroup || this.root).groups.values()).find(x => x.name === part);
+            currentGroup = group;
+        }
+
+        return Array.from(currentGroup.commands.values()).find(x => x.name === command);
     }
 
     /**

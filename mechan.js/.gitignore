@@ -1,7 +1,0 @@
-typings/
-Obsolete/
-*.map
-*.d.ts
-settings.json
-*.js
-.npmignore

@@ -1,0 +1,6 @@
+*.map
+*.d.ts
+*.js
+.npmignore
+package-lock.json
+tsconfig.json

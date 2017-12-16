@@ -7,6 +7,8 @@
 import { User, TextChannel } from 'discord.js';
 
 export class Command {
+    private paramsClosed: boolean;
+    private allowRequiredParameters: boolean;
     /**
      * Name of the command
      */
@@ -50,7 +52,7 @@ export class Command {
      * @param category - Category the command fits into
      * @param hidden - Whether or not the command is visible in the default help menu
      */
-    constructor(name: string, callback: (event: CommandContext) => void, parameters: CommandParameter[], description: string = '', category: string = '', visible: boolean = true, checks: PermissionCheck[] = []) {
+    constructor(name: string, callback?: (event: CommandContext) => void, parameters?: CommandParameter[], description: string = '', category: string = '', visible: boolean = true, checks: PermissionCheck[] = []) {
         if (/ /g.test(name))
             throw "Command name cannot contain a space";
         if (name === "" || name === null || name === undefined)
@@ -58,37 +60,13 @@ export class Command {
 
         this.name = name;
         this.callback = callback;
-        this.parameters = parameters;
-        this.checks = checks;
+        this.parameters = parameters || [];
+        this.checks = checks || [];
         this.description = description;
         this.category = category;
         this.visible = visible;
         this.fullname = "";
-    }
-
-    /**
-     * Checks all permission checks and verifies if a command can be run
-     * @param context - The context for the command
-     */
-    canRun(context: CommandContext): boolean {
-        for (let i: number = 0; i < this.checks.length; i++) {
-            let result = this.checks[i](context)
-            if (!result)
-                return false
-        }
-        return true;
-    }
-}
-
-export class CommandBuilder extends Command {
-    private paramsClosed: boolean;
-    private allowRequiredParameters: boolean;
-
-    /**
-     * Create a command builder
-     */
-    constructor(name: string) {
-        super(name, () => { }, [], null, null, true, []);
+        
         this.paramsClosed = false;
         this.allowRequiredParameters = true;
     }
@@ -193,5 +171,18 @@ export class CommandBuilder extends Command {
     hide(): this {
         this.visible = false;
         return this;
+    }
+
+    /**
+     * Checks all permission checks and verifies if a command can be run
+     * @param context - The context for the command
+     */
+    canRun(context: CommandContext): boolean {
+        for (let i: number = 0; i < this.checks.length; i++) {
+            let result = this.checks[i](context)
+            if (!result)
+                return false
+        }
+        return true;
     }
 }

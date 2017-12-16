@@ -1,6 +1,5 @@
 ﻿import {
     Command,
-    CommandBuilder,
     CommandHandler,
     CommandParser,
     PermissionCheck,
@@ -81,14 +80,14 @@ export class CommandGroup {
             this.addCommand(v);
         })
         this.name = name;
-        this.prechecks = prechecks;
+        this.prechecks = prechecks || [];
         this.category = category;
         this.visible = visible;
         this.groups = new Map<string, CommandGroup>();
         this.fullname = "";
         this.description = description;
 
-        this.help = (fullname: string) => new CommandBuilder(this.handler.config.prefix + fullname)
+        this.help = (fullname: string) => new Command(this.handler.config.prefix + fullname)
                                                 .addParameter('void', ParameterType.Unparsed)
                                                 .setCallback((context) => {
                                                     let embed = new RichEmbed();
@@ -173,8 +172,8 @@ export class CommandGroup {
      * Create a command
      * @param name - Name of the command
      */
-    public createCommand(name: string): CommandBuilder {
-        let builder = new CommandBuilder(name)
+    public createCommand(name: string): Command {
+        let builder = new Command(name)
             .setCategory(this.category)
             .addChecks(this.prechecks);
         this.addCommand(builder);
@@ -186,29 +185,12 @@ export class CommandGroup {
      * @param name - Name of the group
      * @param callback - Initialisation function
      */
-    public createGroup(name: string, callback?: (group: CommandGroupBuilder) => void): CommandGroupBuilder {
-        let builder = new CommandGroupBuilder(this.handler, this, name, null, this.category, this.prechecks);
+    public createGroup(name: string, callback?: (group: CommandGroup) => void): CommandGroup {
+        let builder = new CommandGroup(this.handler, this, name, null, [], this.prechecks, this.category, this.visible);
         this.addGroup(builder);
         if (callback)
             callback(builder);
         return builder;
-    }
-
-}
-
-export class CommandGroupBuilder extends CommandGroup {
-
-    /**
-     * Create a group builder
-     * @param handler - Command handler to regester to
-     * @param parent - Parent group
-     * @param name - Name of the group
-     * @param description - Description of the group
-     * @param category - Category of the group
-     * @param prechecks - Prechecks to run
-     */
-    constructor(handler: CommandHandler, parent: CommandGroup = null, name: string = "", description: string = null, category: string = null, prechecks: PermissionCheck[] = []) {
-        super(handler, parent, name, description, [], prechecks, category, true);
     }
 
     /** 
@@ -253,4 +235,5 @@ export class CommandGroupBuilder extends CommandGroup {
         this.visible = false;
         return this;
     }
+
 }
