@@ -173,9 +173,15 @@ export class CommandGroup {
         if (!command || /  /g.test(name))
             throw 'Invalid name';
 
-        let currentGroup: CommandGroup;
+        let currentGroup: CommandGroup = this;
         for (let part of groups) {
-            let group = (currentGroup || this).createGroup(part);
+            console.error(currentGroup, part);
+            let group;
+            if (currentGroup.groups.has(currentGroup.fullname + ' ' + part) || currentGroup.groups.has(part)) {
+                group = currentGroup.groups.get(part) || currentGroup.groups.get(currentGroup.fullname + ' ' + part);
+            } else {
+                group = currentGroup.createGroup(part);
+            }
             currentGroup = group;
         }
 
