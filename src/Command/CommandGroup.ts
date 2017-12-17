@@ -175,7 +175,6 @@ export class CommandGroup {
 
         let currentGroup: CommandGroup = this;
         for (let part of groups) {
-            console.error(currentGroup, part);
             let group;
             if (currentGroup.groups.has(currentGroup.fullname + ' ' + part) || currentGroup.groups.has(part)) {
                 group = currentGroup.groups.get(part) || currentGroup.groups.get(currentGroup.fullname + ' ' + part);
