@@ -217,14 +217,14 @@ export class CommandParser {
             // console.log('expectedparameters:', expectedparameters);
             // console.log('currentparameter:', currentparameter);
 
+            if (!currentparameter)
+                return new ParsedArgs(CommandErrorType.BadArgCount, Array.from(args.values()), args);
+
             if (currentparameter.type === ParameterType.Multiple) {
                 currentparameter = expectedparameters[expectedparameters.length - 1];
             } else {
                 currentparameter = expectedparameters[args.size];                
             }
-
-            if (!currentparameter)
-                return new ParsedArgs(CommandErrorType.BadArgCount, Array.from(args.values()), args);
 
             if (currentparameter.type === ParameterType.Multiple) {
                 //console.log(`${currentpart}: MULTIPLE`)
