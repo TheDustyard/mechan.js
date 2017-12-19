@@ -16,7 +16,7 @@ export class Command {
     /**
      * Fullname of the command
      */
-    public fullname: string
+    public fullname: string;
     /**
      * Callback for the command
      */
@@ -179,9 +179,9 @@ export class Command {
      */
     canRun(context: CommandContext): boolean {
         for (let i: number = 0; i < this.checks.length; i++) {
-            let result = this.checks[i](context)
+            let result = this.checks[i](context);
             if (!result)
-                return false
+                return false;
         }
         return true;
     }

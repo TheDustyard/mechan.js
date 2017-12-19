@@ -13,7 +13,7 @@ enum ParserPart {
     Parameter = "parameter",
     QuotedParameter = "qoutedParameter",
     DoubleQuotedParameter = "doubleQoutedParameter"
-};
+}
 
 export class ParsedCommand {
     /**
@@ -40,7 +40,7 @@ export class ParsedCommand {
         this.command = command;
         this.args = args;
     }
-};
+}
 
 export class ParsedArgs {
     /**
@@ -182,7 +182,7 @@ export class CommandParser {
      */
     private static isWhiteSpace(c: string): boolean {
         return /\s/.test(c);
-    };
+    }
 
     public static parseArgs(input: string, command: Command): ParsedArgs {
         let args: Map<string, any> = new Map<string, any>();
@@ -455,8 +455,8 @@ export class CommandParser {
 
             // Somehow the start of the arg is before the end, kill the process, something went really wrong
             if (startPosition > endPosition) {
-                console.error(`COMMAND PARSER FAILED CATASTROPHICALLY, DUMPING INFO:`)
-                console.log('-----------')
+                console.error(`COMMAND PARSER FAILED CATASTROPHICALLY, DUMPING INFO:`);
+                console.log('-----------');
                 console.log('args:', args);
                 console.log('currentpart:', currentpart);
                 console.log('startPosition:', startPosition);

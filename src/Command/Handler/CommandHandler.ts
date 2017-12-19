@@ -150,7 +150,7 @@ export class CommandHandler extends EventEmitter {
                                     .catch((reason) => context.channel.send("Invalid perms, Cannot send DM to user"));
                                 break;
                             case HelpMode.Public:
-                                context.channel.send({ embed: embed })
+                                context.channel.send({ embed: embed });
                                 break;
                         }
                     } else {
@@ -189,7 +189,7 @@ export class CommandHandler extends EventEmitter {
                             output += `\nDescription: *${command.description || "No description"}*`;
                             output += `\nCategory: *${command.category}*`;
 
-                            embed.addField(context.handler.config.prefix + command.fullname + ":", output)
+                            embed.addField(context.handler.config.prefix + command.fullname + ":", output);
                         }
 
                         if (embed.fields.length === 0) {
@@ -202,7 +202,7 @@ export class CommandHandler extends EventEmitter {
                                     .catch((reason) => context.channel.send("Invalid perms, Cannot send DM to user"));
                                 break;
                             case HelpMode.Public:
-                                context.channel.send({ embed: embed })
+                                context.channel.send({ embed: embed });
                                 break;
                         }
                     }
@@ -237,7 +237,7 @@ export class CommandHandler extends EventEmitter {
                 let parsedargs = CommandParser.parseArgs(parsedcommand.args, parsedcommand.command);
 
                 if (parsedargs.error) {
-                    this.console.failure(this, new CommandErrorContext(new Error(parsedargs.error), parsedargs.error, new CommandContext(message, parsedcommand.command, null, null, this)))
+                    this.console.failure(this, new CommandErrorContext(new Error(parsedargs.error), parsedargs.error, new CommandContext(message, parsedcommand.command, null, null, this)));
                     return;
                 }
 

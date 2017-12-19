@@ -19,7 +19,7 @@ export class MessageHandler {
      */
     constructor(client: Client) {
         this.client = client;
-        this.messages = new Map<string, (message: Message) => void>()
+        this.messages = new Map<string, (message: Message) => void>();
 
         client.on('message', (message) => {
             if (message.author.bot)

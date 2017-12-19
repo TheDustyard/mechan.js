@@ -78,7 +78,7 @@ export class CommandGroup {
         this.commands = new Map<string, Command>();
         commands.forEach((v, index, array) => {
             this.addCommand(v);
-        })
+        });
         this.name = name;
         this.prechecks = prechecks || [];
         this.category = category;
@@ -146,7 +146,7 @@ export class CommandGroup {
                                                                 .catch((reason) => context.channel.send("Invalid perms, Cannot send DM to user"));
                                                             break;
                                                         case HelpMode.Public:
-                                                            context.channel.send({ embed: embed })
+                                                            context.channel.send({ embed: embed });
                                                             break;
                                                     }
                                                 });
