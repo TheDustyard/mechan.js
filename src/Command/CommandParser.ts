@@ -226,6 +226,9 @@ export class CommandParser {
                 currentparameter = expectedparameters[args.size];                
             }
 
+            if (!currentparameter)
+                return new ParsedArgs(CommandErrorType.BadArgCount, Array.from(args.values()), args);
+
             if (currentparameter.type === ParameterType.Multiple) {
                 //console.log(`${currentpart}: MULTIPLE`)
             }

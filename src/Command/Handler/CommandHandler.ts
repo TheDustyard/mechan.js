@@ -160,7 +160,7 @@ export class CommandHandler extends EventEmitter {
 
                         let commands = CommandParser.getCommands(context.handler.root);
                         commands = commands.filter(x => x.fullname.toLowerCase().includes((<string> context.params.get('command')).toLowerCase()));
-                        commands = commands = commands.sort((a, b) => a.fullname.length - b.fullname.length);
+                        commands = commands.sort((a, b) => a.fullname.length - b.fullname.length);
 
                         for (let command of commands) {
                             if (!command.visible)
