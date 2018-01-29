@@ -101,7 +101,9 @@ export class CommandHandler extends EventEmitter {
 
                         let categories = new Map<string, string[]>();
 
-                        for (let command of CommandParser.getCommands(context.handler.root)) {
+                        let commands = CommandParser.getCommands(context.handler.root).filter(x => x.canRun(context));
+                        
+                        for (let command of commands) {
                             if (!command.visible)
                                 continue;
 
@@ -160,6 +162,7 @@ export class CommandHandler extends EventEmitter {
 
                         let commands = CommandParser.getCommands(context.handler.root);
                         commands = commands.filter(x => x.fullname.toLowerCase().includes((<string> context.params.get('command')).toLowerCase()));
+                        commands = commands.filter(x => x.canRun(context));
                         commands = commands.sort((a, b) => a.fullname.length - b.fullname.length);
 
                         for (let command of commands) {
