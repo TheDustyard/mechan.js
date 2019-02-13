@@ -1,0 +1,54 @@
+{
+    "name": "mechan.js",
+    "version": "0.0.0-NORELEASE",
+    "description": "Unofficial command framework for discord.js",
+    "main": "dist/index.js",
+    "directories": {
+        "test": "test"
+    },
+    "scripts": {
+        "test": "jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/DusterTheFirst/Mechan.git"
+    },
+    "keywords": [
+        "discord",
+        "discord.js",
+        "command"
+    ],
+    "author": "DusterTheFirst <dusterthefirst@gmail.com> (Zachary Kohnen)",
+    "license": "GPL-3.0",
+    "bugs": {
+        "url": "https://github.com/DusterTheFirst/Mechan/issues"
+    },
+    "homepage": "https://github.com/DusterTheFirst/Mechan#readme",
+    "devDependencies": {
+        "@types/node": "^10.12.26",
+        "discord.js": "^11.4.2",
+        "reflect-metadata": "^0.1.13",
+        "tslint": "^5.12.1",
+        "typescript": "^3.3.3"
+    },
+    "peerDependencies": {
+        "discord.js": "^11.4.2",
+        "reflect-metadata": "^0.1.13"
+    },
+    "jest": {
+        "preset": "ts-jest",
+        "testEnvironment": "node",
+        "globals": {
+            "ts-jest": {
+                "diagnostics": false
+            }
+        },
+        "testPathIgnorePatterns": [
+            [
+                "<rootDir>/build/",
+                "<rootDir>/node_modules/"
+            ]
+        ]
+    },
+    "dependencies": {}
+}

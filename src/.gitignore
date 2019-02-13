@@ -1,6 +1,0 @@
-*.map
-*.d.ts
-*.js
-package-lock.json
-tsconfig.json
-tslint.json

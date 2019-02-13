@@ -1,15 +1,8 @@
-﻿export const version: string = require('./package').version;
+/*!
+ * Copyright (C) 2019  Zachary Kohnen
+ */
 
-export * from './Command/Handler/CommandHandler';
-export * from './Command/Handler/HelpMode';
+// Decorators
+export * from "./decorators/Group";
 
-export * from './Command/Permissions/GenericChecker';
-
-export * from './Command/Command';
-export * from './Command/CommandContext';
-export * from './Command/CommandErrorContext';
-export * from './Command/CommandGroup';
-export * from './Command/CommandParameter';
-export * from './Command/CommandParser';
-
-export * from './Message/MessageHandler';
+export * from "./ModuleBase";
